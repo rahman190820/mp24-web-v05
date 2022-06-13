@@ -1,0 +1,105 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;// kueri kostom db 
+use App\Models\User;//panggil model user
+
+use App\Notifications\PasienKeDokter;
+
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
+    }
+
+    public function dokterHome()
+    {
+        return view('dokterHome');
+    }
+
+    public function managerHome()
+    {
+        return view('managerHome');
+    }
+
+    public function baca()
+    {
+        // $datas['nama'] = array(
+        //     'name' => 'Abigail',
+        //     'state' => 'CA',
+        // );
+
+        $cari = '1';
+        $datas['chart'] = User::select(\DB::raw("COUNT(*) as count"))
+        ->whereYear('created_at', date('Y'))
+        // ->groupBy(DB::raw("Month(created_at)"))
+        ->groupBy(\DB::raw("EXTRACT(MONTH FROM created_at )"))
+        ->pluck('count');
+
+        $datas['hitung_user'] = DB::table('users')->count();
+        $datas['id_max_user'] = DB::table('users')->max('id');
+        $datas['id_min_user'] = DB::table('users')->min('id');
+        // $datas['cari'] = DB::table('users')->where('type','like',"%".$cari."%");// mengambil data dari table pegawai sesuai pencarian data
+        $datas['order'] =  DB::table('users')
+        ->orderBy('name', 'desc')
+        ->get();
+        $datas['order_lav']= DB::table('users')
+        ->latest()
+        ->first();
+        $datas['data'] = DB::table('users')->select('name', 'email as user_email')->get();
+        $datas['dis'] = DB::table('users')->distinct()->get();
+
+      
+        // $users = DB::select('select * from users');
+        // foreach ($users as $user) {
+        //     echo $user->name;
+        // }
+
+        // act
+        // DB::insert('insert into users (id, name) values (?, ?)', [1, 'Marc']);
+        // $affected = DB::update(
+        //     'update users set votes = 100 where name = ?',
+        //     ['Anita']
+        // );
+        // $deleted = DB::delete('delete from users');
+        // DB::statement('drop table users');
+
+
+$invoice = 'test';
+
+            // dd($datas);
+        // return response()->json($datas);
+        Auth::User()->id->notify(new PasienKeDokter($invoice));
+
+
+        return view('tampil', compact('datas'));
+        // return 'baca';
+    }
+
+    public function lihat()
+    {
+        # code...
+        return view('konten.isi');
+    }
+
+}
