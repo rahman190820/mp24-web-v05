@@ -99,6 +99,7 @@ $invoice = 'test';
     public function lihat()
     {
         # code...
+        // Auth::logout();
         return view('konten.isi');
     }
 

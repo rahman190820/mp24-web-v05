@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\HomeController;
 
 
@@ -17,6 +17,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('baca', [HomeController::class,'baca']);
+Route::get('pas', [PasienController::class,'index']);
 Route::get('lihat', [HomeController::class,'lihat']);
 
 Route::get('/', function () {
@@ -33,9 +34,10 @@ Auth::routes();
 All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:dokter'])->group(function () {
+Route::middleware(['auth', 'user-access:pasien'])->group(function () {
   
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'lihat'])->name('home');
 });
   
 /*------------------------------------------
@@ -45,7 +47,8 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:dokter'])->group(function () {
   
-    Route::get('/dokter/home', [App\Http\Controllers\HomeController::class, 'dokterHome'])->name('dokter.home');
+    // Route::get('/dokter/home', [App\Http\Controllers\HomeController::class, 'dokterHome'])->name('dokter.home');
+    Route::get('/dokter/home', [App\Http\Controllers\HomeController::class, 'lihat'])->name('dokter.home');
 });
   
 /*------------------------------------------

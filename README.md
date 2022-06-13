@@ -62,3 +62,59 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+```txt
+Pasien
+ register
+ approval-> validator/admin( 1x24 )
+  Login
+  userpass
+  update data child
+  save
+ Transaksi
+  request keluhan
+   webGL(development)
+   online/chatting( jadwal )
+   offline/ketemuan( jadwal )
+   pilihlokasi dokter
+  diagnosa( sesuai manfaat pasien )
+    Rawat Inap(RWI)
+     Rujukan Lab
+     Rujukan RS
+    Rawat Jalan(RWJ)
+     Resep obat ( QR BArcode )
+     Rujukan Lab
+    Kacamata(KCM)
+     Optional
+    Rawat Gigi(RWG)
+     Resep obat ( QR BArcode )
+     Rujukan Lab
+    Paket Khusus(PKH)
+     Resep obat ( QR BArcode )
+     Rujukan Lab     
+  Obat
+    Apotek
+     Terdekat
+     Rujukan
+     Scan barcode request resep
+     Notif Obat dilanggan
+     Buat tagihan ( QR barcode )
+     Diantar
+      bukti terkirim
+	lokasi pasien
+	foto penerima
+     Diambil 
+        Scan barcode tagihan 
+  Penerima Obat
+     Notifikasi barang sdh sesuai
+Close transaksi    
+
+    
+
+```
+
+
+```cmd
+php artisan serve --host 192.168.1.13 --port 8000
+```

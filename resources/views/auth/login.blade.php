@@ -37,10 +37,10 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             {{-- <input class="form-control" type="email" name="email" placeholder="E-mail Address" required> --}}
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <input placeholder="E-mail Address" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                           
                             {{-- <input class="form-control" type="password" name="password" placeholder="Password" required> --}}
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                             <div class="form-button">
                                 <button type="submit" class="ibtn">
