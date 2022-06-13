@@ -14,6 +14,7 @@
         </div>
     </li>
    
+    if (auth()->user()->type == 'pasienParent') {
     {{-- batas pasien --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Pasien </a>
@@ -63,7 +64,9 @@
             </div>
         </li>
     {{-- batas pasien --}}
+    }
 
+    if (auth()->user()->type == 'pasienChild') {
      {{-- batas Turunan pasien --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Turunan Pasien </a>
@@ -96,8 +99,10 @@
             </div>
         </li>
   
-    {{-- batas Turunan pasien --}}
+     {{-- batas Turunan pasien --}}
+    }
 
+    if (auth()->user()->type == 'dokter') {
     {{-- menu dokter --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Dokter </a>
@@ -142,8 +147,9 @@
             </div>
         </li>
     {{-- menu dokter --}}
+    }
 
-
+    if (auth()->user()->type == 'apotik') {
      {{-- menu Apotik --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Apotik </a>
@@ -188,8 +194,9 @@
             </div>
         </li>
      {{-- menu Apotik --}}
+    }
 
-     
+     if (auth()->user()->type == 'lab') {
      {{-- menu Laboratorium --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Laboratorium </a>
@@ -234,9 +241,9 @@
             </div>
         </li>
      {{-- menu Laboratorium --}}
-
+    }
    
-
+     if (auth()->user()->type == 'admin') {
       {{-- menu Admin --}}
         <li class="navigation-header"><a class="navigation-header-text">Menu Admin</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
@@ -249,7 +256,9 @@
         </div>
         </li>
       {{-- menu Admin --}}
+    }
 
+    if (auth()->user()->type == 'validator') {
      {{-- menu Validator --}}
         <li class="navigation-header"><a class="navigation-header-text">Menu Validator</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
@@ -262,21 +271,24 @@
         </div>
         </li>
      {{-- menu validator --}}
+    }
 
-    {{-- menu supprt --}}
-        <li class="navigation-header"><a class="navigation-header-text">Menu Support</a><i class="navigation-header-icon material-icons">more_horiz</i>
-        </li>
-        <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">pie_chart_outlined</i><span class="menu-title" data-i18n="Chart">Log System</span></a>
-        <div class="collapsible-body">
-            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li><a href="charts-chartjs.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
+    if (auth()->user()->type == 'support') {
+        {{-- menu supprt --}}
+            <li class="navigation-header"><a class="navigation-header-text">Menu Support</a><i class="navigation-header-icon material-icons">more_horiz</i>
             </li>
-            </ul>
-        </div>
-        </li>
-    {{-- menu support --}}
+            <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">pie_chart_outlined</i><span class="menu-title" data-i18n="Chart">Log System</span></a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                <li><a href="charts-chartjs.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
+                </li>
+                </ul>
+            </div>
+            </li>
+        {{-- menu support --}}
+    }
 
-
+    if (auth()->user()->type == 'manajemen') {
       {{-- menu Manjemen --}}
         <li class="navigation-header"><a class="navigation-header-text">Menu Manajemen</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
@@ -289,35 +301,36 @@
         </div>
         </li>
       {{-- menu Manjemen --}}
-  
+    }
 
-    {{-- hubungi dev --}}
-        <li class="navigation-header">
-            <a class="navigation-header-text">Komunikasi </a>
-            <i class="navigation-header-icon material-icons">more_horiz</i>
-        </li>
-    
-        <li class="bold">
-            <a class="waves-effect waves-cyan " href="{{ route('home') }}">
-                <i class="material-icons">import_contacts</i>
-                <span class="menu-title" data-i18n="Documentation">Dokumentasi</span>
-            </a>
-        </li>
-        <li class="bold">
-            <a class="waves-effect waves-cyan " href="{{ route('home') }}">
-                <i class="material-icons">help_outline</i>
-                <span class="menu-title" data-i18n="Documentation">Bantuan</span>
-            </a>
-        </li>
-    {{-- hubungi dev --}}
+    if (auth()->user()->type == 'admin') {
+        {{-- hubungi dev 
+            <li class="navigation-header">
+                <a class="navigation-header-text">Komunikasi </a>
+                <i class="navigation-header-icon material-icons">more_horiz</i>
+            </li>
+        
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="{{ route('home') }}">
+                    <i class="material-icons">import_contacts</i>
+                    <span class="menu-title" data-i18n="Documentation">Dokumentasi</span>
+                </a>
+            </li>
+            <li class="bold">
+                <a class="waves-effect waves-cyan " href="{{ route('home') }}">
+                    <i class="material-icons">help_outline</i>
+                    <span class="menu-title" data-i18n="Documentation">Bantuan</span>
+                </a>
+            </li>
+         hubungi dev --}}
+    }
 
-
-    {{-- coming soon --}}
+    {{-- coming soon 
        <li class="navigation-header"><a class="navigation-header-text">Akuntansi &amp; Keungan </a><i class="navigation-header-icon material-icons">more_horiz</i>
        </li>
        <li class="bold"><a class="waves-effect waves-cyan " href="form-layouts.html"><i class="material-icons">image_aspect_ratio</i><span class="menu-title" data-i18n="Form Layouts">Fitur Akan Datang 😎</span></a>
        </li>
-   {{-- coming soon --}}
+   coming soon --}}
 
     
 </ul>
