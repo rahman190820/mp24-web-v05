@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\AdminController;
 
+use App\Http\Controllers\NotificationController; //notif
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/send-notification', [NotificationController::class, 'sendOrderNotification']); //notif
+
 
 Route::get('baca', [HomeController::class,'baca']);
 Route::get('pas', [PasienController::class,'index']);
@@ -34,7 +38,7 @@ Auth::routes();
 Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
   
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'pasienParentHome'])->name('home');
-    // Route::get('/pasienP/home', [App\Http\Controllers\HomeController::class, 'pasienParentHome'])->name('pasienP.home');
+    Route::get('/pasienP/home', [App\Http\Controllers\HomeController::class, 'pasienParentHome'])->name('pasienP.home');
 });
 
 Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
@@ -61,7 +65,7 @@ Route::middleware(['auth', 'user-access:lab'])->group(function () {
 
 
 
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('home');
 
     // Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');

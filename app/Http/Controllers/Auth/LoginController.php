@@ -76,6 +76,9 @@ class LoginController extends Controller
                 return redirect()->route('manej.home');
             } else if (auth()->user()->type == 'validator'){
                 return redirect()->route('validator.home');
+            } else if( auth()->user()->type == 'admin' ){
+                return redirect()->route('admin.home');
+
             }
 
         }else{

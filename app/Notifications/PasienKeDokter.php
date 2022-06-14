@@ -6,19 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+// use Notification;
 
-class PasienKeDokter extends Notification
+class PasienKeDokter extends Notification 
 {
     use Queueable;
+    
+    private $orderPasienkeDokter;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($orderPasienkeDokter)
     {
         //
+        $this->orderPasienkeDokter = $orderPasienkeDokter;
     }
 
     /**
@@ -29,7 +33,7 @@ class PasienKeDokter extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -44,6 +48,12 @@ class PasienKeDokter extends Notification
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
+
+                    // return (new MailMessage)
+                    // ->name($this->orderPasienkeDokter['name'])
+                    // ->line($this->orderPasienkeDokter['body'])
+                    // ->action($this->orderPasienkeDokter['orderText'], $this->orderPasienkeDokter['orderUrl'])
+                    // ->line($this->orderPasienkeDokter['thanks']);
     }
 
     /**
@@ -55,7 +65,8 @@ class PasienKeDokter extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'user_id' => $this->orderPasienkeDokter['order_id'],
+            'user_name' => $this->orderPasienkeDokter['name']
         ];
     }
 }
