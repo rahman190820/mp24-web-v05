@@ -7,6 +7,9 @@ use App\Models\User;
 use Notification;
 use App\Notifications\PasienKeDokter;
 
+use App\Models\LogDB;
+use Auth;
+
 class NotificationController extends Controller
 {
     public function index()
@@ -27,6 +30,8 @@ class NotificationController extends Controller
         ];
 
         Notification::send($user, new PasienKeDokter($orderPasienkeDokter));
+        LogDB::record(Auth::user(), 'Akses notif pasein ke dokter', 'oleh Sistem');
+        // dd(Auth::user());
         dd($user->id);
         // dd('Task completed!');
     }
