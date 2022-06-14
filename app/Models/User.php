@@ -54,7 +54,8 @@ class User extends Authenticatable
     protected function type(): Attribute
     {
         return new Attribute(
-            get: fn ($value) =>  [  "pasien","dokter", "apotik",][$value],
+            // ada 8 user terhitung mulai 0
+            get: fn ($value) =>  [  "pasienParent","dokter", "apotik","pasienChild","lab","validator","manejemen","support"][$value],
         );
     }
 }

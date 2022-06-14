@@ -232,7 +232,7 @@ class="btn btn-customizer pink accent-2 white-text sidenav-trigger theme-cutomiz
 </div>
 </div>
 <!--/ Theme Customizer -->
-
+{{-- 
 <a
 href="https://1.envato.market/materialize_admin"
 target="_blank"
@@ -240,4 +240,4 @@ class="btn btn-buy-now gradient-45deg-indigo-purple gradient-shadow white-text t
 data-position="left"
 data-tooltip="Buy Now!"
 ><i class="material-icons">add_shopping_cart</i></a
->
+> --}}

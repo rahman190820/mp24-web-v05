@@ -3,21 +3,21 @@
 <div class="navbar navbar-fixed"> 
     <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
     <div class="nav-wrapper">
-        <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
+        {{-- <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
         <input class="header-search-input z-depth-2" type="text" name="Search" placeholder="Explore Materialize" data-search="template-list">
         <ul class="search-list collection display-none"></ul>
-        </div>
+        </div> --}}
 
         <ul class="navbar-list right">
             <li>
                 <a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown">
-                    <i class="material-icons">notifications_none<small class="notification-badge">5</small></i>
+                    <i class="material-icons">notifications_none<small class="notification-badge">3</small></i>
                 </a>
             </li>
             <li>
                 <a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown">
                     <span class="avatar-status avatar-online">
-                        <img src="../../../app-assets/images/avatar/avatar-7.png" alt="avatar">
+                        <img src="{{ asset('app-assets/images/avatar/avatar-1.png') }}" alt="avatar">
                         <i></i>
                     </span>
                 </a>

@@ -18,6 +18,12 @@ class CreateUsersSeeder extends Seeder
         //
         $users = [
             [
+                'name'=>'Pasien',
+                'email'=>'pasien@mp24.com',
+                'type'=>0,
+                'password'=> bcrypt('123456'),
+             ],
+            [
                'name'=>'Dokter',
                'email'=>'dokter@mp24.com',
                'type'=>1,
@@ -30,9 +36,15 @@ class CreateUsersSeeder extends Seeder
                'password'=> bcrypt('123456'),
             ],
             [
-               'name'=>'Pasien',
-               'email'=>'pasien@mp24.com',
-               'type'=>0,
+                'name'=>'Turunan Pasien',
+                'email'=>'pasienturunan@mp24.com',
+                'type'=>3,
+                'password'=> bcrypt('123456'),
+             ],
+            [
+               'name'=>'Laboratorium',
+               'email'=>'lab@mp24.com',
+               'type'=>4,
                'password'=> bcrypt('123456'),
             ],
         ];

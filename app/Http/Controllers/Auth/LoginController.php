@@ -51,12 +51,33 @@ class LoginController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if (auth()->user()->type == 'dokter') {
+
                 return redirect()->route('dokter.home');
+
             }else if (auth()->user()->type == 'apotik') {
-                return redirect()->route('manager.home');
-            }else if (auth()->user()->type == 'pasien'){
-                return redirect()->route('home');
+
+                return redirect()->route('apotik.home');
+                
+            }else if (auth()->user()->type == 'lab'){
+                
+                return redirect()->route('lab.home');
+
+            }else if (auth()->user()->type == 'pasienParent'){
+                
+                return redirect()->route('pasienP.home');
+
+            }else if (auth()->user()->type == 'pasienChild'){
+                
+                return redirect()->route('pasienC.home');
+
+            }else if (auth()->user()->type == 'support'){
+                return redirect()->route('support.home');
+            }else if (auth()->user()->type == 'manejemen'){
+                return redirect()->route('manej.home');
+            } else if (auth()->user()->type == 'validator'){
+                return redirect()->route('validator.home');
             }
+
         }else{
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');

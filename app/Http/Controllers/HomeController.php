@@ -29,17 +29,54 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return 'index';
+    }
+
+    public function pasienParentHome()
+    {
+        return view('konten.isi');
+    }
+
+    public function pasienChildHome()
+    {
+        return view('konten.isi');
     }
 
     public function dokterHome()
     {
-        return view('dokterHome');
+        // return view('konten.isi');
+        return view('dokter.index');
     }
 
-    public function managerHome()
+    public function apotikHome()
     {
-        return view('managerHome');
+        return view('konten.isi');
+    }
+
+    public function labHome()
+    {
+        # code...
+        return view('konten.isi');
+    }
+
+    public function adminHome()
+    {
+        return view('konten.isi');
+    }
+
+    public function supportHome()
+    {
+        return view('konten.isi');
+    }
+
+    public function manejHome()
+    {
+        return view('konten.isi');
+    }
+
+    public function validatorHome()
+    {
+        return view('konten.isi');
     }
 
     public function baca()

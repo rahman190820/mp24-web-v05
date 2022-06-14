@@ -38,10 +38,18 @@
                             @csrf
                             {{-- <input class="form-control" type="email" name="email" placeholder="E-mail Address" required> --}}
                             <input placeholder="E-mail Address" id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                          
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             {{-- <input class="form-control" type="password" name="password" placeholder="Password" required> --}}
                             <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="form-button">
                                 <button type="submit" class="ibtn">
                                     {{ __('Login') }}

@@ -14,7 +14,9 @@
         </div>
     </li>
    
-    if (auth()->user()->type == 'pasienParent') {
+    @php
+        if (auth()->user()->type == 'pasienParent') {
+    @endphp  
     {{-- batas pasien --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Pasien </a>
@@ -64,9 +66,13 @@
             </div>
         </li>
     {{-- batas pasien --}}
-    }
+   @php
+    } 
+    @endphp
 
-    if (auth()->user()->type == 'pasienChild') {
+@php
+        if (auth()->user()->type == 'pasienChild') {
+    @endphp
      {{-- batas Turunan pasien --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Turunan Pasien </a>
@@ -100,9 +106,13 @@
         </li>
   
      {{-- batas Turunan pasien --}}
-    }
+     @php
+    } 
+    @endphp
 
-    if (auth()->user()->type == 'dokter') {
+    @php
+    if (auth()->user()->type == "dokter") {
+    @endphp
     {{-- menu dokter --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Dokter </a>
@@ -147,9 +157,11 @@
             </div>
         </li>
     {{-- menu dokter --}}
-    }
+    @php } @endphp
 
+@php
     if (auth()->user()->type == 'apotik') {
+@endphp
      {{-- menu Apotik --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Apotik </a>
@@ -194,9 +206,11 @@
             </div>
         </li>
      {{-- menu Apotik --}}
-    }
-
+     @php } @endphp
+    
+@php
      if (auth()->user()->type == 'lab') {
+@endphp
      {{-- menu Laboratorium --}}
         <li class="navigation-header">
             <a class="navigation-header-text">Menu Laboratorium </a>
@@ -241,9 +255,11 @@
             </div>
         </li>
      {{-- menu Laboratorium --}}
-    }
+   @php } @endphp
    
-     if (auth()->user()->type == 'admin') {
+   @php
+   if (auth()->user()->type == 'admin') {
+   @endphp 
       {{-- menu Admin --}}
         <li class="navigation-header"><a class="navigation-header-text">Menu Admin</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
@@ -256,9 +272,11 @@
         </div>
         </li>
       {{-- menu Admin --}}
-    }
+   @php } @endphp
 
-    if (auth()->user()->type == 'validator') {
+@php
+if (auth()->user()->type == 'validator') {
+@endphp    
      {{-- menu Validator --}}
         <li class="navigation-header"><a class="navigation-header-text">Menu Validator</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
@@ -271,9 +289,11 @@
         </div>
         </li>
      {{-- menu validator --}}
-    }
+    @php } @endphp
 
+@php
     if (auth()->user()->type == 'support') {
+@endphp
         {{-- menu supprt --}}
             <li class="navigation-header"><a class="navigation-header-text">Menu Support</a><i class="navigation-header-icon material-icons">more_horiz</i>
             </li>
@@ -286,9 +306,11 @@
             </div>
             </li>
         {{-- menu support --}}
-    }
+   @php } @endphp
 
-    if (auth()->user()->type == 'manajemen') {
+@php
+if (auth()->user()->type == 'manejemen') {
+@endphp    
       {{-- menu Manjemen --}}
         <li class="navigation-header"><a class="navigation-header-text">Menu Manajemen</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
@@ -301,9 +323,9 @@
         </div>
         </li>
       {{-- menu Manjemen --}}
-    }
+   @php } @endphp
 
-    if (auth()->user()->type == 'admin') {
+    {{-- if (auth()->user()->type == 'admin') { --}}
         {{-- hubungi dev 
             <li class="navigation-header">
                 <a class="navigation-header-text">Komunikasi </a>
@@ -323,7 +345,7 @@
                 </a>
             </li>
          hubungi dev --}}
-    }
+    {{-- } --}}
 
     {{-- coming soon 
        <li class="navigation-header"><a class="navigation-header-text">Akuntansi &amp; Keungan </a><i class="navigation-header-icon material-icons">more_horiz</i>
