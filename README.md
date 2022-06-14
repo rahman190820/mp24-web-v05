@@ -117,5 +117,11 @@ Close transaksi
 
 ```cmd
 php artisan serve --host 192.168.1.13 --port 8000
+
+php artisan db:seed --class=UsersTableSeeder
+php artisan migrate:refresh --seed
+php artisan migrate:rollback --step=5
+php artisan tinker
+   User::factory()->count(50)->create()
 ```
 

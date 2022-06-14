@@ -33,11 +33,11 @@ Auth::routes();
   
 Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
   
-    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/pasienP/home', [App\Http\Controllers\HomeController::class, 'pasienParentHome'])->name('pasienP.home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'pasienParentHome'])->name('home');
+    // Route::get('/pasienP/home', [App\Http\Controllers\HomeController::class, 'pasienParentHome'])->name('pasienP.home');
 });
 
-Route::middleware(['auth', 'user-access:pasien'])->group(function () {
+Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
     Route::get('/pasienC/home', [App\Http\Controllers\HomeController::class, 'pasienChildHome'])->name('pasienC.home');
 });
 
@@ -62,8 +62,9 @@ Route::middleware(['auth', 'user-access:lab'])->group(function () {
 
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
-  
-    Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('home');
+
+    // Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
 });
 
 
