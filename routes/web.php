@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\NotificationController; //notif
 
+use App\Http\Controllers\ProductAjaxController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +20,9 @@ use App\Http\Controllers\NotificationController; //notif
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('ajaxproducts',ProductAjaxController::class);
+
 
 Route::get('/send-notification', [NotificationController::class, 'sendOrderNotification']); //notif
 
