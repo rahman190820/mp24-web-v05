@@ -9,7 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NotificationController; //notif
 
 use App\Http\Controllers\ProductAjaxController;
-
+use App\Http\Controllers\ImportData\DariExcelController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +20,11 @@ use App\Http\Controllers\ProductAjaxController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::controller(DariExcelController::class)->group(function(){
+    Route::get('importDataFasten', 'index');
+    Route::post('fasten-import', 'importFasten')->name('fasten.import');
+});
 
 Route::resource('ajaxproducts',ProductAjaxController::class);
 

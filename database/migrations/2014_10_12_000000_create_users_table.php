@@ -15,8 +15,24 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->bigInteger('noKartu')->length(16)->unsigned()->nullable();
+            $table->bigInteger('noPeserta')->length(11)->unsigned()->nullable();
+            $table->string('nama');
+
+            $table->text('alamat')->nullable();
+            $table->string('kodepos',6)->nullable();
+            $table->double('lat')->nullable();
+            $table->double('lng')->nullable();
+            $table->date('tanggalLahir')->nullable();
+            $table->bigInteger('noHP')->length(15)->unsigned()->nullable();
             $table->string('email')->unique();
+
+            $table->enum('jenisKelamin',['L','P'])->nullable();
+            $table->enum('stts_approval', ['Y', 'T'])->default('T');
+            $table->date('date_approval')->nullable();
+            $table->enum('stts_approval_user', ['Y', 'T'])->default('T');
+            $table->date('date_approval_user')->nullable();
+            $table->enum('stts', ['Y', 'T'])->default('Y');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->tinyInteger('type')->default(0);

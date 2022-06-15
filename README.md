@@ -123,5 +123,76 @@ php artisan migrate:refresh --seed
 php artisan migrate:rollback --step=5
 php artisan tinker
    User::factory()->count(50)->create()
+
+<!-- setup katdok buat model untuk akses komunikasi db, "-m" atau migration untuk installasi table dan field -->
+php artisan make:model Katdok -m 
+php artisan make:seeder CreateKatdokSeeder
+php artisan db:seed --class=CreateKatdokSeeder
+
+
+```
+
+```sql
+user_name=# \c testdatabase -- use database
+user_name=# \dt -- show tables 
+user_name=# \dt+ -- show tables 
+
+user_name=# select * from users;
+
+--create
+CREATE TABLE perusahaan(
+   id INT PRIMARY KEY     NOT NULL,
+   nama           TEXT    NOT NULL,
+   umur            INT     NOT NULL,
+   alamat        CHAR(50),
+   gaji         REAL
+);
+
+CREATE TABLE departemen(
+   id INT PRIMARY KEY      NOT NULL,
+   dept           CHAR(50) NOT NULL,
+   pegawai_id         INT      NOT NULL
+);
+
+--drop table
+user_name=# drop table company;
+
+testdb-# \d company --show table 
+
+select fastens.id, fastens.fastenmedis, fastens.status, fastens.child, fastens.tipe, katdoks.nama_katdok, fastens.koordinat_long, fastens.koordinat_lat from fastens join katdoks on katdoks.id=fastens.tipe ;
+--result
+ id |               fastenmedis                | status | child | tipe |      nama_katdok       |   koordinat_long   |    koordinat_lat
+----+------------------------------------------+--------+-------+------+------------------------+--------------------+---------------------
+
+
+create or replace view fasten_as_katdok as select fastens.id, fastens.fastenmedis, fastens.status, fastens.child, katdoks.nama_katdok, fastens.koordinat_long, fastens.koordinat_lat from fastens join katdoks on katdoks.id=fastens.tipe ;
+
+
+
+dbmp24=# select * from fasten_as_katdok where child > 0;
+ id |           fastenmedis            | status | child |      nama_katdok       |   koordinat_long   |    koordinat_lat
+----+----------------------------------+--------+-------+------------------------+--------------------+---------------------
+  1 | MP 24 UID JTM 1                  | 1      |     2 | Dokter Spesialis Bedah | -7.265643427621421 | 112.74334752556922
+  2 | dr EKO / dr DEWANTO              | 1      |     1 | Dokter Gigi            |                    |
+ 14 | MP 24  SDA 1 KLINIK CITRA HUSADA | 1      |    15 | Dokter Spesialis Bedah | -7.437632691965671 | 112.701138739065
+ 15 | dr YUDHI                         | 1      |    14 | Dokter Gigi            |                    |
+ 16 | MP 24  SBY 1 KLINIK BRI MEDIKA   | 1      |    17 | Dokter Spesialis Bedah | -7.332568708469156 | 112.73106089673469
+ 17 | dr Dewanto                       | 1      |    16 | Dokter Gigi            |                    |
+ 21 | MP 24  SBY 1 KLINIK TIRTA        | 1      |    22 | Dokter Spesialis Bedah | -7.323394044525655 | 112.74075249673452
+ 22 | dr EKO                           | 1      |    21 | Dokter Gigi            |                    |
+ 23 | MP 24 BGR 1                      | 1      |    24 | Dokter Spesialis Bedah | -7.15261163333068, | 11.8909908678973
+ 24 | dr Pramono                       | 1      |    23 | Dokter Gigi            |                    |
+ 25 | MP 24 BGR 2 KLINIK DR ERY        | 1      |    26 | Dokter Spesialis Bedah | -7.157026909104212 |  111.87565059673275
+ 26 | dr ERY                           | 1      |    25 | Dokter Gigi            |                    |
+ 28 | RS SITI AISYAH                   | 1      |    29 | Dokter Umum            | -7.151580507317302 | 111.87830944947926
+ 29 | dr Pramono                       | 1      |    28 | Dokter Gigi            |                    |
+ 43 | MP 24 JBR 3 KLINIK CAMAR MANDIRI | 1      |    44 | Dokter Spesialis Bedah | -8.17405729823485, | 13.70080253907318
+ 44 | Dr Eko                           | 1      |    43 | Dokter Gigi            |                    |
+ 56 | RSIA  ALF SUBTIN                 | 1      |    57 | Dokter Umum            | -7.635808519458201 | 111.89481155440853
+ 57 | AJENG                            | 1      |    56 | Dokter Gigi            |                    |
+ 58 | RS MATA AYU SIWI                 | 1      |    59 | Dokter Spesialis Mata  | -7.60130605351573, | 11.90863673324358
+ 59 | ANGGI                            | 1      |    58 | Dokter Gigi            |                    |
+(20 rows)
+
 ```
 
