@@ -66,7 +66,8 @@ class PasienKeDokter extends Notification
     {
         return [
             'user_id' => $this->orderPasienkeDokter['order_id'],
-            'user_name' => $this->orderPasienkeDokter['name']
+            'user_name' => $this->orderPasienkeDokter['name'],
+            'user_email' => $this->orderPasienkeDokter['email'],
         ];
     }
 }

@@ -196,3 +196,15 @@ dbmp24=# select * from fasten_as_katdok where child > 0;
 
 ```
 
+
+```sql
+select id,nama, stts_approval_user from users;
+-- update users set stts_approval_user='Y' where id =6;
+
+```
+
+
+```txt
+set timezone Config\App.php
+chage 'UTC' to 'Asia/Jakarta'
+```

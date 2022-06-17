@@ -12,4 +12,10 @@ class Manfaat extends Model
         'nama_manfaat', 'kode_manfaat'
     ];
 
+    public function klslyns()
+    {
+        # code...
+        return $this->belongsToMany(Klslyn::class,'klslyn_manfaats');
+    }
+
 }

@@ -29,6 +29,12 @@ class DariExcelController extends Controller
         return back();
     }
 
+    // public function importObt()
+    // {
+    //     Excel::import(new FastenImport,request()->file('file'));
+    //     return back();
+    // }
+
 
 
 }

@@ -34,6 +34,18 @@
                         <div class="page-links">
                             <a href="{{ route('login') }}" class="active">Auth</a>
                         </div>
+
+                        @if(Session::has('error'))
+                        <div class="alert alert-danger">
+                        {{-- {{ Session::get('error')}} --}}
+                            {{ "Cek Email dan Password anda.. 😉" }}
+                        </div>
+                        @endif
+                        @if(Session::has('error_log'))
+                        <div class="alert alert-warning">
+                        {{ Session::get('error_log')}}
+                        </div>
+                        @endif
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             {{-- <input class="form-control" type="email" name="email" placeholder="E-mail Address" required> --}}
@@ -69,5 +81,7 @@
 <script type="text/javascript" src="{{ asset('auth/js/popper.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('auth/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('auth/js/main.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </body>
 </html>

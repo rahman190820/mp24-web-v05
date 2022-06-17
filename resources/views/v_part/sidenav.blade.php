@@ -283,7 +283,7 @@ if (auth()->user()->type == 'validator') {
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">pie_chart_outlined</i><span class="menu-title" data-i18n="Chart">Pengguna baru</span></a>
         <div class="collapsible-body">
             <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li><a href="charts-chartjs.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
+            <li><a href="{{ route('validator.validatorPage') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
             </li>
             </ul>
         </div>
@@ -325,8 +325,10 @@ if (auth()->user()->type == 'manejemen') {
       {{-- menu Manjemen --}}
    @php } @endphp
 
-    {{-- if (auth()->user()->type == 'admin') { --}}
-        {{-- hubungi dev 
+@php
+    if (auth()->user()->type == null) {
+        @endphp
+        {{-- hubungi dev  --}}
             <li class="navigation-header">
                 <a class="navigation-header-text">Komunikasi </a>
                 <i class="navigation-header-icon material-icons">more_horiz</i>
@@ -344,8 +346,8 @@ if (auth()->user()->type == 'manejemen') {
                     <span class="menu-title" data-i18n="Documentation">Bantuan</span>
                 </a>
             </li>
-         hubungi dev --}}
-    {{-- } --}}
+         {{-- hubungi dev --}}
+   @php } @endphp
 
     {{-- coming soon 
        <li class="navigation-header"><a class="navigation-header-text">Akuntansi &amp; Keungan </a><i class="navigation-header-icon material-icons">more_horiz</i>

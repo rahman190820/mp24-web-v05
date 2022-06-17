@@ -10,6 +10,19 @@ use App\Http\Controllers\NotificationController; //notif
 
 use App\Http\Controllers\ProductAjaxController;
 use App\Http\Controllers\ImportData\DariExcelController;
+
+use App\Http\Controllers\Pasienc\PasiencController;
+use App\Http\Controllers\Pasienp\PasienpController;
+
+use App\Http\Controllers\Dokter\DokterController;
+use App\Http\Controllers\Apotik\ApotikController;
+use App\Http\Controllers\Laboratorium\LabController;
+
+use App\Http\Controllers\Manejemen\ManejemenController;
+use App\Http\Controllers\Support\SupportController;
+use App\Http\Controllers\Validator\ValidatorController;
+
+use App\Http\Controllers\Admins\AdminsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +33,21 @@ use App\Http\Controllers\ImportData\DariExcelController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::resource('admins', AdminsController::class,[
+    'only' => ['index', 'create', 'store']
+]);
+
+Route::resource('pasienp', PasienpController::class);
+Route::resource('pasienc', PasiencController::class);
+
+Route::resource('dokters', DokterController::class);
+Route::resource('apotiks', ApotikController::class);
+Route::resource('labs', LabController::class);
+
+Route::resource('manajemens', ManejemenController::class);
+Route::resource('supports', SupportController::class);
+Route::resource('validators', ValidatorController::class);
 
 Route::controller(DariExcelController::class)->group(function(){
     Route::get('importDataFasten', 'index');
@@ -98,5 +126,8 @@ Route::middleware(['auth', 'user-access:manejemen'])->group(function () {
 Route::middleware(['auth', 'user-access:validator'])->group(function () {
   
     Route::get('/validator/home', [App\Http\Controllers\HomeController::class, 'validatorHome'])->name('validator.home');
+    Route::get('/validator/penguna_baru', [App\Http\Controllers\Validator\ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
+
+
 });
 

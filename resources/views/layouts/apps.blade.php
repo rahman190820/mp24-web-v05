@@ -30,6 +30,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/chartist-js/chartist.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/chartist-js/chartist-plugin-tooltip.css') }}">
     <!-- END: VENDOR CSS-->
+   
     <!-- BEGIN: Page Level CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/vertical-modern-menu-template/materialize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/themes/vertical-modern-menu-template/style.css') }}">
@@ -39,6 +40,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/custom/custom.css') }}">
     <!-- END: Custom CSS-->
+{{-- panggil --}}
+    @stack('panggil_css')
+{{-- panggil --}}
+
   </head>
   <!-- END: Head-->
   <body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu preload-transitions 2-columns   " data-open="click" data-menu="vertical-modern-menu" data-col="2-columns">
@@ -85,5 +90,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="{{ asset('app-assets/js/scripts/dashboard-modern.js') }}"></script>
     <script src="{{ asset('app-assets/js/scripts/intro.js') }}"></script>
     <!-- END PAGE LEVEL JS-->
+    {{-- panggil --}}
+    @stack('panggil_js')
+    {{-- panggil --}}
+
   </body>
 </html>
