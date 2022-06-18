@@ -208,3 +208,63 @@ select id,nama, stts_approval_user from users;
 set timezone Config\App.php
 chage 'UTC' to 'Asia/Jakarta'
 ```
+
+
+```txt
+create notification
+refenfi : https://blog.quickadminpanel.com/laravel-notifications-with-database-driver-internal-messages/
+```
+
+
+
+## migrtasi
+
+```txt
+PS C:\mp24\webapp\mp24-app>
+ php artisan migrate:rollback --path=/database/migrations/2022_06_04_133847_create_pasien_table.php
+PS C:\mp24\webapp\mp24-app> php artisan migrate --path=/database/migrations/2022_06_04_133847_create_pasien_table.php
+```
+
+
+```txt
+- php artisan make:model Pasien -c -m
+- 
+
+- php artisan make:model Pasien -mcr
+  php artisan make:factory PasienFactory --model=Pasien
+  
+```
+
+
+
+```txt
+1. auth
+    > composer require laravel/ui
+    > php artisan ui bootstrap --auth
+    > npm install
+    > npm run dev
+    > php artisan migrate
+
+2. membuat model,controller(resource),migration
+    > php artisan make:model Pasien -mcr
+        > isi migrate berdasrakan kolom
+    > php artisan migrate
+    > file route 
+        > use controller name
+        > resoure route
+        
+
+3. tinker
+    > php artisan make:factory PasienFactory --model=Pasien
+    > open database, factory
+        > faker
+    > composer dump-autoload
+    > php artisan tinker
+    > Pasien::factory()->count(1)->create()
+
+4. view blde
+    > result json
+    > result view ,compct , notice 
+
+
+```

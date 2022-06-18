@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+// use Auth;
 class AdminsController extends Controller
 {
     /**
@@ -15,7 +15,9 @@ class AdminsController extends Controller
     public function index()
     {
         //
-        return view('admin.index');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('admin.index',compact('datas'));
     }
 
     /**

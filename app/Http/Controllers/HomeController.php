@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;// kueri kostom db
 use App\Models\User;//panggil model user
 
 use App\Notifications\PasienKeDokter;
-
+use Auth;
 
 class HomeController extends Controller
 {
@@ -34,7 +34,9 @@ class HomeController extends Controller
 
     public function pasienParentHome()
     {
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('konten.isi',compact('datas'));
     }
 
     public function pasienChildHome()
@@ -61,7 +63,9 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('konten.isi',compact('datas'));
     }
 
     public function supportHome()
@@ -76,7 +80,10 @@ class HomeController extends Controller
 
     public function validatorHome()
     {
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        return view('konten.isi',compact('datas'));
     }
 
     public function baca()

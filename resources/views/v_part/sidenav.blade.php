@@ -7,7 +7,8 @@
     <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge pill orange float-right mr-10">1</span></a>
         <div class="collapsible-body">
             <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li class="active"><a class="active" href="dashboard-modern.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Halaman Utama</span></a>
+            <li class="active">
+                <a class="active" href="dashboard-modern.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Halaman Utama</span></a>
             </li>
           
             </ul>
@@ -56,11 +57,9 @@
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="page-users-list.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="List">List</span></a>
+                <li><a href="{{ route('pasienp.tambah') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Add">Tambah</span></a>
                 </li>
                 <li><a href="page-users-view.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="View">View</span></a>
-                </li>
-                <li><a href="page-users-edit.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Edit">Edit</span></a>
                 </li>
                 </ul>
             </div>
@@ -266,7 +265,7 @@
         <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">pie_chart_outlined</i><span class="menu-title" data-i18n="Chart">Administrator</span></a>
         <div class="collapsible-body">
             <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li><a href="charts-chartjs.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
+            <li ><a href="charts-chartjs.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
             </li>
             </ul>
         </div>

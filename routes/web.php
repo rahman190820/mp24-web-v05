@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\HomeController;
@@ -105,6 +104,9 @@ Route::middleware(['auth', 'user-access:lab'])->group(function () {
 
 Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('home');
+    Route::get('daftarpas', [PasienpController::class, 'daftarpas'])->name('pasienp.tambah');
+    // Route::get('/daftarpas', [App\Http\Controllers\Validator\PasienpController::class, 'daftarpas'])->name('daftarpas');
+    Route::post('/registeract', [App\Http\Controllers\Validator\PasienpController::class, 'actRegister'])->name('tambahpas.pasparent');
 
     // Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
 });
@@ -128,6 +130,19 @@ Route::middleware(['auth', 'user-access:validator'])->group(function () {
     Route::get('/validator/home', [App\Http\Controllers\HomeController::class, 'validatorHome'])->name('validator.home');
     Route::get('/validator/penguna_baru', [App\Http\Controllers\Validator\ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
 
+    Route::get('changeStatus', [App\Http\Controllers\Validator\ValidatorController::class, 'changeStatus']);
 
+});
+
+
+
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
+  
+Route::resource('admins', AdminsController::class,[
+    'only' => ['index', 'create', 'store']
+]);
+
+  
 });
 

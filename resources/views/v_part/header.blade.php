@@ -11,7 +11,7 @@
         <ul class="navbar-list right">
             <li>
                 <a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown">
-                    <i class="material-icons">notifications_none<small class="notification-badge">3</small></i>
+                    <i class="material-icons">notifications_none<small class="notification-badge">{{ $datas['notif_count'];}}</small></i>
                 </a>
             </li>
             <li>
@@ -27,25 +27,7 @@
 
 
     
-        <!-- notifications-dropdown-->
-        <ul class="dropdown-content" id="notifications-dropdown">
-            <li>
-                <h6>Notifikasi<span class="new badge">3</span></h6>
-            </li>
-            <li class="divider"></li>
-            <li><a class="black-text" href="#!"><span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new order has been placed!</a>
-                <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
-            </li>
-            
-            <li><a class="black-text" href="#!"><span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
-                <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
-            </li>
-        
-            <li><a class="black-text" href="#!"><span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
-                <time class="media-meta grey-text darken-2" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
-            </li>
-        </ul>
-
+      @include('v_part/notif')
         <!-- profile-dropdown-->
         <ul class="dropdown-content" id="profile-dropdown">
             <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Pasienp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Auth;
+
+
 class PasienpController extends Controller
 {
     /**
@@ -83,4 +86,18 @@ class PasienpController extends Controller
     {
         //
     }
+
+    public function daftarpas()
+    {
+        # code...
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('pasienParent.daftar',compact('datas'));
+    }
+
+    public function actRegister(Request $request)
+    {
+        # code...
+    }
+
 }

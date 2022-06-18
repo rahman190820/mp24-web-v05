@@ -141,6 +141,32 @@
     //         return false;
     //     }
     // });
+
+    $('body').on('click','#pil',function(){
+        var status = $(this).prop('checked') == true ? 'Y' : 'T'; 
+        var user_id = $(this).data('id'); 
+        alert(user_id);
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/changeStatus',
+            data: {'status': status, 'user_id': user_id},
+            success: function(data){
+              alert(data.success)
+            }
+        });
+        
+    });
+    $('#pil').click(function() {
+        var status = $(this).prop('checked') == true ? 'Y' : 'T'; 
+        var user_id = $(this).data('id'); 
+    alert("test");
+        
+       
+    })
+
+
 });
 </script>
 

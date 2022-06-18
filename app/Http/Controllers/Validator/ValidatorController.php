@@ -14,6 +14,9 @@ use Auth;
 use Notification; //notif
 use App\Notifications\PasienKeDokter;
 
+use Carbon\Carbon;
+
+
 class ValidatorController extends Controller
 {
     /**
@@ -113,7 +116,7 @@ class ValidatorController extends Controller
 
 
         if ($request->ajax()) {
-            $data = User::latest()->get();
+            $data = User::where('type', '=', 0)->orwhere('type' ,'=',3 )->latest()->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('detail', function($row){
@@ -123,13 +126,20 @@ class ValidatorController extends Controller
     
                             return $btn;
                     })
-                    ->addColumn('status_user',function ($row){
-                        if ($row->stts_approval_user == 'Y') {
-                            return '<span class=" badge blue">aktif</span>';
-                        } else {
-                            return '<span class=" badge red">non-aktif</span>';
-                        }
+                    // ->addColumn('status_user',function ($row){
+                    //     if ($row->stts_approval_user == 'Y') {
+                    //         return '<span class=" badge blue">aktif</span>';
+                    //     } else {
+                    //         return '<span class=" badge red">non-aktif</span>';
+                    //     }
                         
+                    // })
+                    ->addColumn('status_user',function ($row){
+                        $st = $row->stts_approval_user == 'Y' ? 'checked' : '';
+                        // $btn =  '<input data-id="'.$row->id.'" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" >';
+                        $btn = '<div class="switch "><label>Tidak Aktif<input id="pil" data-id="'.$row->id.'"   type="checkbox" '.$st.' ><span class="lever"></span>Aktif</label></div>';
+                      
+                        return $btn;
                     })
                     ->rawColumns(['detail','status_user'])
                     ->make(true);
@@ -139,28 +149,40 @@ class ValidatorController extends Controller
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
       
-        echo json_encode($datas);
-// return view('view.name', compact('data'));
+        // echo json_encode($datas);
+return view('validator.pengguna', compact('datas'));
         // return view('validator.pengguna');
     }
 
     function invoiceNumber()
-{
-     /*
-        fungsi create kode
-        */
-        $kode = null;
-        $latest = User::latest()->first();
+    {
+        /*
+            fungsi create kode
+            */
+            $kode = null;
+            $latest = User::latest()->first();
 
-        if (! $latest) {
-            $kode = 'arm0001';
-        }
-    
-        $string = preg_replace("/[^0-9\.]/", '', $latest->noKartu);
-    
-        $kode = 'NOKRT' .str_pad((int)$string+1, 5, '0', STR_PAD_LEFT);
+            if (! $latest) {
+                $kode = 'arm0001';
+            }
+        
+            $string = preg_replace("/[^0-9\.]/", '', $latest->noKartu);
+        
+            $kode = 'NOKRT' .str_pad((int)$string+1, 5, '0', STR_PAD_LEFT);
 
 
-}
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $date = Carbon::now();
+
+        $user = User::find($request->user_id);
+        $user->stts_approval_user = $request->status;
+        $user->date_approval_user = $date;
+        $user->save();
+
+        return response()->json(['success'=>'Status User Berhasil .']);
+    }
 
 }
