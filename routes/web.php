@@ -106,7 +106,7 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('home');
     Route::get('daftarpas', [PasienpController::class, 'daftarpas'])->name('pasienp.tambah');
     // Route::get('/daftarpas', [App\Http\Controllers\Validator\PasienpController::class, 'daftarpas'])->name('daftarpas');
-    Route::post('/registeract', [App\Http\Controllers\Validator\PasienpController::class, 'actRegister'])->name('tambahpas.pasparent');
+    // Route::post('/registeract', [App\Http\Controllers\Validator\PasienpController::class, 'actRegister'])->name('tambahpas.pasparent');
 
     // Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
 });

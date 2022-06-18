@@ -268,3 +268,12 @@ PS C:\mp24\webapp\mp24-app> php artisan migrate --path=/database/migrations/2022
 
 
 ```
+
+
+login register
+
+C:\Users\vcopy\Downloads\iofrmtemplates\iofrmtemplates\iofrm-by-brandio\Template
+
+theme
+
+C:\Users\vcopy\Downloads\materializeadmin-74 (1)\materializeadmin-74\materialize-material-design-admin-template-v7.4\html-version\materialize-html-admin-template\html\ltr\vertical-modern-menu-template
