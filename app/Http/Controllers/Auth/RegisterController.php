@@ -9,6 +9,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+ 
+
 class RegisterController extends Controller
 {
     /*
@@ -29,7 +33,19 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = '/'; //sukses ke login
+    protected function redirectTo()
+    {
+        // Auth::logout();
+        // return redirect('logout');
+ 
+        // $request->session()->invalidate();
+     
+        // $request->session()->regenerateToken();
+     
+        return redirect('/');
+    }
 
     /**
      * Create a new controller instance.
@@ -70,4 +86,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+  
+
 }

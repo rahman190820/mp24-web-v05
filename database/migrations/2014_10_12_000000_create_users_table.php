@@ -30,6 +30,7 @@ return new class extends Migration
             $table->enum('jenisKelamin',['L','P'])->nullable();
             $table->enum('stts_approval', ['Y', 'T'])->default('T');
             $table->date('date_approval')->nullable();
+            $table->string('stts_approval_user_by')->nullable();
             $table->enum('stts_approval_user', ['Y', 'T'])->default('T');
             $table->date('date_approval_user')->nullable();
             $table->enum('stts', ['Y', 'T'])->default('Y');
@@ -37,6 +38,7 @@ return new class extends Migration
             $table->string('password');
             $table->tinyInteger('type')->default(0);
             /* Users: 0=>Pasien, 1=>Dokter, 2=>apotik */
+            $table->string('foto')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

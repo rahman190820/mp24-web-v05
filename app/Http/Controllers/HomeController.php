@@ -41,24 +41,35 @@ class HomeController extends Controller
 
     public function pasienChildHome()
     {
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('konten.isi',compact('datas'));
     }
 
     public function dokterHome()
     {
         // return view('konten.isi');
-        return view('dokter.index');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        // return view('konten.isi',compact('datas'));
+        return view('dokter.index',compact('datas'));
     }
 
     public function apotikHome()
     {
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        return view('konten.isi',compact('datas'));
     }
 
     public function labHome()
     {
-        # code...
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        return view('konten.isi',compact('datas'));
     }
 
     public function adminHome()
@@ -70,12 +81,18 @@ class HomeController extends Controller
 
     public function supportHome()
     {
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        return view('konten.isi',compact('datas'));
     }
 
     public function manejHome()
     {
-        return view('konten.isi');
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        return view('konten.isi',compact('datas'));
     }
 
     public function validatorHome()

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
+// use Illuminate\Support\Facades\Auth;
 
 return [
 
@@ -128,6 +129,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
+        // 'SESSION_COOKIE'.user()->id,
         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
     ),
 

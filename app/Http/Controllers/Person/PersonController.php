@@ -90,7 +90,7 @@ class PersonController extends Controller
      ] );
 
     //  return $request;
-     return redirect('person');;
+     return redirect('person');
 
     //  $datas['DataUser'] = User::find(auth()->user()->id);
      // dd($DataUser);
