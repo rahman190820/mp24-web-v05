@@ -50,6 +50,7 @@ class CreateUsersSeeder extends Seeder
             [
                 'nama'=>'Validator',
                 'email'=>'validator@mp24.com',
+                'stts_approval_user'=>'Y',
                 'type'=>5,
                 'password'=> bcrypt('123456'),
              ],
@@ -68,9 +69,22 @@ class CreateUsersSeeder extends Seeder
              [
                 'nama'=>'Admin',
                 'email'=>'admin@mp24.com',
+                'stts_approval_user'=>'Y',
                 'type'=>8,
                 'password'=> bcrypt('123456'),
              ],
+             [
+               'nama'=>'Administrator',
+               'email'=>'administrator@mp24.com',
+               'stts_approval_user'=>'Y',
+               'type'=>9,
+               'password'=> bcrypt('123456'),
+            ],[
+               'nama'=>'klinik',
+               'email'=>'klinik@mp24.com',
+               'type'=>10,
+               'password'=> bcrypt('123456'),
+            ],
         ];
     
         foreach ($users as $key => $user) {

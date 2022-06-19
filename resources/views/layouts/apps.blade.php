@@ -88,7 +88,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END THEME  JS-->
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="{{ asset('app-assets/js/scripts/dashboard-modern.js') }}"></script>
-    <script src="{{ asset('app-assets/js/scripts/intro.js') }}"></script>
+    {{-- <script src="{{ asset('app-assets/js/scripts/intro.js') }}"></script> --}}
     <!-- END PAGE LEVEL JS-->
     {{-- panggil --}}
     @stack('panggil_js')

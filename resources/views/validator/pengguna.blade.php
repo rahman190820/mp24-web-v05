@@ -48,11 +48,11 @@
   </div>
 
   @push('panggil_js')
-  <!-- BEGIN PAGE VENDOR JS-->
- <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
- <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"></script>
- <script src="{{ asset('app-assets/vendors/data-tables/js/dataTables.select.min.js') }}"></script>
- <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('app-assets/vendors/data-tables/js/dataTables.select.min.js') }}"></script>
+    <!-- END PAGE VENDOR JS-->
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="{{ asset('app-assets/js/scripts/data-tables.js') }}"></script>
     <!-- END PAGE LEVEL JS-->

@@ -56,7 +56,18 @@ class User extends Authenticatable
     {
         return new Attribute(
             // ada 8 user terhitung mulai 0
-            get: fn ($value) =>  [  "pasienParent","dokter", "apotik","pasienChild","lab","validator","manejemen","support" ,"admin"][$value],
+            get: fn ($value) =>  [  
+                "pasienParent",
+                "dokter",
+                "apotik",
+                "pasienChild",
+                "lab",
+                "validator",
+                "manejemen",
+                "support",
+                "admin",
+                "administrator",
+                "klinik"][$value],
         );
     }
 }

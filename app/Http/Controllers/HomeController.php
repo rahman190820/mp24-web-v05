@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;// kueri kostom db
 use App\Models\User;//panggil model user
 
 use App\Notifications\PasienKeDokter;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -86,6 +86,22 @@ class HomeController extends Controller
         return view('konten.isi',compact('datas'));
     }
 
+    public function administratorHome()
+    {
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        return view('administrator.index',compact('datas'));
+    }
+
+    public function klinikHome()
+    {
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+      
+        return view('klinik.index',compact('datas'));
+    }
+
     public function baca()
     {
         // $datas['nama'] = array(
@@ -94,10 +110,10 @@ class HomeController extends Controller
         // );
 
         $cari = '1';
-        $datas['chart'] = User::select(\DB::raw("COUNT(*) as count"))
+        $datas['chart'] = User::select(DB::raw("COUNT(*) as count"))
         ->whereYear('created_at', date('Y'))
         // ->groupBy(DB::raw("Month(created_at)"))
-        ->groupBy(\DB::raw("EXTRACT(MONTH FROM created_at )"))
+        ->groupBy(DB::raw("EXTRACT(MONTH FROM created_at )"))
         ->pluck('count');
 
         $datas['hitung_user'] = DB::table('users')->count();

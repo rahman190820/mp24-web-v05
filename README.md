@@ -277,3 +277,10 @@ C:\Users\vcopy\Downloads\iofrmtemplates\iofrmtemplates\iofrm-by-brandio\Template
 theme
 
 C:\Users\vcopy\Downloads\materializeadmin-74 (1)\materializeadmin-74\materialize-material-design-admin-template-v7.4\html-version\materialize-html-admin-template\html\ltr\vertical-modern-menu-template
+
+
+```txt
+package facedes erro line
+app\config -> alias
+```
+

@@ -1,26 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Validator;
+namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
-// use DataTables;
 use Yajra\DataTables\Facades\DataTables;
-
-use App\Models\LogDB; //logSystem
-// use Auth;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\DataTables;
-
-use Notification; //notif
-use App\Notifications\PasienKeDokter;
-
 use Carbon\Carbon;
 
-
-class ValidatorController extends Controller
+class AdministratorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,7 +20,6 @@ class ValidatorController extends Controller
     public function index()
     {
         //
-        return view('validator.index');
     }
 
     /**
@@ -99,80 +88,35 @@ class ValidatorController extends Controller
         //
     }
 
-    public function validatorPage(Request $request )
+    public function administratorPage(Request $request)
     {
-        // LogDB::record(Auth::user(), 'Akses Halaman Pengguna Baru', 'oleh rule validator'); //logs system
         $ids = Auth::id();
         $user = User::findOrFail($ids);
-
-        $orderPasienkeDokter = [
-            'name' => $user->nama,
-            'body' => 'You received an order.',
-            'thanks' => 'Thank you',
-            'orderText' => 'Check out the order',
-            'orderUrl' => url('/'),
-            'order_id' => $user->id,
-            'email' => $user->email,
-        ];
-
-        // Notification::send($user, new PasienKeDokter($orderPasienkeDokter)); //komunikasi request
-
-
         if ($request->ajax()) {
-            $data = User::where('type', '=', 0)->orwhere('type' ,'=',3 )->latest()->get();
+
+            $data = User::latest()->get();
+
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('detail', function($row){
-                            // $btn = '<button class="waves-effect waves-light btn-small" >test</button>';
-                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit waves-effect waves-light btn-small editProduct">Detail</a>';
-   
-    
-                            return $btn;
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit waves-effect waves-light btn-small editProduct">Detail</a>';
+                        return $btn;
                     })
-                    // ->addColumn('status_user',function ($row){
-                    //     if ($row->stts_approval_user == 'Y') {
-                    //         return '<span class=" badge blue">aktif</span>';
-                    //     } else {
-                    //         return '<span class=" badge red">non-aktif</span>';
-                    //     }
-                        
-                    // })
                     ->addColumn('status_user',function ($row){
                         $st = $row->stts_approval_user == 'Y' ? 'checked' : '';
-                        // $btn =  '<input data-id="'.$row->id.'" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" >';
                         $btn = '<div class="switch "><label>Tidak Aktif<input id="pil" data-id="'.$row->id.'"   type="checkbox" '.$st.' ><span class="lever"></span>Aktif</label></div>';
-                      
                         return $btn;
                     })
                     ->rawColumns(['detail','status_user'])
                     ->make(true);
         }
-        // echo json_encode($request->ajax());
-        // dd($datas);
+        $user_id = User::select('nama')->first();
+        // return response()->json($user_id);
+
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
-      
-        // echo json_encode($datas);
-return view('validator.pengguna', compact('datas'));
-        // return view('validator.pengguna');
-    }
 
-    function invoiceNumber()
-    {
-        /*
-            fungsi create kode
-            */
-            $kode = null;
-            $latest = User::latest()->first();
-
-            if (! $latest) {
-                $kode = 'arm0001';
-            }
-        
-            $string = preg_replace("/[^0-9\.]/", '', $latest->noKartu);
-        
-            $kode = 'NOKRT' .str_pad((int)$string+1, 5, '0', STR_PAD_LEFT);
-
+        return view('administrator.validator', compact('datas'));
 
     }
 
@@ -187,5 +131,6 @@ return view('validator.pengguna', compact('datas'));
 
         return response()->json(['success'=>'Status User Berhasil .']);
     }
+
 
 }

@@ -270,6 +270,7 @@
             </ul>
         </div>
         </li>
+        <li ><a href="{{ route('validator_admin') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">Validator</span></a>
       {{-- menu Admin --}}
    @php } @endphp
 
@@ -323,6 +324,17 @@ if (auth()->user()->type == 'manejemen') {
         </li>
       {{-- menu Manjemen --}}
    @php } @endphp
+
+
+@php
+if (auth()->user()->type == 'administrator') {
+@endphp 
+   {{-- menu Admin --}}
+     <li class="navigation-header"><a class="navigation-header-text">Menu Administrator</a><i class="navigation-header-icon material-icons">more_horiz</i>
+     </li>
+     <li ><a href="{{ route('validator_administrator') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">Validator</span></a>
+   {{-- menu Admin --}}
+@php } @endphp
 
 @php
     if (auth()->user()->type == null) {
