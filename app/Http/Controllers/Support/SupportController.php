@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Support;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 class SupportController extends Controller
 {
     /**
@@ -83,4 +86,17 @@ class SupportController extends Controller
     {
         //
     }
+
+    public function getList(Request $request)
+    {
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        return view('support.dtList',compact('datas'));   
+    }
+
+   
+
+
 }
