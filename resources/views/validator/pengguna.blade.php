@@ -56,6 +56,8 @@
     <!-- BEGIN PAGE LEVEL JS-->
     <script src="{{ asset('app-assets/js/scripts/data-tables.js') }}"></script>
     <!-- END PAGE LEVEL JS-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
      
 <script type="text/javascript">
@@ -145,7 +147,7 @@
     $('body').on('click','#pil',function(){
         var status = $(this).prop('checked') == true ? 'Y' : 'T'; 
         var user_id = $(this).data('id'); 
-        alert(user_id);
+        // alert(user_id);
 
         $.ajax({
             type: "GET",
@@ -153,7 +155,14 @@
             url: '/changeStatus',
             data: {'status': status, 'user_id': user_id},
             success: function(data){
-              alert(data.success)
+              Swal.fire({
+                icon: 'success',
+                title: data.success,
+                text: 'mp24',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              // alert()
             }
         });
         

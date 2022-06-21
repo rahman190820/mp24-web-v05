@@ -1,19 +1,14 @@
 <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
 <div class="brand-sidebar">
-    <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img class="hide-on-med-and-down" src="../../../app-assets/images/logo/materialize-logo-color.png" alt="materialize logo"/><img class="show-on-medium-and-down hide-on-med-and-up" src="../../../app-assets/images/logo/materialize-logo.png" alt="materialize logo"/><span class="logo-text hide-on-med-and-down">MP24</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
+    <h1 class="logo-wrapper"><a class="brand-logo darken-1" href="index.html"><img class="hide-on-med-and-down" src="../../../app-assets/images/logo/materialize-logo-color.png" alt="materialize logo"/>
+        <img class="show-on-medium-and-down hide-on-med-and-up" src="../../../app-assets/images/logo/materialize-logo.png" alt="materialize logo"/>
+        <span class="logo-text hide-on-med-and-down">MP24</span></a>
+        <a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
 </div>
 <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
 
-    <li class="active bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge pill orange float-right mr-10">1</span></a>
-        <div class="collapsible-body">
-            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li class="active">
-                <a class="active" href="dashboard-modern.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Halaman Utama</span></a>
-            </li>
-          
-            </ul>
-        </div>
-    </li>
+  
+            
    
     @php
         if (auth()->user()->type == 'pasienParent') {
@@ -25,7 +20,7 @@
         </li>
 
         <li class="bold">
-            <a class="waves-effect waves-cyan " href="{{ route('home') }}">
+            <a class="waves-effect waves-cyan " href="{{ route('profile_user') }}">
                 <i class="material-icons">person_outline</i>
                 <span class="menu-title" data-i18n="User Profile">Profil Pasien</span>
             </a>
@@ -37,13 +32,13 @@
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="page-contact.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Contact">Manfaat</span></a>
+                <li><a href="{{ route('manfaat') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Contact">Manfaat</span></a>
                 </li>
-                <li><a href="page-blog-list.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Blog">Diagnosa</span></a>
+                <li><a href="{{ route('diagnosa') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Blog">Diagnosa</span></a>
                 </li>
-                <li><a href="page-search.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Search">Apotik</span></a>
+                <li><a href="{{ route('apotik') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Search">Apotik</span></a>
                 </li>
-                <li><a href="page-knowledge.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Knowledge">Tagihan</span></a>
+                <li><a href="{{ route('tagihan') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Knowledge">Tagihan</span></a>
                 </li>
             
                 </ul>
@@ -57,9 +52,15 @@
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="{{ route('pasienp.tambah') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Add">Tambah</span></a>
+                <li>
+                    <a href="{{ route('tambahChild') }}">
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <span data-i18n="Add">Tambah</span></a>
                 </li>
-                <li><a href="page-users-view.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="View">View</span></a>
+                <li>
+                    <a href="{{ route('lihatChild') }}">
+                        <i class="material-icons">radio_button_unchecked</i>
+                        <span data-i18n="View">View</span></a>
                 </li>
                 </ul>
             </div>
@@ -260,15 +261,10 @@
    if (auth()->user()->type == 'admin') {
    @endphp 
       {{-- menu Admin --}}
-        <li class="navigation-header"><a class="navigation-header-text">Menu Admin</a><i class="navigation-header-icon material-icons">more_horiz</i>
+        <li>
+            <a class="active" href="{{ route('validator.home') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Halaman Utama</span></a>
         </li>
-        <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">pie_chart_outlined</i><span class="menu-title" data-i18n="Chart">Administrator</span></a>
-        <div class="collapsible-body">
-            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li ><a href="charts-chartjs.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
-            </li>
-            </ul>
-        </div>
+        <li class="navigation-header"><a class="navigation-header-text">Menu Admin</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
         <li ><a href="{{ route('validator_admin') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">Validator</span></a>
       {{-- menu Admin --}}
@@ -278,15 +274,17 @@
 if (auth()->user()->type == 'validator') {
 @endphp    
      {{-- menu Validator --}}
+        <li>
+            <a class="active" href="{{ route('validator.home') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Modern">Halaman Utama</span></a>
+        </li>
+          
         <li class="navigation-header"><a class="navigation-header-text">Menu Validator</a><i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
-        <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)"><i class="material-icons">pie_chart_outlined</i><span class="menu-title" data-i18n="Chart">Pengguna baru</span></a>
-        <div class="collapsible-body">
-            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-            <li><a href="{{ route('validator.validatorPage') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">ChartJS</span></a>
-            </li>
-            </ul>
-        </div>
+        <li>
+            <a href="{{ route('validator.validatorPage') }}">
+                <i class="material-icons">radio_button_unchecked</i>
+                <span data-i18n="ChartJS">Validator</span>
+            </a>
         </li>
      {{-- menu validator --}}
     @php } @endphp
@@ -335,37 +333,6 @@ if (auth()->user()->type == 'administrator') {
      <li ><a href="{{ route('validator_administrator') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="ChartJS">Validator</span></a>
    {{-- menu Admin --}}
 @php } @endphp
-
-@php
-    if (auth()->user()->type == null) {
-        @endphp
-        {{-- hubungi dev  --}}
-            <li class="navigation-header">
-                <a class="navigation-header-text">Komunikasi </a>
-                <i class="navigation-header-icon material-icons">more_horiz</i>
-            </li>
-        
-            <li class="bold">
-                <a class="waves-effect waves-cyan " href="{{ route('home') }}">
-                    <i class="material-icons">import_contacts</i>
-                    <span class="menu-title" data-i18n="Documentation">Dokumentasi</span>
-                </a>
-            </li>
-            <li class="bold">
-                <a class="waves-effect waves-cyan " href="{{ route('home') }}">
-                    <i class="material-icons">help_outline</i>
-                    <span class="menu-title" data-i18n="Documentation">Bantuan</span>
-                </a>
-            </li>
-         {{-- hubungi dev --}}
-   @php } @endphp
-
-    {{-- coming soon 
-       <li class="navigation-header"><a class="navigation-header-text">Akuntansi &amp; Keungan </a><i class="navigation-header-icon material-icons">more_horiz</i>
-       </li>
-       <li class="bold"><a class="waves-effect waves-cyan " href="form-layouts.html"><i class="material-icons">image_aspect_ratio</i><span class="menu-title" data-i18n="Form Layouts">Fitur Akan Datang 😎</span></a>
-       </li>
-   coming soon --}}
 
     
 </ul>

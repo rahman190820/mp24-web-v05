@@ -22,15 +22,7 @@
               </li>
             </ol>
           </div>
-          <div class="col s2 m6 l6"><a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right" href="#!" data-target="dropdown1"><i class="material-icons hide-on-med-and-up">settings</i><span class="hide-on-small-onl">Settings</span><i class="material-icons right">arrow_drop_down</i></a>
-            <ul class="dropdown-content" id="dropdown1" tabindex="0">
-              <li tabindex="0"><a class="grey-text text-darken-2" href="user-profile-page.html">Profile<span class="new badge red">2</span></a></li>
-              <li tabindex="0"><a class="grey-text text-darken-2" href="app-contacts.html">Contacts</a></li>
-              <li tabindex="0"><a class="grey-text text-darken-2" href="page-faq.html">FAQ</a></li>
-              <li class="divider" tabindex="-1"></li>
-              <li tabindex="0"><a class="grey-text text-darken-2" href="user-login.html">Logout</a></li>
-            </ul>
-          </div>
+        
         </div>
       </div>
     </div>
@@ -44,14 +36,10 @@
   <ul class="tabs mb-2 row">
     <li class="tab">
       <a class="display-flex align-items-center active" id="account-tab" href="#account">
-        <i class="material-icons mr-1">person_outline</i><span>Account</span>
+        <i class="material-icons ">person_outline</i><span>Akun </span>
       </a>
     </li>
-    <li class="tab">
-      <a class="display-flex align-items-center" id="information-tab" href="#information">
-        <i class="material-icons mr-2">error_outline</i><span>Information</span>
-      </a>
-    </li>
+  
   </ul>
   <div class="divider mb-3"></div>
   <div class="row">
@@ -59,44 +47,84 @@
       <!-- users edit media object start -->
       <div class="media display-flex align-items-center mb-2">
         <a class="mr-2" href="#">
+          <form action="#" method="post">
+            
           <img src="../../../app-assets/images/avatar/avatar-1.png" alt="users avatar" class="z-depth-4 circle"
             height="64" width="64">
+          </form>
         </a>
         <div class="media-body">
           <h5 class="media-heading mt-0">{{ $datas['DataUser']->email}} <small>{{ $datas['DataUser']->created_at }}</small> </h5>
           <div class="user-edit-btns display-flex">
-            <a href="#" class="btn-small indigo">Change</a>
-            <a href="#" class="btn-small btn-light-pink">Reset</a>
+           
           </div>
         </div>
       </div>
       <!-- users edit media object ends -->
       <!-- users edit account form start -->
-      <form id="accountForm" action="{{ route('person.update', $datas['DataUser']->id) }}" method="post">
+      <?php
+       if ($datas['DataUser']->noKartu == null) {
+        ?>
+        <form id="accountForm" action="{{ route('person.update', $datas['DataUser']->id) }}" method="post">
+      <?php
+      } else {
+        ?>
+        <form>
+    <?php
+      }
+          
+      ?>
+     
+      
         @csrf
         {{ method_field('PUT') }}
         <div class="row">
           <div class="col s12 m6">
             <div class="row">
               <div class="col s12 input-field">
-                <input id="nama" name="nama" type="text" class="validate" value="{{ $datas['DataUser']->nama }}"
-                  data-error=".errorTxt1">
-                <label for="username">Username</label>
+                <input id="noKartu" name="noKartu" type="text" class="validate" value="{{ $datas['DataUser']->noKartu }}"
+                  data-error=".errorTxt1" required>
+                <label for="noKartu">Nomer Kartu</label>
                 <small class="errorTxt1"></small>
               </div>
               <div class="col s12 input-field">
-                <input id="name" name="name" type="text" class="validate" value="{{ $datas['DataUser']->nama; }}"
-                  data-error=".errorTxt2" readonly>
-                <label for="name">Name</label>
+                <input id="noPeserta" name="noPeserta" type="text" class="validate" value="{{ $datas['DataUser']->noPeserta; }}"
+                  required >
+                <label for="noPeserta">Nomer Peserta</label>
                 <small class="errorTxt2"></small>
               </div>
               <div class="col s12 input-field">
-                <input id="noHP" name="noHP" type="text" class="validate">
-                <label for="company">No HP</label>
+                <input id="nama" name="nama" type="text" class="validate" value="{{ $datas['DataUser']->nama; }}"  required>
+                <label for="nama">Nama Lengkap</label>
+              </div>
+              <div class="col s12 input-field">
+                <input id="tanggalLahir" name="tanggalLahir" type="date" class="validate" value="{{ $datas['DataUser']->tanggalLahir; }}" required>
+                <label for="tglLahir">Tanggal Lahir</label>
+              </div>
+              <div class="col s12 input-field">
+                <p>
+                  <label>
+                    <input class="with-gap" name="group1" type="radio" value="L" {{ $datas['DataUser']->jenisKelamin == 'L' ? '':'checked' ; }}  required/>
+                    <span>Laki Laki</span>
+                    
+                  </label>
+                </p>
+
+                <p>
+                  <label>
+                    <input class="with-gap" name="group1" type="radio" value="P" {{ $datas['DataUser']->jenisKelamin  == 'P' ? 'checked':'' ; }} required/>
+                    <span>Perempuan</span>
+                  </label>
+                </p>
+                
+              </div>
+              <div class="col s12 input-field">
+                <input id="noHP" name="noHP" type="text" class="validate nomer" value="{{ $datas['DataUser']->noHP; }}">
+                <label for="noHP">No HP</label>
               </div>
               <div class="col s12 input-field">
                 <input id="email" name="email" type="text" class="validate" value="{{ $datas['DataUser']->email}}" >
-                <label for="company">Email</label>
+                <label for="email">Email</label>
               </div>
               
             </div>
@@ -104,156 +132,49 @@
           <div class="col s12 m6">
             <div class="row">
               <div class="col s12 input-field">
-                <select>
-                  <option>Dokter</option>
-                  <option>Apotik</option>
-                  <option>validator</option>
-                  <option>Klinik</option>
-                  <option>Manejemen</option>
-                  <option>Admin</option>
-                  <option>Adminstrator</option>
-                </select>
-                <label>Role</label>
+                <input id="alamat" name="alamat" type="text" class="validate" value="{{ $datas['DataUser']->alamat ? $datas['DataUser']->alamat:'' ; }}"
+                   required>
+                <label for="alamat">Alamat</label>
+                <small class="errorTxt2"></small>
               </div>
               <div class="col s12 input-field">
-                <select>
-                  <option>Active</option>
-                  <option>Banned</option>
-                  <option>Close</option>
-                </select>
-                <label>Status</label>
+                <input id="kodepos" name="kodepos" type="text" class="validate" value="{{ $datas['DataUser']->kodepos; }}"
+                   required>
+                <label for="kodepos">kodepos</label>
+                <small class="errorTxt2"></small>
               </div>
-              <div class="col s12 input-field">
-                <input id="company" name="company" type="text" class="validate">
+            
+              {{-- <div class="col s12 input-field">
+                <input id="company" name="company" type="text" class="validate" required>
                 <label for="company">Company</label>
-              </div>
+              </div> --}}
             </div>
           </div>
         
           <div class="col s12 display-flex justify-content-end mt-3">
-            <button type="submit" class="btn indigo">
-              Save changes</button>&nbsp;
+            <?php
+            if ($datas['DataUser']->noKartu == null) {
+             ?>
+              <button type="submit" class="btn indigo">
+              Save changes</button>
+          <?php
+           } else {
+             ?>
+             
+         <?php
+           }
+               
+           ?>
+           
+              
+              &nbsp;
             <button type="button" class="btn btn-light">Cancel</button>
           </div>
         </div>
       </form>
       <!-- users edit account form ends -->
     </div>
-    <div class="col s12" id="information">
-      <!-- users edit Info form start -->
-      <form id="infotabForm">
-        <div class="row">
-          <div class="col s12 m6">
-            <div class="row">
-              <div class="col s12">
-                <h6 class="mb-2"><i class="material-icons mr-1">link</i>Social Links</h6>
-              </div>
-              <div class="col s12 input-field">
-                <input class="validate" type="text" value="https://www.twitter.com/">
-                <label>Twitter</label>
-              </div>
-              <div class="col s12 input-field">
-                <input class="validate" type="text" value="https://www.facebook.com/">
-                <label>Facebook</label>
-              </div>
-              <div class="col s12 input-field">
-                <input class="validate" type="text">
-                <label>Google+</label>
-              </div>
-              <div class="col s12 input-field">
-                <input id="linkedin" name="linkedin" class="validate" type="text">
-                <label for="linkedin">LinkedIn</label>
-              </div>
-              <div class="col s12 input-field">
-                <input class="validate" type="text" value="https://www.instagram.com/">
-                <label>Instagram</label>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 m6">
-            <div class="row">
-              <div class="col s12">
-                <h6 class="mb-4"><i class="material-icons mr-1">person_outline</i>Personal Info</h6>
-              </div>
-              <div class="col s12 input-field">
-                <input id="datepicker" name="datepicker" type="text" class="birthdate-picker datepicker"
-                  placeholder="Pick a birthday" data-error=".errorTxt4">
-                <label for="datepicker">Birth date</label>
-                <small class="errorTxt4"></small>
-              </div>
-              <div class="col s12 input-field">
-                <select id="accountSelect">
-                  <option>USA</option>
-                  <option>India</option>
-                  <option>Canada</option>
-                </select>
-                <label>Country</label>
-              </div>
-              <div class="col s12">
-                <label>Languages</label>
-                <select class="browser-default" id="users-language-select2" multiple="multiple">
-                  <option value="English" selected>English</option>
-                  <option value="Spanish">Spanish</option>
-                  <option value="French">French</option>
-                  <option value="Russian">Russian</option>
-                  <option value="German">German</option>
-                  <option value="Arabic" selected>Arabic</option>
-                  <option value="Sanskrit">Sanskrit</option>
-                </select>
-              </div>
-              <div class="col s12 input-field">
-                <input id="phonenumber" type="text" class="validate" value="(+656) 254 2568">
-                <label for="phonenumber">Phone</label>
-              </div>
-              <div class="col s12 input-field">
-                <input id="address" name="address" type="text" class="validate" data-error=".errorTxt5">
-                <label for="address">Address</label>
-                <small class="errorTxt5"></small>
-              </div>
-            </div>
-          </div>
-          <div class="col s12">
-            <div class="input-field">
-              <input id="websitelink" name="websitelink" type="text" class="validate">
-              <label for="websitelink">Website</label>
-            </div>
-            <label>Favourite Music</label>
-            <div class="input-field">
-              <select class="browser-default" id="users-music-select2" multiple="multiple">
-                <option value="Rock">Rock</option>
-                <option value="Jazz" selected>Jazz</option>
-                <option value="Disco">Disco</option>
-                <option value="Pop">Pop</option>
-                <option value="Techno">Techno</option>
-                <option value="Folk" selected>Folk</option>
-                <option value="Hip hop">Hip hop</option>
-              </select>
-            </div>
-          </div>
-          <div class="col s12">
-            <label>Favourite movies</label>
-            <div class="input-field">
-              <select class="browser-default" id="users-movies-select2" multiple="multiple">
-                <option value="The Dark Knight" selected>The Dark Knight
-                </option>
-                <option value="Harry Potter" selected>Harry Potter</option>
-                <option value="Airplane!">Airplane!</option>
-                <option value="Perl Harbour">Perl Harbour</option>
-                <option value="Spider Man">Spider Man</option>
-                <option value="Iron Man" selected>Iron Man</option>
-                <option value="Avatar">Avatar</option>
-              </select>
-            </div>
-          </div>
-          <div class="col s12 display-flex justify-content-end mt-1">
-            <button type="submit" class="btn indigo">
-              Save changes</button>
-            <button type="button" class="btn btn-light">Cancel</button>
-          </div>
-        </div>
-      </form>
-      <!-- users edit Info form ends -->
-    </div>
+  
   </div>
   <!-- </div> -->
 </div>
@@ -277,7 +198,13 @@
   </div>
 
 @push('panggil_js')
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8-beta.17/jquery.inputmask.min.js" integrity="sha512-zdfH1XdRONkxXKLQxCI2Ak3c9wNymTiPh5cU4OsUavFDATDbUzLR+SYWWz0RkhDmBDT0gNSUe4xrQXx8D89JIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.nomer').inputmask("99-9999-9999-999");  //static mask
+
+});
+</script>
 @endpush
 
 @endsection

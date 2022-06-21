@@ -99,8 +99,9 @@ class HomeController extends Controller
     {
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
-      
-        return view('konten.isi',compact('datas'));
+    //   return 'tes';
+        return view('validator.index',compact('datas'));
+        // return view('konten.isi',compact('datas'));
     }
 
     public function administratorHome()

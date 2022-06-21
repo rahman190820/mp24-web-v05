@@ -1,5 +1,9 @@
 @extends('layouts.apps')
 @section('konten')
+
+@push('panggil_home')
+@endpush
+
  @push('panggil_css')
   
 
@@ -10,14 +14,16 @@
     <div class="card">
       <div class="card-content">
       <div class="card-title">test</div>
-        <p>selamat datang pasien child</p>
-        <a href="{{ route('') }}">Daftar</a>
+        <p>Selamat Datang Validator</p>
+        <a href="#">Daftar</a>
       </div>
     </div>
   </div>
 </div>
 
-
+<!-- END RIGHT SIDEBAR NAV --><!-- Intro -->
+@include('v_part/awal')
+<!-- / Intro -->
 @push('panggil_js')
     
  

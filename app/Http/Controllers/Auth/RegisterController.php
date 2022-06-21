@@ -34,18 +34,18 @@ class RegisterController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-    // protected $redirectTo = '/'; //sukses ke login
-    protected function redirectTo()
-    {
-        // Auth::logout();
-        // return redirect('logout');
+    protected $redirectTo = '/profil'; //sukses ke login
+    // protected function redirectTo()
+    // {
+    //     // Auth::logout();
+    //     // return redirect('logout');
  
-        // $request->session()->invalidate();
+    //     // $request->session()->invalidate();
      
-        // $request->session()->regenerateToken();
+    //     // $request->session()->regenerateToken();
      
-        return redirect('/');
-    }
+    //     return redirect('/');
+    // }
 
     /**
      * Create a new controller instance.

@@ -26,8 +26,7 @@
             <div class="form-content">
                 <div class="form-items">
                     <div class="page-links">
-                        {{-- <a href="{{ route('login') }}" class="active">Auth</a> --}}
-                        <a class="{{ Route::is('login') ? 'active':'' }}" href="{{ route('login') }}">Login</a><a href="{{ route('register') }}" class="{{ Route::is('register') ? 'active':'' }}">Register</a>
+                        <a class="{{ Route::is('login') ? 'active':'' }}" href="{{ route('login') }}">Halaman Masuk</a><a href="{{ route('register') }}" class="{{ Route::is('register') ? 'active':'' }}">Daftar</a>
                     </div>
 
                     @if(Session::has('error'))

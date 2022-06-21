@@ -37,7 +37,7 @@ use App\Http\Controllers\Person\PersonController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('halaman3d',[PasienpController::class,'visual'])->name('visual');
 Route::get('HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
 Route::get('/HalamanAdminstrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
 Route::get('changeStatusAdmin', [AdminsController::class, 'changeStatus']);
@@ -91,6 +91,14 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
   
     Route::get('/home', [HomeController::class, 'pasienParentHome'])->name('home');
     Route::get('/pasienP/home', [HomeController::class, 'pasienParentHome'])->name('pasienP.home');
+    Route::get('/tambahChild',[PasienpController::class,'tambahParent'])->name('tambahChild');
+    Route::get('/list/turunan',[PasienpController::class,'dataParent'])->name('lihatChild');
+
+    Route::get('/riwayat/manfaat',[PasienpController::class,'tambahManfaat'])->name('manfaat');
+    Route::get('/riwayat/diagnosa',[PasienpController::class,'tambahDiagnosa'])->name('diagnosa');
+    Route::get('/riwayat/apotik',[PasienpController::class,'tambahApotik'])->name('apotik');
+    Route::get('/riwayat/tagihan',[PasienpController::class,'tambahTagihan'])->name('tagihan');
+
 });
 
 Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
@@ -117,14 +125,14 @@ Route::middleware(['auth', 'user-access:lab'])->group(function () {
 
 
 
-Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
-    Route::get('/home', [HomeController::class, 'adminHome'])->name('home');
-    Route::get('daftarpas', [PasienpController::class, 'daftarpas'])->name('pasienp.tambah');
-    // Route::get('/daftarpas', [App\Http\Controllers\Validator\PasienpController::class, 'daftarpas'])->name('daftarpas');
-    // Route::post('/registeract', [App\Http\Controllers\Validator\PasienpController::class, 'actRegister'])->name('tambahpas.pasparent');
+// Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
+//     Route::get('/home', [HomeController::class, 'adminHome'])->name('home');
+//     Route::get('daftarpas', [PasienpController::class, 'daftarpas'])->name('pasienp.tambah');
+//     // Route::get('/daftarpas', [App\Http\Controllers\Validator\PasienpController::class, 'daftarpas'])->name('daftarpas');
+//     // Route::post('/registeract', [App\Http\Controllers\Validator\PasienpController::class, 'actRegister'])->name('tambahpas.pasparent');
 
-    // Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-});
+//     // Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+// });
 
 
 Route::middleware(['auth', 'user-access:support'])->group(function () {
@@ -142,9 +150,10 @@ Route::middleware(['auth', 'user-access:manejemen'])->group(function () {
 
 Route::middleware(['auth', 'user-access:validator'])->group(function () {
   
+    // Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');
     Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');
-    Route::get('/validator/penguna_baru', [App\Http\Controllers\Validator\ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
 
+    Route::get('/validator/penguna_baru', [App\Http\Controllers\Validator\ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
     Route::get('changeStatus', [App\Http\Controllers\Validator\ValidatorController::class, 'changeStatus']);
 
 });
@@ -156,15 +165,14 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('admins', AdminsController::class,[
         'only' => ['index', 'create', 'store']
     ]);
-Route::get('/HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
-
+    Route::get('/HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
 });
 
 
 
 Route::middleware(['auth', 'user-access:administrator'])->group(function () {
     Route::get('/administrator/home', [HomeController::class, 'administratorHome'])->name('administrator.home');
-Route::get('/HalamanAdministrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
+    Route::get('/HalamanAdministrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
 
 });
 

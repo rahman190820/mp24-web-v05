@@ -284,3 +284,31 @@ package facedes erro line
 app\config -> alias
 ```
 
+```html
+  <div class="col s12 input-field">
+                <select>
+                  <option>Dokter</option>
+                  <option>Apotik</option>
+                  <option>validator</option>
+                  <option>Klinik</option>
+                  <option>Manejemen</option>
+                  <option>Admin</option>
+                  <option>Adminstrator</option>
+                </select>
+                <label>Role</label>
+              </div>
+              <div class="col s12 input-field">
+                <select>
+                  <option>Active</option>
+                  <option>Banned</option>
+                  <option>Close</option>
+                </select>
+                <label>Status</label>
+              </div>
+```
+
+```php
+php artisan route:clear
+php artisan view:clear
+php artisan cache:clear
+```

@@ -84,9 +84,14 @@ class PersonController extends Controller
         //
 
         $datas = User::where('id',$id)->update(  [
-            'nama'=> $request->nama,
-                        'noHP'=> $request->noHP,
-                        'email'=> $request->email,
+                        'noPeserta' => $request->noPeserta,
+            'noKartu' => $request->noKartu,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'kodepos' => $request->kodepos,
+            'email' => $request->email,
+            'noHP'=> str_replace('-','',$request->noHP),
+            'tanggalLahir' => $request->tanggalLahir,
      ] );
 
     //  return $request;

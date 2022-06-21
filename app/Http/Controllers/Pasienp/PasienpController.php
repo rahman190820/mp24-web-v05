@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Pasienp;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use Auth;
+use App\Models\User;
+use App\Models\Manfaat;
+use Illuminate\Support\Facades\Auth;
 
 
 class PasienpController extends Controller
@@ -74,6 +75,19 @@ class PasienpController extends Controller
     public function update(Request $request, $id)
     {
         //
+        User::where('id',$id)->update([
+            'noPeserta' => $request->noPeserta,
+            'noKartu' => $request->noKartu,
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'kodepos' => $request->kodepos,
+            'email' => $request->email,
+            'noHP' => $request->noHP,
+            'tglLahir' => $request->tglLahir,
+        ]);
+
+     return back()->with('sukses',);
+
     }
 
     /**
@@ -98,6 +112,76 @@ class PasienpController extends Controller
     public function actRegister(Request $request)
     {
         # code...
+    }
+
+    public function tambahParent(Request $request)
+    {
+        // return 'tambah';
+        $datas['DataUser'] = User::find(Auth::id());
+       
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('pasienParent.updateC',compact('datas'));
+    }
+
+
+    public function tambahManfaat(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['manfaat'] = Manfaat::get();
+        return view('pasienParent.manfaat',compact('datas'));
+    }
+
+
+    public function tambahDiagnosa(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        return view('pasienParent.diagnosa',compact('datas'));
+    }
+
+    public function tambahApotik(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        return view('pasienParent.apotik',compact('datas'));
+    }
+
+    public function tambahTagihan(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        return view('pasienParent.tagihan',compact('datas'));
+    }
+
+    public function dataParent(request $request)
+    {
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        return view('pasienParent.dataTurunan',compact('datas'));
+    }
+
+    public function visual(request $request)
+    {
+        // $datas['DataUser'] = User::find(Auth::id());
+        // $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        // $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        return view('pasienParent.visual');
     }
 
 }

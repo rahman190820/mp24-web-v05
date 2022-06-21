@@ -1,5 +1,12 @@
 @extends('layouts.loginPage')
+
+
+@push('panggil_css')
+<link rel="stylesheet" href="{{ asset('pass/css/jquery.passwordRequirements.css') }}">
+@endpush
+
 @section('konten')
+
 <div class="form-body" class="container-fluid">
     <div class="website-logo">
         <a href="index.html">
@@ -21,20 +28,20 @@
             <div class="form-content">
                 <div class="form-items">
                     <div class="page-links">
-                        <a class="{{ Route::is('login') ? 'active':'' }}" href="{{ route('login') }}">Login</a><a href="{{ route('register') }}" class="{{ Route::is('register') ? 'active':'' }}">Register</a>
+                        <a class="{{ Route::is('login') ? 'active':'' }}" href="{{ route('login') }}">Halaman Masuk</a><a href="{{ route('register') }}" class="{{ Route::is('register') ? 'active':'' }}">Daftar</a>
                     </div>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         {{-- <input class="form-control" type="text" name="name" placeholder="Full Name" required> --}}
-                        <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" placeholder="Full Name" autofocus>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="E-mail Address" >
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="ulangi password">
+                        <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="off" placeholder="Nama Lengkap" autofocus>
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email" >
+                        <input id="password" type="password" class="form-control pr-password @error('password') is-invalid @enderror" name="password" required  placeholder="Kata sandi">
+                        <input id="password-confirm" type="password" class="form-control " name="password_confirmation" required  placeholder="Ulangi Kata sandi">
 
                        
                         <div class="form-button">
                             <button type="submit" class="ibtn">
-                                {{ __('Register') }}
+                                {{ __('Daftar') }}
                             </button>
                             {{-- <button id="submit" type="submit" class="ibtn">Register</button> --}}
                         </div>
@@ -48,4 +55,15 @@
         </div>
     </div>
 </div>
+
+@push('panggil_js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write("<script src='{{asset('pass/js/lib/jquery-1.10.2.min.js')}}'>\x3C/script>")</script>
+<script src="{{ asset('pass/js/jquery.passwordRequirements.min.js') }}"></script>
+<script type="text/javascript" >
+$(document).ready(function (){
+    $(".pr-password").passwordRequirements();
+});
+@endpush
+
 @endsection

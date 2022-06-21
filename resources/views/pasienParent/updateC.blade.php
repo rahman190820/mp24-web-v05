@@ -3,62 +3,150 @@
     <div class="row">
         <div class="col s12">
             <ul class="collapsible categories-collapsible">
-                <li class="active">
-                  <div class="collapsible-header">Q: Do memberships include the original PSD files? <i class="material-icons">
+                <li >
+                  {{-- <li class="active"> --}}
+                  <div class="collapsible-header">Orang tua 1<i class="material-icons">
                       keyboard_arrow_right </i></div>
                   <div class="collapsible-body">
-                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                      hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                      chunks as necessary, making this the first true generator on the Internet.</p>
+                    <?php
+                    if ($datas['DataUser']->noKartu == null) {
+                     ?>
+                     <form id="accountForm" action="{{ route('person.update', $datas['DataUser']->id) }}" method="post">
+                   <?php
+                   } else {
+                     ?>
+                     <form>
+                 <?php
+                   }
+                       
+                   ?>
+                  
+                   
+                     @csrf
+                     {{ method_field('PUT') }}
+                     <div class="row">
+                       <div class="col s12 m6">
+                         <div class="row">
+                           <div class="col s12 input-field">
+                             <input id="noKartu" name="noKartu" type="text" class="validate" value="{{ $datas['DataUser']->noKartu }}"
+                               data-error=".errorTxt1" required>
+                             <label for="noKartu">Nomer Kartu</label>
+                             <small class="errorTxt1"></small>
+                           </div>
+                           <div class="col s12 input-field">
+                             <input id="noPeserta" name="noPeserta" type="text" class="validate" value="{{ $datas['DataUser']->noPeserta; }}"
+                               required >
+                             <label for="noPeserta">Nomer Peserta</label>
+                             <small class="errorTxt2"></small>
+                           </div>
+                           <div class="col s12 input-field">
+                             <input id="nama" name="nama" type="text" class="validate" value="{{ $datas['DataUser']->nama; }}"  required>
+                             <label for="nama">Nama Lengkap</label>
+                           </div>
+                           <div class="col s12 input-field">
+                             <input id="tanggalLahir" name="tanggalLahir" type="date" class="validate" value="{{ $datas['DataUser']->tanggalLahir; }}" required>
+                             <label for="tglLahir">Tanggal Lahir</label>
+                           </div>
+                           <div class="col s12 input-field">
+                             <p>
+                               <label>
+                                 <input class="with-gap" name="group1" type="radio" value="L" {{ $datas['DataUser']->jenisKelamin == 'L' ? '':'checked' ; }}  required/>
+                                 <span>Laki Laki</span>
+                                 
+                               </label>
+                             </p>
+             
+                             <p>
+                               <label>
+                                 <input class="with-gap" name="group1" type="radio" value="P" {{ $datas['DataUser']->jenisKelamin  == 'P' ? 'checked':'' ; }} required/>
+                                 <span>Perempuan</span>
+                               </label>
+                             </p>
+                             
+                           </div>
+                           <div class="col s12 input-field">
+                             <input id="noHP" name="noHP" type="text" class="validate nomer" value="{{ $datas['DataUser']->noHP; }}">
+                             <label for="noHP">No HP</label>
+                           </div>
+                           <div class="col s12 input-field">
+                             <input id="email" name="email" type="text" class="validate" value="{{ $datas['DataUser']->email}}" >
+                             <label for="email">Email</label>
+                           </div>
+                           
+                         </div>
+                       </div>
+                       <div class="col s12 m6">
+                         <div class="row">
+                           <div class="col s12 input-field">
+                             <input id="alamat" name="alamat" type="text" class="validate" value="{{ $datas['DataUser']->alamat ? $datas['DataUser']->alamat:'' ; }}"
+                                required>
+                             <label for="alamat">Alamat</label>
+                             <small class="errorTxt2"></small>
+                           </div>
+                           <div class="col s12 input-field">
+                             <input id="kodepos" name="kodepos" type="text" class="validate" value="{{ $datas['DataUser']->kodepos; }}"
+                                required>
+                             <label for="kodepos">kodepos</label>
+                             <small class="errorTxt2"></small>
+                           </div>
+                         
+                           {{-- <div class="col s12 input-field">
+                             <input id="company" name="company" type="text" class="validate" required>
+                             <label for="company">Company</label>
+                           </div> --}}
+                         </div>
+                       </div>
+                     
+                       <div class="col s12 display-flex justify-content-end mt-3">
+                         <?php
+                         if ($datas['DataUser']->noKartu == null) {
+                          ?>
+                           <button type="submit" class="btn indigo">
+                           Save changes</button>
+                       <?php
+                        } else {
+                          ?>
+                          
+                      <?php
+                        }
+                            
+                        ?>
+                        
+                           
+                           &nbsp;
+                         <button type="button" class="btn btn-light">Cancel</button>
+                       </div>
+                     </div>
+                   </form>
                   </div>
                 </li>
                 <li>
-                  <div class="collapsible-header">Q: How can I purchase a single theme? <i class="material-icons">
+                  <div class="collapsible-header">Orang Tua 2<i class="material-icons">
                       keyboard_arrow_right </i></div>
                   <div class="collapsible-body">
-                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                      hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                      chunks as necessary, making this the first true generator on the Internet.</p>
+                    <p>test</p>
                   </div>
                 </li>
                 <li>
-                  <div class="collapsible-header">Q: How to I modify the Footer copyright <i class="material-icons">
+                  <div class="collapsible-header">Anak Pertama<i class="material-icons">
                       keyboard_arrow_right </i></div>
                   <div class="collapsible-body">
-                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                      hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                      chunks as necessary, making this the first true generator on the Internet.</p>
+                    <p>test</p>
                   </div>
                 </li>
                 <li>
-                  <div class="collapsible-header">Q: How do I create a child theme? <i class="material-icons">
+                  <div class="collapsible-header">Anak Kedua<i class="material-icons">
                       keyboard_arrow_right </i></div>
                   <div class="collapsible-body">
-                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                      hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                      chunks as necessary, making this the first true generator on the Internet.</p>
+                    <p>test</p>
                   </div>
                 </li>
-                <li>
-                  <div class="collapsible-header">Q: Where do i post support query? <i class="material-icons">
-                      keyboard_arrow_right </i></div>
-                  <div class="collapsible-body">
-                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                      hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                      chunks as necessary, making this the first true generator on the Internet.</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="collapsible-header">Q: New to the WordPress? Lets get started? <i class="material-icons">
-                      keyboard_arrow_right </i></div>
-                  <div class="collapsible-body">
-                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
-                      hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                      chunks as necessary, making this the first true generator on the Internet.</p>
-                  </div>
-                </li>
+               
               </ul>
         </div>
     </div>
 
+
+
+@include('v_part.kananSidebar')
 @endsection
