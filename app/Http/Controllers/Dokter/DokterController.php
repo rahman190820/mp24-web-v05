@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Dokter;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+
 class DokterController extends Controller
 {
     /**
@@ -83,4 +87,41 @@ class DokterController extends Controller
     {
         //
     }
+
+    public function daftarPas(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('dokter.dafpas',compact('datas'));
+    }
+
+    public function daftar_diag(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('dokter.dafdiag',compact('datas'));
+    }
+
+    public function daftar_obt(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('dokter.dafobt',compact('datas'));
+    }
+
+    public function lap_diok(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('dokter.dafdiok');
+    }
+
 }

@@ -131,12 +131,12 @@
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="cards-basic.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards">Cards</span></a>
+                <li><a href="{{ route('daftar_pas') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards">Daftar Pasien</span></a>
                 </li>
-                <li><a href="cards-advance.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Advance">Cards Advance</span></a>
-                </li>
-                <li><a href="cards-extended.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Extended">Cards Extended</span></a>
-                </li>
+                <li><a href="{{ route('daftar_diag') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Advance">diagnosa</span></a>
+                // </li>
+                <li><a href="{{ route('daftar_obt') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Extended">obat</span></a>
+                // </li>
                 </ul>
             </div>
         </li>
@@ -148,11 +148,9 @@
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="extra-components-range-slider.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Range Slider">Range Slider</span></a>
+                <li><a href="{route('lap_diok')  }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Range Slider">Range Slider</span></a>
                 </li>
-                <li><a href="extra-components-sweetalert.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Sweetalert">Sweetalert</span></a>
-                </li>
-            
+                
                 </ul>
             </div>
         </li>
@@ -180,31 +178,31 @@
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="cards-basic.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards">Cards</span></a>
+                <li><a href="{{ route('resRsp') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards">resrp</span></a>
                 </li>
-                <li><a href="cards-advance.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Advance">Cards Advance</span></a>
+                <li><a href="{{ route('krm') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Advance">Kirim</span></a>
                 </li>
-                <li><a href="cards-extended.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Extended">Cards Extended</span></a>
+                <li><a href="{{ route('lap') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Cards Extended">lap</span></a>
                 </li>
                 </ul>
             </div>
         </li>
         
-        <li class="bold">
-            <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
-                <i class="material-icons">add_to_queue</i>
-                <span class="menu-title" data-i18n="Extra Components">Laporan Apotik</span>
-            </a>
-            <div class="collapsible-body">
-                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="extra-components-range-slider.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Range Slider">Range Slider</span></a>
-                </li>
-                <li><a href="extra-components-sweetalert.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Sweetalert">Sweetalert</span></a>
-                </li>
+        // <li class="bold">
+        //     <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)">
+        //         <i class="material-icons">add_to_queue</i>
+        //         <span class="menu-title" data-i18n="Extra Components">Laporan Apotik</span>
+        //     </a>
+        //     <div class="collapsible-body">
+        //         <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+        //         <li><a href="extra-components-range-slider.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Range Slider">Range Slider</span></a>
+        //         </li>
+        //         <li><a href="extra-components-sweetalert.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Sweetalert">Sweetalert</span></a>
+        //         </li>
             
-                </ul>
-            </div>
-        </li>
+        //         </ul>
+        //     </div>
+        // </li>
      {{-- menu Apotik --}}
      @php } @endphp
     

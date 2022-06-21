@@ -103,36 +103,47 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
 
 Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
     Route::get('/pasienC/home', [HomeController::class, 'pasienChildHome'])->name('pasienC.home');
+  
+    Route::get('/manfaat', [PasiencController::class,'pasChildManfaat'])->name('manfaat');
+    Route::get('/diagnosa', [PasiencController::class,'pasChildDiagnosa'])->name('diagnosa');
+    Route::get('/apotik', [PasiencController::class,'pasChildApotik'])->name('apotik');
+    
 });
 
 Route::middleware(['auth', 'user-access:dokter'])->group(function () {
   
     // Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
     Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
+    Route::get('/daftar', [DokterController::class,'daftarPas'])->name('daftar_pas');
+
+    Route::get('/daftardiag', [DokterController::class,'daftar_diag'])->name('daftar_diag');
+    Route::get('/daftarobt', [DokterController::class,'daftar_obt'])->name('daftar_obt');
+    Route::get('/lapdok', [DokterController::class,'lap_diok'])->name('lap_diok');
+
+
+
 });
 
 Route::middleware(['auth', 'user-access:apotik'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
   
     Route::get('/apotik/home', [HomeController::class, 'apotikHome'])->name('apotik.home');
+
+Route::get('apt/rsp', [ApotikController::class,'resRsp'])->name('resRsp');
+Route::get('apt/krm', [ApotikController::class,'krm'])->name('krm');
+Route::get('apt/lap', [ApotikController::class,'lap'])->name('lap');
+
+
 });
 
 
 Route::middleware(['auth', 'user-access:lab'])->group(function () {
   
     Route::get('/lab/home', [HomeController::class, 'labHome'])->name('lab.home');
+    Route::get('daftar_lab', [LabController::class,'daftar_lab'])->name('daflab');
+
 });
 
-
-
-// Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
-//     Route::get('/home', [HomeController::class, 'adminHome'])->name('home');
-//     Route::get('daftarpas', [PasienpController::class, 'daftarpas'])->name('pasienp.tambah');
-//     // Route::get('/daftarpas', [App\Http\Controllers\Validator\PasienpController::class, 'daftarpas'])->name('daftarpas');
-//     // Route::post('/registeract', [App\Http\Controllers\Validator\PasienpController::class, 'actRegister'])->name('tambahpas.pasparent');
-
-//     // Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-// });
 
 
 Route::middleware(['auth', 'user-access:support'])->group(function () {

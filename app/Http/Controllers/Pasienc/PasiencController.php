@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Pasienc;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\User;
+use App\Models\Manfaat;
+use Illuminate\Support\Facades\Auth;
+
+
 class PasiencController extends Controller
 {
     /**
@@ -83,4 +88,34 @@ class PasiencController extends Controller
     {
         //
     }
+
+    public function pasChildManfaat(Request $request)
+    {
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('pasienChild.manfaat');
+    }
+
+
+    public function pasChildDiagnosa(Request $request)
+    {
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('pasienChild.diagnosa');
+
+    }
+
+    public function pasChildApotik(Request $request)
+    {
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('pasienChild.apotik');
+
+    }
+
+
+
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Apotik;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 class ApotikController extends Controller
 {
     /**
@@ -84,4 +87,34 @@ class ApotikController extends Controller
         //
         
     }
+
+    public function resRsp(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('apotik.rsp',compact('datas'));
+    }
+
+
+    public function krm(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('apotik.krm',compact('datas'));
+    }
+
+    public function lap(Request $request)
+    {
+        # code...
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('apotik.lap',compact('datas'));
+    }
+
+
 }
