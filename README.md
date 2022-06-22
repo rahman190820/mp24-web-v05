@@ -316,6 +316,7 @@ php artisan cache:clear
 ```txt
 - ajax notif (composer)
 - pdf (composer)
+- signature 
 - detech device (composer)
 - ocr (composer)
 - qrcode (composer)
