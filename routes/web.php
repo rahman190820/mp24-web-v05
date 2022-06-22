@@ -43,30 +43,30 @@ Route::get('bacaIP',[BacaAlatController::class,'index']);
 
 
 Route::get('halaman3d',[PasienpController::class,'visual'])->name('visual');
-Route::get('HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
-Route::get('/HalamanAdminstrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
-Route::get('changeStatusAdmin', [AdminsController::class, 'changeStatus']);
-Route::get('changeStatusAdministrator', [AdministratorController::class, 'changeStatus']);
+// Route::get('HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
+// Route::get('/HalamanAdminstrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
+// Route::get('changeStatusAdmin', [AdminsController::class, 'changeStatus']);
+// Route::get('changeStatusAdministrator', [AdministratorController::class, 'changeStatus']);
 
-Route::post('/update-profil/{id}', [PersonController::class,'update'])->name('update-profil');
+// Route::post('/update-profil/{id}', [PersonController::class,'update'])->name('update-profil');
 
 Route::get('/profil',[PersonController::class,'index'])->name('profile_user');
 
-Route::resource('admins', AdminsController::class,[
-    'only' => ['index', 'create', 'store']
-]);
+// Route::resource('admins', AdminsController::class,[
+//     'only' => ['index', 'create', 'store']
+// ]);
 
-Route::resource('person', PersonController::class);
-Route::resource('pasienp', PasienpController::class);
-Route::resource('pasienc', PasiencController::class);
+// Route::resource('person', PersonController::class);
+// Route::resource('pasienp', PasienpController::class);
+// Route::resource('pasienc', PasiencController::class);
 
-Route::resource('dokters', DokterController::class);
-Route::resource('apotiks', ApotikController::class);
-Route::resource('labs', LabController::class);
+// Route::resource('dokters', DokterController::class);
+// Route::resource('apotiks', ApotikController::class);
+// Route::resource('labs', LabController::class);
 
-Route::resource('manajemens', ManejemenController::class);
-Route::resource('supports', SupportController::class);
-Route::resource('validators', ValidatorController::class);
+// Route::resource('manajemens', ManejemenController::class);
+// Route::resource('supports', SupportController::class);
+// Route::resource('validators', ValidatorController::class);
 
 Route::controller(DariExcelController::class)->group(function(){
     Route::get('importDataFasten', 'index');
@@ -151,8 +151,8 @@ Route::middleware(['auth', 'user-access:manejemen'])->group(function () {
 Route::middleware(['auth', 'user-access:validator'])->group(function () {
     // Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');
     Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');
-    Route::get('/validator/penguna_baru', [App\Http\Controllers\Validator\ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
-    Route::get('changeStatus', [App\Http\Controllers\Validator\ValidatorController::class, 'changeStatus']);
+    Route::get('/validator/penguna_baru', [ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
+    Route::get('changeStatus', [ValidatorController::class, 'changeStatus']);
 });
 
 
@@ -163,6 +163,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         'only' => ['index', 'create', 'store']
     ]);
     Route::get('/HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
+    Route::resource('manajemens', ManejemenController::class);
+
 });
 
 

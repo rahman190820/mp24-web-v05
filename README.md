@@ -312,3 +312,13 @@ php artisan route:clear
 php artisan view:clear
 php artisan cache:clear
 ```
+
+```txt
+- ajax notif (composer)
+- pdf (composer)
+- detech device (composer)
+- ocr (composer)
+- qrcode (composer)
+- print thermal (composer)
+- sub query
+```
