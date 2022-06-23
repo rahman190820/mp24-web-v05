@@ -29,6 +29,7 @@ use App\Http\Controllers\Administrator\AdministratorController;
 use App\Http\Controllers\Person\PersonController;
 
 use App\Http\Controllers\BacaAlatController;
+use App\Http\Controllers\CobaInputController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +42,12 @@ use App\Http\Controllers\BacaAlatController;
 */
 Route::get('bacaIP',[BacaAlatController::class,'index']);
 
+Route::resource('coba', CobaInputController::class);
+Route::get('pdf', [CobaInputController::class,'cetak_pdf']);
+Route::get('pdf1', [CobaInputController::class,'render_pdf']);
+Route::get('qr', [CobaInputController::class,'simpleQr']);
+Route::get('ttd', [CobaInputController::class,'ttd']);
+Route::post('qr', [CobaInputController::class,'upload'])->name('signaturepad.upload');
 
 Route::get('halaman3d',[PasienpController::class,'visual'])->name('visual');
 // Route::get('HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');

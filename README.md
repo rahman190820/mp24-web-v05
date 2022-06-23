@@ -315,10 +315,10 @@ php artisan cache:clear
 
 ```txt
 - ajax notif (composer)
-- pdf (composer)
+- pdf (composer) [http://127.0.0.1:8000/pdf http://127.0.0.1:8000/pdf1]
 - detech device (composer)
 - ocr (composer)
-- qrcode (composer)
+- qrcode (composer) 
 - print thermal (composer)
 - sub query
 ```
