@@ -315,7 +315,12 @@ php artisan cache:clear
 
 ```txt
 - ajax notif (composer)
+<<<<<<< HEAD
 - pdf (composer) [http://127.0.0.1:8000/pdf http://127.0.0.1:8000/pdf1]
+=======
+- pdf (composer)
+- signature 
+>>>>>>> 1afc77b5042f840830d2c28738dd2f85704d8637
 - detech device (composer)
 - ocr (composer)
 - qrcode (composer) 
