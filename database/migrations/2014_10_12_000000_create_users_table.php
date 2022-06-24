@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('noKartu')->length(16)->unsigned()->nullable();
             $table->string('noPeserta')->length(16)->unsigned()->nullable();
             $table->string('nama');
-
+            $table->biginteger('child')->nullable();
             $table->text('alamat')->nullable();
             $table->string('kodepos',6)->nullable();
             $table->double('lat')->nullable();

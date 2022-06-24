@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Manfaat;
+use App\Models\keluhanPasien;
 use Illuminate\Support\Facades\Auth;
+
+// use Carbon\Carbon;
+
 
 
 class PasienpController extends Controller
@@ -183,5 +187,25 @@ class PasienpController extends Controller
 
         return view('pasienParent.visual');
     }
+
+    public function buat_keluhan(Request $request)
+    {
+       $datas = User::find($request);
+       return view('pasienParent.keluhan',compact('datas')); 
+    }
+
+    public function reqKeluhan(Request $request)
+    {
+        keluhanPasien::create([
+            'dokter_id'=> $request->dokter_id,
+            'pasien_id'=> $request->pasien_id,
+            'keluhan'=> $request->keluhan,
+            'tanggal_dibuat'=> date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect('keluhan');
+        
+    }
+
 
 }

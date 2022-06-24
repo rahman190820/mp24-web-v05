@@ -7,6 +7,7 @@
     <title>cetak </title>
 </head>
 <body>
+    {{-- <img src="{{ asset('kopsurat/1.jpg') }}"  alt=""> --}}
     <h1>{{ $judul }}</h1>
     <br>
     <p>data</p>

@@ -48,6 +48,10 @@ Route::get('pdf1', [CobaInputController::class,'render_pdf']);
 Route::get('qr', [CobaInputController::class,'simpleQr']);
 Route::get('ttd', [CobaInputController::class,'ttd']);
 Route::post('qr', [CobaInputController::class,'upload'])->name('signaturepad.upload');
+Route::get('pdf_dom',[CobaInputController::class,'pdf_dom']);
+
+Route::get('kueri', [CobaInputController::class,'kueri']);
+
 
 Route::get('halaman3d',[PasienpController::class,'visual'])->name('visual');
 // Route::get('HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
@@ -55,15 +59,17 @@ Route::get('halaman3d',[PasienpController::class,'visual'])->name('visual');
 // Route::get('changeStatusAdmin', [AdminsController::class, 'changeStatus']);
 // Route::get('changeStatusAdministrator', [AdministratorController::class, 'changeStatus']);
 
-// Route::post('/update-profil/{id}', [PersonController::class,'update'])->name('update-profil');
 
 Route::get('/profil',[PersonController::class,'index'])->name('profile_user');
+Route::resource('ajaxproducts',ProductAjaxController::class);
+
+// Route::put('/update-profil/{id}', [PersonController::class,'update'])->name('person.update');
 
 // Route::resource('admins', AdminsController::class,[
 //     'only' => ['index', 'create', 'store']
 // ]);
 
-// Route::resource('person', PersonController::class);
+Route::resource('person', PersonController::class);
 // Route::resource('pasienp', PasienpController::class);
 // Route::resource('pasienc', PasiencController::class);
 
@@ -80,7 +86,6 @@ Route::controller(DariExcelController::class)->group(function(){
     Route::post('fasten-import', 'importFasten')->name('fasten.import');
 });
 
-// Route::resource('ajaxproducts',ProductAjaxController::class);
 
 
 Route::get('/send-notification', [NotificationController::class, 'sendOrderNotification']); //notif

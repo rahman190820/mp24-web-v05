@@ -327,3 +327,16 @@ php artisan cache:clear
 - print thermal (composer)
 - sub query
 ```
+
+```sql
+
+
+dbmp24=# select a.id as child , b.child as parent, b.fastenmedis , b.tipe from (select id from fastens union select child from fastens) as a left join fastens as b on a.id = b.id where b.child>0 ;
+
+dbmp24=# select id,fastenmedis,child from fastens where fastenmedis like 'MP%';
+dbmp24=# select id,fastenmedis,child from fastens where fastenmedis like 'MP%SBY%';
+dbmp24=# select id,fastenmedis,child from fastens where fastenmedis like 'MP%MDN%';
+
+
+
+```

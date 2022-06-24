@@ -77,7 +77,8 @@
      
       
         @csrf
-        {{ method_field('PUT') }}
+        @method('PUT')
+        {{-- {{ method_field('PUT') }} --}}
         <div class="row">
           <div class="col s12 m6">
             <div class="row">
@@ -204,6 +205,10 @@ $(document).ready(function(){
   $('.nomer').inputmask("99-9999-9999-999");  //static mask
 
 });
+</script>
+
+<script>
+  
 </script>
 @endpush
 

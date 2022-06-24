@@ -198,6 +198,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -216,7 +217,8 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'PDF1' => Barryvdh\DomPDF\Facade\Pdf::class,
 
     ])->toArray(),
 
