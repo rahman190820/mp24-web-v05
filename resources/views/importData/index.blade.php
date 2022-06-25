@@ -29,7 +29,7 @@
             Import Data Obt
         </div>
         <div class="card-body">
-            <form action="{{ route('fasten.import') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('obat.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="file" class="form-control">
                 <br>

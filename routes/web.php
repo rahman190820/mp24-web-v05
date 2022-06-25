@@ -85,6 +85,7 @@ Route::resource('person', PersonController::class);
 Route::controller(DariExcelController::class)->group(function(){
     Route::get('importDataFasten', 'index');
     Route::post('fasten-import', 'importFasten')->name('fasten.import');
+    Route::post('obat-import', 'importObat')->name('obat.import');
 });
 
 
@@ -94,7 +95,6 @@ Route::get('/send-notification', [NotificationController::class, 'sendOrderNotif
 
 Route::get('baca', [HomeController::class,'baca']);
 Route::get('pas', [PasienController::class,'index']);
-Route::get('lihat', [HomeController::class,'lihat']);
 
 Route::get('/admin', [AdminController::class,'index'])->name('admin');
 
@@ -148,19 +148,14 @@ Route::middleware(['auth', 'user-access:lab'])->group(function () {
     Route::get('daftar_lab', [LabController::class,'daftar_lab'])->name('daflab');
 });
 
-
-
 Route::middleware(['auth', 'user-access:support'])->group(function () {
     Route::get('/support/home', [HomeController::class, 'supportHome'])->name('support.home');
     Route::get('getList', [SupportController::class,'getList'])->name('getList');
 });
 
-
 Route::middleware(['auth', 'user-access:manejemen'])->group(function () {
     Route::get('/manej/home', [HomeController::class, 'manejHome'])->name('manej.home');
 });
-
-
 
 Route::middleware(['auth', 'user-access:validator'])->group(function () {
     // Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');

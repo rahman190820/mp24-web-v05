@@ -174,11 +174,6 @@ $invoice = 'test';
         // return 'baca';
     }
 
-    public function lihat()
-    {
-        # code...
-        // Auth::logout();
-        return view('konten.isi');
-    }
+    
 
 }
