@@ -32,7 +32,7 @@
             </a>
             <div class="collapsible-body">
                 <ul class="collapsible collapsible-sub" data-collapsible="accordion">
-                <li><a href="{{ route('manfaat') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Contact">Manfaat</span></a>
+                <li><a href="{{ route('manfaat_pasien') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Contact">Manfaat</span></a>
                 </li>
                 <li><a href="{{ route('diagnosa') }}"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Blog">Diagnosa</span></a>
                 </li>

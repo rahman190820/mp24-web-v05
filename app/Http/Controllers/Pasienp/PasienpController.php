@@ -8,8 +8,9 @@ use App\Models\User;
 use App\Models\Manfaat;
 use App\Models\keluhanPasien;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
-// use Carbon\Carbon;
+use Carbon\Carbon;
 
 
 
@@ -20,9 +21,24 @@ class PasienpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if ($request->ajax()) {
+            $data = keluhanPasien::latest()->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+   
+                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
+   
+                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
+    
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
         return view('pasienParent.index');
     }
 
@@ -45,6 +61,22 @@ class PasienpController extends Controller
     public function store(Request $request)
     {
         //
+        keluhanPasien::create([
+            'dokter_id'=> 1,
+            'pasien_id'=> auth()->user()->id,
+            'keluhan'=> $request->txt_nm,
+            'tanggal_dibuat'=> Carbon::now(),
+            'status'=>'1' 
+        ]);
+        $dats = array(
+            'dokter_id'=> '',
+            'pasien_id'=> '',
+            'keluhan'=> $request->txt_nm,
+            'tanggal_dibuat'=> date('Y-m-d'),
+            'status'=>'1'
+        );
+        echo json_encode($dats);
+
     }
 
     /**
@@ -136,6 +168,7 @@ class PasienpController extends Controller
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
         $datas['manfaat'] = Manfaat::get();
+        // echo json_encode($datas);
         return view('pasienParent.manfaat',compact('datas'));
     }
 

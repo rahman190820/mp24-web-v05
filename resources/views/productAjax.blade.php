@@ -31,6 +31,7 @@
                 </div>
                 <div class="col-md-12 text-right mb-5">
                     <a class="btn btn-success" href="javascript:void(0)" id="createNewProduct"> Create New Product</a>
+
                 </div>
                 <div class="col-md-12">
                     <table class="table table-bordered data-table">

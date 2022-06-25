@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Manfaat;
+use App\Models\keluhanPasien;
+use App\Models\dokterResep;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
-
+use Carbon\Carbon;
 class PasiencController extends Controller
 {
     /**
@@ -17,9 +20,24 @@ class PasiencController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if ($request->ajax()) {
+            $data = dokterResep::latest()->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+   
+                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
+   
+                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
+    
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
         return view('pasienChild.index');
     }
 
@@ -42,6 +60,13 @@ class PasiencController extends Controller
     public function store(Request $request)
     {
         //
+        keluhanPasien::create([
+            'dokter_id'=> 1,
+            'pasien_id'=> 1,
+            'keluhan'=> $request->txt_nm,
+            'tanggal_dibuat'=> Carbon::now(),
+            'status'=>'1' 
+        ]);
     }
 
     /**

@@ -51,6 +51,7 @@ Route::post('qr', [CobaInputController::class,'upload'])->name('signaturepad.upl
 Route::get('pdf_dom',[CobaInputController::class,'pdf_dom']);
 
 Route::get('kueri', [CobaInputController::class,'kueri']);
+Route::get('formulir', [CobaInputController::class,'formulir']);
 
 
 Route::get('halaman3d',[PasienpController::class,'visual'])->name('visual');
@@ -109,11 +110,12 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('/pasienP/home', [HomeController::class, 'pasienParentHome'])->name('pasienP.home');
     Route::get('/tambahChild',[PasienpController::class,'tambahParent'])->name('tambahChild');
     Route::get('/list/turunan',[PasienpController::class,'dataParent'])->name('lihatChild');
-    Route::get('/riwayat/manfaat',[PasienpController::class,'tambahManfaat'])->name('manfaat');
+    Route::get('/riwayat/manfaat',[PasienpController::class,'tambahManfaat'])->name('manfaat_pasien');
     Route::get('/riwayat/diagnosa',[PasienpController::class,'tambahDiagnosa'])->name('diagnosa');
     Route::get('/riwayat/apotik',[PasienpController::class,'tambahApotik'])->name('apotik');
     Route::get('/riwayat/tagihan',[PasienpController::class,'tambahTagihan'])->name('tagihan');
 
+    Route::resource('pasienp',PasienpController::class);
 });
 
 Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {

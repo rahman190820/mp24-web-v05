@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class ProductAjaxController extends Controller
 {
@@ -95,7 +96,7 @@ return response()->json(['success'=>'Product saved successfully.']);
     {
         //
         $where = array('id' => $request->id);
-        $company  = Company::where($where)->first();
+        $company  = Product::where($where)->first();
       
         return Response()->json($company);
     }

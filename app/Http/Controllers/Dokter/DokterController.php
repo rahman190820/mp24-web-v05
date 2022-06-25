@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\dokterResep;
 use Illuminate\Support\Facades\Auth;
-
+use Yajra\DataTables\Facades\DataTables;
+use Carbon\Carbon;
 
 class DokterController extends Controller
 {
@@ -16,9 +18,25 @@ class DokterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        if ($request->ajax()) {
+            $data = dokterResep::latest()->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+   
+                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
+   
+                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
+    
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+      
         return view('dokter.index');
     }
 
@@ -41,6 +59,14 @@ class DokterController extends Controller
     public function store(Request $request)
     {
         //
+
+        // dokterResep::create([
+
+        // ]);
+        $datas = array(
+
+        );
+        echo json_encode($datas);
     }
 
     /**
