@@ -15,10 +15,14 @@ return new class extends Migration
     {
         Schema::create('keluhan_pasiens', function (Blueprint $table) {
             $table->id();
-            $table->biginteger('dokter_id');
-            $table->biginteger('pasien_id');
-            $table->text('keluhan');
+            $table->biginteger('dokter_id')->unsigned()->nullable();
+            $table->biginteger('pasien_id')->unsigned()->nullable();
+            $table->text('keluhan')->nullable();
+            $table->text('diagnosa')->nullable();
+            $table->biginteger('resep_id')->nullable();
             $table->timestamp('tanggal_dibuat');
+            $table->datetime('tgl_keluhan_respon_dokter')->nullable();
+            $table->datetime('tgl_keluhan_respon_apotik')->nullable();
             $table->enum('status',[0,1])->default(0);
             $table->timestamps();
         });

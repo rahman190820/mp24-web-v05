@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('katdoks', function (Blueprint $table) {
+        Schema::create('diagnosas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_katdok',100);
+            $table->text('txt_diagnosis');
+            $table->text('riwayat');
             $table->timestamps();
-            $table->index('nama_katdok');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('katdoks');
+        Schema::dropIfExists('diagnosas');
     }
 };

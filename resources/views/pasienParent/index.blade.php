@@ -1,213 +1,237 @@
 @extends('layouts.apps')
-@section('konten')
+
+@push('panggil_css')
+<!-- BEGIN: VENDOR datatables-->
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/css/jquery.dataTables.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/css/select.dataTables.min.css') }}">
+<!-- END: VENDOR datatables-->
  <!-- BEGIN: Page Level CSS-->
- <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/vertical-modern-menu-template/materialize.css">
- <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/vertical-modern-menu-template/style.css">
- <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/form-wizard.css">
+ <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/data-tables.css') }}">
  <!-- END: Page Level CSS-->
+@endpush
 
-<div class="col s12">
+@section('konten')
+<div class="row">
+  <div class="content-wrapper-before gradient-45deg-indigo-blue"></div>
+  <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
+    <!-- Search for small screen-->
     <div class="container">
-      <div class="section section-form-wizard">
-        <div class="card">
-            <div class="card-content">
-            <p class="caption mb-0">We use <a
-                href="https://kinark.github.io/Materialize-stepper/?feedback_email=r%40m.com&feedback_password=sdasdasd#!">Stepper</a>
-            as a Form Wizard. Stepper is a fundamental part of material design
-            guidelines. It makes forms simplier and a lot of other stuffs.</p>
-            </div>
+      <div class="row">
+        <div class="col s10 m6 l6">
+          <h5 class="breadcrumbs-title mt-0 mb-0"><span>Dashboard</span></h5>
+          <ol class="breadcrumbs mb-0">
+            <li class="breadcrumb-item"><a href="index.html">Halaman Pasien</a>
+            </li>
+            <li class="breadcrumb-item"><a href="#">dashboard</a>
+            </li>
+            
+          </ol>
         </div>
-        <!-- Horizontal Stepper -->
-        <div class="row">
-            <div class="col s12">
-                <div class="card">
-                    <div class="card-content pb-0">
-                        <div class="card-header mb-2">
-                        <h4 class="card-title">Horizontal Stepper</h4>
-                        </div>
+      
+      </div>
+    </div>
+  </div>
+  <div class="col s12">
+    <div class="container">
+      <div class="section">
+          <div class="card">
+              <div class="card-content">
+                  <p class="caption mb-0">
+                       selamat datang <i>{{ auth()->user()->nama }}</i>
+                  </p>
+                  <br>
+                  @php
+                  if (auth()->user()->stts_approval == 'Y') {
+                  @endphp
+                  <a class="btn waves-effect waves-light cyan modal-trigger" href="#m_diagnosa">Tambah Keluhan  <i class="material-icons right">send</i></a>
+                  @php
+                  }
+                  @endphp
+              
+                  <a class="btn waves-effect waves-light cyan modal-trigger" href="#m_kk">lengkapi data keluarga<i class="material-icons right">assignment</i></a>
+              </div>
+          </div>
+      </div>
 
-                        <ul class="stepper horizontal" id="horizStepper">
-                        <li class="step active">
-                            <div class="step-title waves-effect">Step 1</div>
-                            <div class="step-content">
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <label for="firstName">First Name: <span class="red-text">*</span></label>
-                                <input type="text" id="firstName" name="firstName" class="validate" required>
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <label for="lastName">Last Name: <span class="red-text">*</span></label>
-                                <input type="text" id="lastName" class="validate" name="lastName" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <label for="Email1">Email: <span class="red-text">*</span></label>
-                                <input type="email" class="validate" name="Email" id="Email1" required>
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <label for="contactNum1">Contact Number: <span class="red-text">*</span></label>
-                                <input type="number" class="validate" name="contactNum" id="contactNum1" required>
-                                </div>
-                            </div>
-                            <div class="step-actions">
-                                <div class="row">
-                                <div class="col m4 s12 mb-3">
-                                    <button class="red btn btn-reset" type="reset">
-                                    <i class="material-icons left">clear</i>Reset
-                                    </button>
-                                </div>
-                                <div class="col m4 s12 mb-3">
-                                    <button class="btn btn-light previous-step" disabled>
-                                    <i class="material-icons left">arrow_back</i>
-                                    Prev
-                                    </button>
-                                </div>
-                                <div class="col m4 s12 mb-3">
-                                    <button class="waves-effect waves dark btn btn-primary next-step" type="submit">
-                                    Next
-                                    <i class="material-icons right">arrow_forward</i>
-                                    </button>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        <li class="step">
-                            <div class="step-title waves-effect">Step 2</div>
-                            <div class="step-content">
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <label for="proposal">Proposal Title: <span class="red-text">*</span></label>
-                                <input type="text" class="validate" id="proposal" name="proposal" required>
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <label for="job">Job Title: <span class="red-text">*</span></label>
-                                <input type="text" class="validate" id="job" name="job" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <label for="company">Previous Company:</label>
-                                <input type="text" class="validate" id="company" name="company">
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <label for="url">Video Url:</label>
-                                <input type="url" class="validate" id="url">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <label for="exp">Experience: <span class="red-text">*</span></label>
-                                <input type="text" class="validate" id="exp" name="exp">
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <label for="desc">Short Description: <span class="red-text">*</span></label>
-                                <textarea name="dec" id="desc" rows="4" class="materialize-textarea"></textarea>
-                                </div>
-                            </div>
-                            <div class="step-actions">
-                                <div class="row">
-                                <div class="col m4 s12 mb-3">
-                                    <button class="red btn btn-reset" type="reset">
-                                    <i class="material-icons left">clear</i>Reset
-                                    </button>
-                                </div>
-                                <div class="col m4 s12 mb-3">
-                                    <button class="btn btn-light previous-step">
-                                    <i class="material-icons left">arrow_back</i>
-                                    Prev
-                                    </button>
-                                </div>
-                                <div class="col m4 s12 mb-3">
-                                    <button class="waves-effect waves dark btn btn-primary next-step" type="submit">
-                                    Next
-                                    <i class="material-icons right">arrow_forward</i>
-                                    </button>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        <li class="step">
-                            <div class="step-title waves-effect">Step 3</div>
-                            <div class="step-content">
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <label for="eventName">Event Name: <span class="red-text">*</span></label>
-                                <input type="text" class="validate" id="eventName" name="eventName" required>
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <select>
-                                    <option value="Select" disabled selected>Select Event Type</option>
-                                    <option value="Wedding">Wedding</option>
-                                    <option value="Party">Party</option>
-                                    <option value="FundRaiser">Fund Raiser</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <select>
-                                    <option value="Select" disabled selected>Select Event Status</option>
-                                    <option value="Planning">Planning</option>
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <select>
-                                    <option value="Select" disabled selected>Event Location</option>
-                                    <option value="New York">New York</option>
-                                    <option value="Queens">Queens</option>
-                                    <option value="Washington">Washington</option>
-                                </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col m6 s12">
-                                <label for="Budget">Event Budget: <span class="red-text">*</span></label>
-                                <input type="Number" class="validate" id="Budget" name="Budget">
-                                </div>
-                                <div class="input-field col m6 s12">
-                                <p> <label>Requirments</label></p>
-                                <p> <label>
-                                    <input type="checkbox">
-                                    <span>Staffing</span>
-                                    </label></p>
-                                <p><label>
-                                    <input type="checkbox">
-                                    <span>Catering</span>
-                                    </label></p>
-                                </div>
-                            </div>
-                            <div class="step-actions">
-                                <div class="row">
-                                <div class="col m6 s12 mb-1">
-                                    <button class="red btn mr-1 btn-reset" type="reset">
-                                    <i class="material-icons">clear</i>
-                                    Reset
-                                    </button>
-                                </div>
-                                <div class="col m6 s12 mb-1">
-                                    <button class="waves-effect waves-dark btn btn-primary" type="submit">Submit</button>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </li>
-                        </ul>
-                    </div>
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <h4 class="card-title">
+                        Keluhan
+                    </h4>
+                    <table  class="display data-table">
+                        <thead>
+                            <th>ID</th>
+                            <th>nama pasien</th>
+                            <th>dokter</th>
+                            <th>action</th>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
-        <!-- Horizontal Stepper -->
-      </div>
+
+
+        
+
+
     </div>
+
+     @include('v_part/kananSidebar')
+      
+  </div>
+  <div class="content-overlay"></div>
+</div>
 </div>
 
- <!-- BEGIN PAGE VENDOR JS-->
- <script src="../../../app-assets/vendors/materialize-stepper/materialize-stepper.min.js"></script>
- <!-- END PAGE VENDOR JS-->
+ <!-- Modal Structure -->
+ <div id="m_diagnosa" class="modal">
+  <div class="modal-content">
+      <h4>Formulir Keluhan</h4>
+      <hr>
+      <form id="keluhanForm" action="#" method="post">
+          @csrf
+          <div class="input-field">
+            <select name="dokter_id" id="dokter_id">
+              @foreach ($datas['fasten'] as $item)
+                  <option value="{{ $item->id }}">{{ $item->fastenmedis }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="input-field">
+          <label for="keluhan">Keluhan</label>
+          <input class="validate" type="text" name="keluhan" id="keluhan">
+          </div>
+      <button id="saveBtn"   class="modal-action modal-close waves-effect waves-green btn-flat">Setuju</button>
+         
+      </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green">apply</a>
+  </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="m_kk" class="modal">
+    <div class="modal-content">
+        <h4>Daftar Keluarga</h4>
+        <hr>
+        <table  class="display data-table-user">
+          <thead>
+              <th>ID</th>
+              <th>nama</th>
+              <th>email</th>
+              <th>action</th>
+          </thead>
+      </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">tutup</a>
+    </div>
+  </div>
+@push('panggil_js')
+  <!-- BEGIN PAGE VENDOR JS-->
+  <script src="{{ asset('app-assets/vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('app-assets/vendors/data-tables/js/dataTables.select.min.js') }}"></script>
+  <!-- END PAGE VENDOR JS-->
+  <!-- BEGIN PAGE LEVEL JS-->
+  <script src="{{ asset('app-assets/js/scripts/data-tables.js') }}"></script>
+  <!-- END PAGE LEVEL JS-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+
+  $(document).ready(function(){
+    $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+    
+    // alert("selamat");
+
+    
+    var table = $('.data-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('pasienP.home') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'nama', name: 'nama pasien'},
+            {data: 'fastenmedis', name: 'dokter'},
+            {data: 'aksi', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+
+    var table_user = $('.data-table-user').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('pasienP.home.user') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'nama', name: 'nama'},
+            {data: 'email', name: 'email'},
+            {data: 'aksi', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+    
+    $('.modal').modal({
+            dismissible: false,
+            opacity: .12,
+            endingTop: '15%',
+           
+    });
+
+    $('body').on('click', '.editProduct', function () {
+        var product_id = $(this).data('id');
+        $.get("{{ route('ajaxproducts.index') }}" +'/' + product_id +'/edit', function (data) {
+            $('#ajaxModel').modal('show');
+            $('#product_id').val(data.id);
+        })
+    });
+
+    
+    $('#saveBtn').click(function (e) {
+        e.preventDefault();
+        // $(this).html('Sending..');
+        // alert($('#keluhanForm').serialize());
+        $.ajax({
+            data: $('#keluhanForm').serialize(),
+            url: "{{ route('formulir_data') }}",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+              alert('bershasil');
+               
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#saveBtn').html('Save Changes');
+            }
+        });
+    });
+
+    
+
+
+  });
+
+  </script>
+
+  <script type="text/javascript" >
+   
+
+      // $('#saveBtn').click(function (e) {
+      //   e.preventDefault();
+       
+      // });
+
+  </script>
+    
+@endpush
 
 @endsection

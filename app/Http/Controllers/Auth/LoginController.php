@@ -31,7 +31,7 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
-
+    // protected $redirectTo = '/';
     /**
      * Create a new controller instance.
      *
@@ -39,6 +39,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        // $this->middleware(['auth', 'user-access:validator'])->except('logout');
         // $this->middleware(['auth', 'user-access:validator'])->except('logout');
         // $this->middleware(['auth', 'user-access:pasienParent'])->except('logout');
         $this->middleware('guest')->except('logout');
@@ -66,6 +67,8 @@ class LoginController extends Controller
                 }else if (auth()->user()->type == 'apotik') {
     
                     return redirect()->route('apotik.home');
+
+
                     
                 }else if (auth()->user()->type == 'lab'){
                     
@@ -73,7 +76,12 @@ class LoginController extends Controller
     
                 }else if (auth()->user()->type == 'pasienParent'){
                     
-                    return redirect()->route('pasienP.home');
+                    if (auth()->user()->stts_approval == 'Y') {
+                        return redirect()->route('pasienP.home');
+                    }else{
+                        return redirect()->route('profile_user');
+                    }
+
     
                 }else if (auth()->user()->type == 'pasienChild'){
                     

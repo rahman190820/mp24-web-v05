@@ -34,8 +34,18 @@
                         @csrf
                         {{-- <input class="form-control" type="text" name="name" placeholder="Full Name" required> --}}
                         <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="off" placeholder="Nama Lengkap" autofocus>
+                        @error('nama')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="Email" >
                         <input id="password" type="password" class="form-control pr-password @error('password') is-invalid @enderror" name="password" required  placeholder="Kata sandi">
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                         <input id="password-confirm" type="password" class="form-control " name="password_confirmation" required  placeholder="Ulangi Kata sandi">
 
                        

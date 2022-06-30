@@ -30,22 +30,43 @@
             <div class="card">
                 <div class="card-content">
                     <h4 class="card-title">
-                        manfaat
+                        Keluhan
                     </h4>
                     <form action="{{ route('pasienp.store') }}" method="post">
 						@csrf
                         <div class="input-field">
-							<input type="text" name="txt_nm" id="">
+							<input type="text" name="txt_nm" id="txt_nm">
+							<label for="txt_nm">keluhan</label>
                         </div>
-                        <div class="input-field">
+
+						<div class="input-field">
+							<select name="txt_dkt" id="txt_dkt">
+								@foreach ($datas['manfaat'] as $item)
+									<option value="{{ $item->fastenmedis }}">{{ $item->fastenmedis }}</option>
+								@endforeach
+							</select>
+							<label for="txt_nm">Pilih dokter</label>
+                        </div>
+
+                        {{-- <div class="input-field">
                           <select class="select2 browser-default">
                             @foreach ($datas['manfaat'] as $pil )
                             <option value="{{ $pil->kode_manfaat }}">{{ $pil->nama_manfaat }}</option>
                             @endforeach
                           </select>
-                        </div>
+                        </div> --}}
+						{{-- visual --}}
+						
+								  <h4 class="card-title">Visual</h4>
+								  <div id="container"></div>
+								  <div id="info_mp24">
+									  {{-- <a href="https://threejs.org" target="_blank" rel="noopener">MP24</a> - Visual MP24<br/> --}}
+								  </div>
+								</div>
+							  
+						{{-- visual --}}
                          <!-- Snow Editor start -->
-							<section class="snow-editor">
+							{{-- <section class="snow-editor">
 								<div class="row">
 								<div class="col s12">
 									<div class="card">
@@ -69,7 +90,7 @@
 									</div>
 								</div>
 								</div>
-							</section>
+							</section> --}}
 						<!-- Snow Editor end -->
                         <div class="input-field">
                             {{-- <button>teest</button> --}}
@@ -94,19 +115,7 @@
     </div>
     {{-- maps --}}
 
-    <div class="row">
-      <div class="col s12">
-        <div class="card">
-          <div class="card-content">
-            <h4 class="card-title">Visual</h4>
-            <div id="container"></div>
-            <div id="info_mp24">
-                <a href="https://threejs.org" target="_blank" rel="noopener">MP24</a> - Visual MP24<br/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+   
     
 @include('v_part.kananSidebar')
 

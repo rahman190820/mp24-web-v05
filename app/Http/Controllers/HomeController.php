@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fasten;
+use App\Models\keluhanPasien;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;// kueri kostom db 
@@ -9,6 +11,8 @@ use App\Models\User;//panggil model user
 
 use App\Notifications\PasienKeDokter;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class HomeController extends Controller
 {
@@ -32,11 +36,50 @@ class HomeController extends Controller
         return 'index';
     }
 
-    public function pasienParentHome()
+    public function pasienParentHome(Request $request)
     {
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
-        return view('konten.isi',compact('datas'));
+
+        if ($request->ajax()) {
+            $data = DB::table('keluhan_pasiens')
+                    // ->select('users.nama',' keluhan_pasiens.dokter_id',' fastens.fastenmedis')
+                    ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
+                    ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')
+                    ->where('keluhan_pasiens.pasien_id',auth()->user()->id)->get();
+            // $data = DB::table('keluhan_pasiens')
+            //             ->select('')
+            //             ->get();
+            // $data = keluhanPasien::where('pasien_id', auth()->user()->id)->latest()->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function ($baris){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$baris->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Detail</a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);
+        }
+
+        $datas['fasten'] = Fasten::all();
+        return view('pasienParent.index',compact('datas'));
+    }
+
+    public function pasienParentHomeUser(Request $request)
+    {
+        # code...
+        if ($request->ajax()) {
+            $data = User::where('child', auth()->user()->id)->latest()->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function ($baris){
+                        $btn = '<a href="#m_diagnosa" data-toggle="tooltip"  data-id="'.$baris->id.'" data-original-title="Edit" class="btn waves-effect waves-light cyan modal-trigger">Detail</a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);
+        }
+        return view('paseinParent.index');
     }
 
     public function pasienChildHome()
@@ -46,22 +89,55 @@ class HomeController extends Controller
         return view('konten.isi',compact('datas'));
     }
 
-    public function dokterHome()
+    public function dokterHome(Request $request)
     {
         // return view('konten.isi');
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        if ($request->ajax()) {
+            // $data = keluhanPasien::latest()->get();
+            $data = DB::table('keluhan_pasiens')
+            ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
+            ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')->get();
+            //   ->select('users.nama',' keluhan_pasiens.dokter_id',' fastens.fastenmedis')->get();
+            // ->where('keluhan_pasiens.dokter_id',auth()->user()->id)->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function ($baris){
+                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);     
+        }
+
+        $datas['DataUser'] = User::find(auth()->user()->id);
+        
       
         // return view('konten.isi',compact('datas'));
         return view('dokter.index',compact('datas'));
     }
 
-    public function apotikHome()
+    public function apotikHome(Request $request)
     {
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
       
-        return view('konten.isi',compact('datas'));
+        if ($request->ajax()) {
+            # code...
+            $data = keluhanPasien::latest()->get();
+            return Datatables::of($data)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($baris){
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$baris->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Detail</a>';
+                return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);    
+        }
+
+        return view('apotik.index',compact('datas'));
     }
 
     public function labHome()

@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'type',
         'stts_approval_user',
+        'stts_approval',
     ];
 
     /**

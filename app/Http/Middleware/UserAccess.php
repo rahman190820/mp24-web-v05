@@ -35,11 +35,11 @@ class UserAccess
         // $next($request);
 
 
-        $data = array('pesan'=>'Anda tidak memiliki izin untuk mengakses halaman ini.');
+        // $data = array('pesan'=>'Anda tidak memiliki izin untuk mengakses halaman ini.');
         //   return response()->json($data);
         // return response()->json(['err : ']);
-        return redirect()->route('login')
-        ->with('error','System log Refresh, Silahkan Login Sekali lagi.');
-        //  return response()->view('errors.check-permission'); 
+        // return redirect()->route('login')
+        // ->with('error','System log Refresh, Silahkan Login Sekali lagi.');
+         return response()->view('errors.check-permission'); 
     }
 }

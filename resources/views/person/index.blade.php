@@ -63,7 +63,7 @@
       <!-- users edit media object ends -->
       <!-- users edit account form start -->
       <?php
-       if ($datas['DataUser']->noKartu == null) {
+       if ($datas['DataUser']->nokartu == null) {
         ?>
         <form id="accountForm" action="{{ route('person.update', $datas['DataUser']->id) }}" method="post">
       <?php
@@ -83,15 +83,15 @@
           <div class="col s12 m6">
             <div class="row">
               <div class="col s12 input-field">
-                <input id="noKartu" name="noKartu" type="text" class="validate" value="{{ $datas['DataUser']->noKartu }}"
+                <input id="nokartu" name="nokartu" type="text" class="validate" value="{{ $datas['DataUser']->nokartu }}"
                   data-error=".errorTxt1" required>
-                <label for="noKartu">Nomer Kartu</label>
+                <label for="nokartu">Nomer Kartu</label>
                 <small class="errorTxt1"></small>
               </div>
               <div class="col s12 input-field">
-                <input id="noPeserta" name="noPeserta" type="text" class="validate" value="{{ $datas['DataUser']->noPeserta; }}"
+                <input id="nopeserta" name="nopeserta" type="text" class="validate" value="{{ $datas['DataUser']->nopeserta; }}"
                   required >
-                <label for="noPeserta">Nomer Peserta</label>
+                <label for="nopeserta">Nomer Peserta</label>
                 <small class="errorTxt2"></small>
               </div>
               <div class="col s12 input-field">
@@ -99,13 +99,13 @@
                 <label for="nama">Nama Lengkap</label>
               </div>
               <div class="col s12 input-field">
-                <input id="tanggalLahir" name="tanggalLahir" type="date" class="validate" value="{{ $datas['DataUser']->tanggalLahir; }}" required>
-                <label for="tglLahir">Tanggal Lahir</label>
+                <input id="tanggallahir" name="tanggallahir" type="date" class="validate" value="{{ $datas['DataUser']->tanggallahir; }}" required>
+                <label for="tanggallahir">Tanggal Lahir</label>
               </div>
               <div class="col s12 input-field">
                 <p>
                   <label>
-                    <input class="with-gap" name="group1" type="radio" value="L" {{ $datas['DataUser']->jenisKelamin == 'L' ? '':'checked' ; }}  required/>
+                    <input class="with-gap" name="group1" type="radio" value="L" {{ $datas['DataUser']->jeniskelamin == 'L' ? '':'checked' ; }}  required/>
                     <span>Laki Laki</span>
                     
                   </label>
@@ -113,15 +113,19 @@
 
                 <p>
                   <label>
-                    <input class="with-gap" name="group1" type="radio" value="P" {{ $datas['DataUser']->jenisKelamin  == 'P' ? 'checked':'' ; }} required/>
+                    <input class="with-gap" name="group1" type="radio" value="P" {{ $datas['DataUser']->jeniskelamin  == 'P' ? 'checked':'' ; }} required/>
                     <span>Perempuan</span>
                   </label>
                 </p>
                 
               </div>
               <div class="col s12 input-field">
-                <input id="noHP" name="noHP" type="text" class="validate nomer" value="{{ $datas['DataUser']->noHP; }}">
-                <label for="noHP">No HP</label>
+                <input id="jml_turunan" name="jml_turunan" type="number" min="0" max="4" class="validate" value="{{ $datas['DataUser']->jml_turunan; }}">
+                <label for="jml_turunan">Ada Berapa anak anda ?</label>
+              </div>
+              <div class="col s12 input-field">
+                <input id="nohp" name="nohp" type="text" class="validate nomer" value="{{ $datas['DataUser']->nohp; }}">
+                <label for="nohp">No HP</label>
               </div>
               <div class="col s12 input-field">
                 <input id="email" name="email" type="text" class="validate" value="{{ $datas['DataUser']->email}}" >
@@ -154,7 +158,7 @@
         
           <div class="col s12 display-flex justify-content-end mt-3">
             <?php
-            if ($datas['DataUser']->noKartu == null) {
+            if ($datas['DataUser']->nokartu == null) {
              ?>
               <button type="submit" class="btn indigo">
               Save changes</button>

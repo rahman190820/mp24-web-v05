@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\dokterResep;
+use App\Models\keluhanPasien;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
@@ -65,6 +66,7 @@ class DokterController extends Controller
         // ]);
         $datas = array(
 
+
         );
         echo json_encode($datas);
     }
@@ -101,6 +103,28 @@ class DokterController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // dd($id);
+        keluhanPasien::where('id', auth()->user()->id')
+                        ->update([
+                            'diagnosa'=> $request->diagnosa,
+                            'tgl_keluhan_respon_dokter'=> Carbon::now(),
+                            'status'=>2,
+                        ]);
+        
+        foreach ($request->addmore as $key => $value) {
+            dokterResep::create($value);
+        }
+
+        // return back()->with('success', 'Record Created Successfully.');
+    }
+
+    public function addMorePost(Request $request)
+    {
+        # code...
+        foreach ($request->addmore as $key => $value) {
+            dokterResep::create($value);
+        }
+        return back()->with('success', 'Record Created Successfully.');
     }
 
     /**

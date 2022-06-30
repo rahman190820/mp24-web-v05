@@ -30,6 +30,16 @@ use App\Http\Controllers\Person\PersonController;
 
 use App\Http\Controllers\BacaAlatController;
 use App\Http\Controllers\CobaInputController;
+
+//dokter
+use App\Http\Controllers\Dokter\diagnosaDokterController;
+
+//keluhan
+use App\Http\Controllers\keluhanPasienController;
+
+// use App\Http\Controllers\registerDokter;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,7 +50,11 @@ use App\Http\Controllers\CobaInputController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route::get('register/dokter',[registerDokter::class, 'index'])->name('register.dokter');
+
 Route::get('bacaIP',[BacaAlatController::class,'index']);
+Route::get('kode',[BacaAlatController::class,'kode']);
 
 Route::resource('coba', CobaInputController::class);
 Route::get('pdf', [CobaInputController::class,'cetak_pdf']);
@@ -57,14 +71,14 @@ Route::get('formulir', [CobaInputController::class,'formulir']);
 Route::get('halaman3d',[PasienpController::class,'visual'])->name('visual');
 // Route::get('HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
 // Route::get('/HalamanAdminstrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
-// Route::get('changeStatusAdmin', [AdminsController::class, 'changeStatus']);
-// Route::get('changeStatusAdministrator', [AdministratorController::class, 'changeStatus']);
+Route::get('changeStatusAdmin', [AdminsController::class, 'changeStatus']);
+Route::get('changeStatusAdministrator', [AdministratorController::class, 'changeStatus']);
 
 
-Route::get('/profil',[PersonController::class,'index'])->name('profile_user');
-Route::resource('ajaxproducts',ProductAjaxController::class);
+Route::resource('ajaxproducts',ProductAjaxController::class,[
+        'only' => ['index', 'create', 'store', 'show', 'update','edit']
+    ]);
 
-// Route::put('/update-profil/{id}', [PersonController::class,'update'])->name('person.update');
 
 // Route::resource('admins', AdminsController::class,[
 //     'only' => ['index', 'create', 'store']
@@ -88,6 +102,7 @@ Route::controller(DariExcelController::class)->group(function(){
     Route::post('obat-import', 'importObat')->name('obat.import');
 });
 
+    //  Route::get('home', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('/send-notification', [NotificationController::class, 'sendOrderNotification']); //notif
@@ -106,36 +121,70 @@ Auth::routes();
 
   
 Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
-    // Route::get('/home', [HomeController::class, 'pasienParentHome'])->name('home');
-    Route::get('/pasienP/home', [HomeController::class, 'pasienParentHome'])->name('pasienP.home');
-    Route::get('/tambahChild',[PasienpController::class,'tambahParent'])->name('tambahChild');
-    Route::get('/list/turunan',[PasienpController::class,'dataParent'])->name('lihatChild');
-    Route::get('/riwayat/manfaat',[PasienpController::class,'tambahManfaat'])->name('manfaat_pasien');
-    Route::get('/riwayat/diagnosa',[PasienpController::class,'tambahDiagnosa'])->name('diagnosa');
-    Route::get('/riwayat/apotik',[PasienpController::class,'tambahApotik'])->name('apotik');
-    Route::get('/riwayat/tagihan',[PasienpController::class,'tambahTagihan'])->name('tagihan');
 
-    Route::resource('pasienp',PasienpController::class);
+    Route::get('home', function () {
+        Auth::logout();
+        return view('auth.login');
+    });
+    
+
+    Route::get('/pasienP/home',     [HomeController::class, 'pasienParentHome'])->name('pasienP.home');
+    Route::get('/pasienP/home/user',     [HomeController::class, 'pasienParentHomeUser'])->name('pasienP.home.user');
+
+    Route::get('/turunan/tambah',     [PasienpController::class,'tambahParent'])->name('turunan.tambah');
+    Route::get('/turunan/daftar',     [PasienpController::class,'dataParent'])->name('turunan.daftar');
+    
+    Route::get('/profil',[PersonController::class,'index'])->name('profile_user');
+
+
+    Route::get('/pasien/keluhan',  [PasienpController::class,'tambahKeluhan'])->name('pasien.keluhan');
+    Route::get('/riwayat/manfaat',  [PasienpController::class,'tambahKeluhan'])->name('riwayat.manfaat');
+    Route::get('/riwayat/diagnosa', [PasienpController::class,'tambahDiagnosa'])->name('riwayat.diagnosa');//lihat diagnosa
+    Route::get('/riwayat/apotik',   [PasienpController::class,'tambahApotik'])->name('riwayat.apotik');//lihat resep
+    Route::get('/riwayat/tagihan',  [PasienpController::class,'tambahTagihan'])->name('riwayat.tagihan');//pilih pengirman dan terima obat
+
+    Route::post('pasienp',[PasienpController::class],'store')->name('pasienp.store');
+    // Route::resource('pasienp',PasienpController::class);
+    Route::resource('diagnosa',diagnosaDokterController::class);
+
+    // Route::resource('keluhan',keluhanPasienController::class);
+    Route::post('keluhan/pasien',[keluhanPasienController::class,'store'])->name('formulir_data');
+    Route::put('/update-profil/{id}', [PersonController::class,'update'])->name('person.update');
+
 });
 
 Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
     Route::get('/pasienC/home', [HomeController::class, 'pasienChildHome'])->name('pasienC.home');
-    Route::get('/manfaat', [PasiencController::class,'pasChildManfaat'])->name('manfaat');
-    Route::get('/diagnosa', [PasiencController::class,'pasChildDiagnosa'])->name('diagnosa');
-    Route::get('/apotik', [PasiencController::class,'pasChildApotik'])->name('apotik');
+    Route::get('/turunan/manfaat', [PasiencController::class,'pasChildManfaat'])->name('turunan.riwayat.manfaat');
+    Route::get('/turunan/diagnosa', [PasiencController::class,'pasChildDiagnosa'])->name('turunan.riwayat.diagnosa');
+    Route::get('/turunan/apotik', [PasiencController::class,'pasChildApotik'])->name('turunan.riwayat.apotik');
+
+    Route::resource('pasien',PasiencController::class);
+    Route::resource('keluhan',keluhanPasienController::class);
+
+});
+
+
+Route::middleware(['auth', 'user-access:klinik'])->group(function () {
+    Route::get('/klinik/home', [HomeController::class, 'klinikHome'])->name('klinik.home');
 });
 
 Route::middleware(['auth', 'user-access:dokter'])->group(function () {
     // Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
     Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
-    Route::get('/daftar', [DokterController::class,'daftarPas'])->name('daftar_pas');
-    Route::get('/daftardiag', [DokterController::class,'daftar_diag'])->name('daftar_diag');
+    Route::get('/daftar', [DokterController::class,'daftarPas'])->name('dokter.daftar.pasien');
+
     Route::get('/daftarobt', [DokterController::class,'daftar_obt'])->name('daftar_obt');
     Route::get('/lapdok', [DokterController::class,'lap_diok'])->name('lap_diok');
+
+    // Route::post('/diagnosa',[DokterController::class,'store'])->name('diagnosa.store');
+    // Route::get('profil',[PersonController::class,'index'])->name('profile_user');
+    Route::put('dokter/update_diagnosa/{id}', [DokterController::class,'update'])->name('dokter.diagnosa');
+    Route::post('/dokter/home',[DokterController::class,'addMorePost'])->name('addmorePost');
 });
 
 Route::middleware(['auth', 'user-access:apotik'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/apotik/home', [HomeController::class, 'apotikHome'])->name('apotik.home');
     Route::get('apt/rsp', [ApotikController::class,'resRsp'])->name('resRsp');
     Route::get('apt/krm', [ApotikController::class,'krm'])->name('krm');
@@ -162,6 +211,11 @@ Route::middleware(['auth', 'user-access:validator'])->group(function () {
     Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');
     Route::get('/validator/penguna_baru', [ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
     Route::get('changeStatus', [ValidatorController::class, 'changeStatus']);
+    Route::get('changeStatusProfil', [ValidatorController::class, 'changeStatusProfil']);
+
+    Route::get('validasi',[ValidatorController::class,'show']);
+    
+
 });
 
 
@@ -185,7 +239,4 @@ Route::middleware(['auth', 'user-access:administrator'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'user-access:klinik'])->group(function () {
-    Route::get('/klinik/home', [HomeController::class, 'klinikHome'])->name('klinik.home');
-});
 

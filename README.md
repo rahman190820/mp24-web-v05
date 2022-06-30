@@ -223,6 +223,7 @@ refenfi : https://blog.quickadminpanel.com/laravel-notifications-with-database-d
 PS C:\mp24\webapp\mp24-app>
  php artisan migrate:rollback --path=/database/migrations/2022_06_04_133847_create_pasien_table.php
 PS C:\mp24\webapp\mp24-app> php artisan migrate --path=/database/migrations/2022_06_04_133847_create_pasien_table.php
+php artisan db:seed --class=UsersTableSeeder
 ```
 
 
@@ -340,3 +341,28 @@ dbmp24=# select id,fastenmedis,child from fastens where fastenmedis like 'MP%MDN
 
 
 ```
+
+
+```txt
+catatan
+- ketika daftar masukan jumlah anak
+- dan istri /suami
+```
+
+```txt
+dbmp24=# explain analyze select nama from coba_inputs where nama like 'Gatra Tomi Pranowo';
+dbmp24=# alter table coba_inputs alter column nama type varchar(40);
+dbmp24=# create index idx_nama on coba_inputs(nama);
+
+
+-- load data keluhan dengan join users dan fasten
+--- load data request keluhan pasien diterima dokter
+dbmp24=# select u.nama, kp.dokter_id, ftm.fastenmedis
+dbmp24-# from keluhan_pasiens as kp
+dbmp24-# left join users as u on u.id = kp.pasien_id
+dbmp24-# right join fastens as ftm on ftm.id = kp.dokter_id
+dbmp24-# where kp.dokter_id=4;
+```
+
+
+1. dokter -> pasien terima resep ->  pasien pilih aptotik terdekat dan upload resep -> apotik terima resep  -> pilih ambil atau kirim

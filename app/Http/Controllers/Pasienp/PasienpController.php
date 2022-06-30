@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pasienp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Manfaat;
+use App\Models\Fasten;
 use App\Models\keluhanPasien;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -66,6 +66,7 @@ class PasienpController extends Controller
             'pasien_id'=> auth()->user()->id,
             'keluhan'=> $request->txt_nm,
             'tanggal_dibuat'=> Carbon::now(),
+            'dokter'=> $request->txt_dkt,
             'status'=>'1' 
         ]);
         $dats = array(
@@ -150,24 +151,14 @@ class PasienpController extends Controller
         # code...
     }
 
-    public function tambahParent(Request $request)
-    {
-        // return 'tambah';
-        $datas['DataUser'] = User::find(Auth::id());
-       
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
-        return view('pasienParent.updateC',compact('datas'));
-    }
-
-
-    public function tambahManfaat(Request $request)
+   
+    public function tambahKeluhan(Request $request)
     {
         # code...
         $datas['DataUser'] = User::find(Auth::id());
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
-        $datas['manfaat'] = Manfaat::get();
+        $datas['manfaat'] = Fasten::get(['id','fastenmedis']);
         // echo json_encode($datas);
         return view('pasienParent.manfaat',compact('datas'));
     }
@@ -180,7 +171,7 @@ class PasienpController extends Controller
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
 
-        return view('pasienParent.diagnosa',compact('datas'));
+        return view('pasienParent.riwayat.diagnosa',compact('datas'));
     }
 
     public function tambahApotik(Request $request)
@@ -190,7 +181,7 @@ class PasienpController extends Controller
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
 
-        return view('pasienParent.apotik',compact('datas'));
+        return view('pasienParent.riwayat.apotik',compact('datas'));
     }
 
     public function tambahTagihan(Request $request)
@@ -200,7 +191,7 @@ class PasienpController extends Controller
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
 
-        return view('pasienParent.tagihan',compact('datas'));
+        return view('pasienParent.riwayat.tagihan',compact('datas'));
     }
 
     public function dataParent(request $request)
@@ -209,8 +200,20 @@ class PasienpController extends Controller
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
 
-        return view('pasienParent.dataTurunan',compact('datas'));
+        return view('pasienParent.turunan.dataTurunan',compact('datas'));
     }
+
+    public function tambahParent(Request $request)
+    {
+        // return 'tambah';
+        $datas['DataUser'] = User::find(Auth::id());
+       
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
+        return view('pasienParent.turunan.updateC',compact('datas'));
+    }
+
+
 
     public function visual(request $request)
     {
@@ -224,6 +227,7 @@ class PasienpController extends Controller
     public function buat_keluhan(Request $request)
     {
        $datas = User::find($request);
+       
        return view('pasienParent.keluhan',compact('datas')); 
     }
 

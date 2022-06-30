@@ -81,17 +81,25 @@ class PersonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        if ($request->jeniskelamn == 'L') {
+            $jk = "bpk";
+        } else {
+            $jk ="ibu";
+        }
+        
 
         $datas = User::where('id',$id)->update(  [
-                        'noPeserta' => $request->noPeserta,
-            'noKartu' => $request->noKartu,
+                        'nopeserta' => $request->nopeserta,
+            'nokartu' => $request->nokartu,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
             'kodepos' => $request->kodepos,
             'email' => $request->email,
-            'noHP'=> str_replace('-','',$request->noHP),
-            'tanggalLahir' => $request->tanggalLahir,
+            'nohp'=> str_replace('-','',$request->nohp),
+            'tanggallahir' => $request->tanggallahir,
+            'inisial_nama' => $jk,
+            'jml_turunan' => $request->jml_turunan,
      ] );
 
     //  return $request;

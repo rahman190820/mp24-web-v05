@@ -1,4 +1,11 @@
-@extends('layouts.apps')
+@extends('layouts.apps')<!-- BEGIN: VENDOR datatables-->
+ <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/css/jquery.dataTables.min.css') }}">
+ <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
+ <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/css/select.dataTables.min.css') }}">
+ <!-- END: VENDOR datatables-->
+  <!-- BEGIN: Page Level CSS-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/data-tables.css') }}">
+  <!-- END: Page Level CSS-->
 @section('konten')
 @push('panggil_css')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,14 +18,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script> --}}
- <!-- BEGIN: VENDOR datatables-->
- <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/css/jquery.dataTables.min.css') }}">
- <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
- <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/css/select.dataTables.min.css') }}">
- <!-- END: VENDOR datatables-->
-  <!-- BEGIN: Page Level CSS-->
-  <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/data-tables.css') }}">
-  <!-- END: Page Level CSS-->
+ 
 @endpush
 <div class="row">
     <div class="col s12">
@@ -34,7 +34,10 @@
                         <th>ID</th>
                         <th>nama</th>
                         <th>email</th>
+                        <th>approval oleh</th>
                         <th>status user</th>
+                        <th>status profil user</th>
+
                         <th>detail</th>
                     </thead>
                 </table>
@@ -46,6 +49,39 @@
     </div>
     @include('v_part/kananSidebar')
   </div>
+
+
+  
+ <!-- Modal Structure -->
+ <div id="m_diagnosa" class="modal">
+  <div class="modal-content">
+      <h6>Detail</h6>
+    
+          <div class="input-field">
+            {{-- <label for="nama">Nama</label>  --}}
+            <input class="validate" type="text" name="nama" id="nama" >
+          </div>
+          <div class="input-field">
+            {{-- <label for="tgl_lahir">Tanggal lahir</label> --}}
+            <input class="validate" type="text" name="tgl_lahir" id="tgl_lahir" >
+          </div>
+          <div class="input-field">
+            {{-- <label for="alamat">Alamat</label> --}}
+            <input class="validate" type="text" name="alamat" id="alamat" >
+          </div>
+          <div class="input-field">
+            {{-- <label for="alamat">Turunan</label> --}}
+            <input class="validate" type="text" name="turunan" id="turunan" >
+          </div>
+            
+      
+  </div>
+  <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Setuju</a>
+  </div>
+</div>
+
+
 
   @push('panggil_js')
     <!-- BEGIN PAGE VENDOR JS-->
@@ -79,7 +115,9 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nama', name: 'nama'},
             {data: 'email', name: 'email'},
+            {data: 'stts_approval_user_by', name: 'approval'},
             {data: 'status_user', name: 'status user'},
+            {data: 'stts_approval', name: 'status profil user'},
             {data: 'detail', name: 'detail', orderable: false, searchable: false},
         ]
     });
@@ -91,18 +129,48 @@
     //     $('#modelHeading').html("Create New Product");
     //     $('#ajaxModel').modal('show');
     // });
-    
-    // $('body').on('click', '.editProduct', function () {
-    //     var product_id = $(this).data('id');
-    //     $.get("{{ route('ajaxproducts.index') }}" +'/' + product_id +'/edit', function (data) {
-    //         $('#modelHeading').html("Edit Product");
-    //         $('#saveBtn').val("edit-user");
-    //         $('#ajaxModel').modal('show');
-    //         $('#product_id').val(data.id);
-    //         $('#name').val(data.name);
-    //         $('#detail').val(data.detail);
-    //     })
-    // });
+
+    $('.modal').modal({
+            dismissible: false,
+            opacity: .12,
+            endingTop: '15%',
+            
+    });
+    var product_id=null;
+    $('body').on('click', '.tampil', function () {
+        var id = $(this).data('id');
+        var nama = $(this).data('nama');
+        // alert(id +' '+nama );
+        $('#txt_nama').val(nama);
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/validasi',
+            data: {'id':id},
+          success: function (params) {
+            // alert(JSON.stringify(params));
+            $('#nama').val( params.inisial_nama +' '+ params.nama);
+            $('#tgl_lahir').val( params.tanggallahir);
+            $('#alamat').val( params.alamat+' , '+params.kodepos);
+            $('#turunan').val( params.jml_turunan);
+            
+          },
+          error:function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert('Kesalahan :'+ err.Message);
+          }
+        });
+
+        // $.get("" +'/' + id, function (data) {
+        //   alert(data);
+        //     // $('#modelHeading').html("Edit Product");
+        //     // $('#saveBtn').val("edit-user");
+        //     // $('#ajaxModel').modal('show');
+        //     $('#product_id').val(nama);
+        //     // $('#txt_nama').val(data.nama);
+        // })
+
+    });
     
     // $('#saveBtn').click(function (e) {
     //     e.preventDefault();
@@ -162,6 +230,7 @@
                 showConfirmButton: false,
                 timer: 1500
               })
+              table.draw();
               // alert()
             }
         });
@@ -174,6 +243,30 @@
         
        
     })
+
+    $('body').on('click','#pil_app',function(){
+        var status = $(this).prop('checked') == true ? 'Y' : 'T'; 
+        var user_id = $(this).data('id'); 
+        // alert(user_id);
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/changeStatusProfil',
+            data: {'status': status, 'user_id': user_id},
+            success: function(data){
+              Swal.fire({
+                icon: 'success',
+                title: data.success,
+                text: 'mp24',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              // alert()
+            }
+        });
+        
+    });
 
 
 });

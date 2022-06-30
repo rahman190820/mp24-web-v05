@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('dokter_reseps', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_obat',60);
+            $table->integer('jumlah')->unsigned();
+            $table->integer('harga')->unsigned()->nullable();
+            $table->bigInteger('id_resep')->unsigned()->nullable();
             $table->timestamps();
         });
     }

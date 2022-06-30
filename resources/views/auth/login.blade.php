@@ -64,7 +64,14 @@
                         </div>
                     </form>
                     <div class="other-links">
-                        <span>privasi</span>
+                        <ul>
+                            <li>administrator@mp24.com</li>
+                            <li>validator@mp24.com</li>
+                            <li>dokter@mp24.com</li>
+                            <li>apotik@mp24.com</li>
+                            <li>pasien@mp24.com</li>
+                            <li>pasienturunan@mp24.com</li>
+                        </ul>
                     </div>
                 </div>
             </div>
