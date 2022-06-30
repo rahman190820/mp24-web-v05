@@ -37,13 +37,14 @@ class keluhanPasienController extends Controller
     {
         //
         $datas = keluhanPasien::create([
+            // 'pasien_id'=> auth()->user()->id,
             'pasien_id'=> auth()->user()->id,
             'dokter_id'=> $request->dokter_id,
             'keluhan'=> $request->keluhan,
             'tanggal_dibuat'=> Carbon::now(),
 
         ]);
-        echo json_encode($request->all);
+        // echo json_encode($request->all);
 
         return response()->json($datas);
 

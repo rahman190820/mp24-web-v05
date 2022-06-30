@@ -100,22 +100,22 @@ class DokterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
-        // dd($id);
-        keluhanPasien::where('id', auth()->user()->id')
+        //  json_encode($request);
+        keluhanPasien::where('id_keluhan', $request->idx)
                         ->update([
                             'diagnosa'=> $request->diagnosa,
                             'tgl_keluhan_respon_dokter'=> Carbon::now(),
-                            'status'=>2,
+                            'status'=>'2'
                         ]);
         
-        foreach ($request->addmore as $key => $value) {
-            dokterResep::create($value);
-        }
+        // foreach ($request->addmore as $key => $value) {
+        //     dokterResep::create($value);
+        // }
 
-        // return back()->with('success', 'Record Created Successfully.');
+        return back()->with('success', 'OK');
     }
 
     public function addMorePost(Request $request)

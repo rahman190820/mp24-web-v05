@@ -179,7 +179,7 @@ Route::middleware(['auth', 'user-access:dokter'])->group(function () {
 
     // Route::post('/diagnosa',[DokterController::class,'store'])->name('diagnosa.store');
     // Route::get('profil',[PersonController::class,'index'])->name('profile_user');
-    Route::put('dokter/update_diagnosa/{id}', [DokterController::class,'update'])->name('dokter.diagnosa');
+    Route::post('dokter/update_diagnosa', [DokterController::class,'update'])->name('dokter.diagnosa');
     Route::post('/dokter/home',[DokterController::class,'addMorePost'])->name('addmorePost');
 });
 

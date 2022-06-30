@@ -112,7 +112,7 @@
       
           <form id="formDiagnosa" method="post">
             @csrf
-            @method('PUT')
+            @method('POST')
             <input type="hidden" name="idx1" id="idx1" value="{{ $datas['DataUser']->id }}" >
             <input type="hidden" name="idx" id="idx" >
           <div class="row section">
@@ -238,7 +238,6 @@
             var nama = $(this).data('nama');
             var keluhan = $(this).data('keluhan');
             var idx = $(this).data('id');
-            alert(idx);
             $('#nopeserta').val(nopeserta);
             $('#nama').val(nama);
             $('#keluhan').val(keluhan);
@@ -251,16 +250,34 @@
             e.preventDefault();
             var idx = $('#idx').val();
            
-            alert(idx);
+            alert($('#formDiagnosa').serialize());
             $.ajax({
-              url:'update_diagnosa/'+idx,
-              type:'put',
-              dataType:$('#formDiagnosa').serialize(),
+              // url:'update_diagnosa/',
+              url:"{{ route('dokter.diagnosa')}}",
+              type:'POST',
+              dataType:'json',
+              data:$('#formDiagnosa').serialize(),
               success: function (params) {
-                
+                alert(JSON.stringify(params));
+
+                Swal.fire({
+                          icon: 'danger',
+                          title: 'error',
+                          text: '<pre>'+JSON.stringify(params).statusText+'</pre>',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
               },
               error: function (params) {
+                // alert(params);
+                // alert(JSON.stringify(params));
                 
+                Swal.fire({
+                          icon: 'danger',
+                          title: 'error',
+                          text: JSON.stringify(params),
+                          
+                        })
               },
             });
           });

@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+
+
+
 class HomeController extends Controller
 {
     /**
@@ -45,8 +49,8 @@ class HomeController extends Controller
             $data = DB::table('keluhan_pasiens')
                     // ->select('users.nama',' keluhan_pasiens.dokter_id',' fastens.fastenmedis')
                     ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
-                    ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')
-                    ->where('keluhan_pasiens.pasien_id',auth()->user()->id)->get();
+                    ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')->get();
+                    // ->where('keluhan_pasiens.pasien_id',auth()->user()->id)->get();
             // $data = DB::table('keluhan_pasiens')
             //             ->select('')
             //             ->get();
@@ -54,7 +58,7 @@ class HomeController extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
-                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$baris->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Detail</a>';
                         return $btn;
                     })
                     ->rawColumns(['aksi'])
@@ -105,7 +109,7 @@ class HomeController extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
-                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
+                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id_keluhan.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
                         return $btn;
                     })
                     ->rawColumns(['aksi'])
@@ -113,6 +117,7 @@ class HomeController extends Controller
         }
 
         $datas['DataUser'] = User::find(auth()->user()->id);
+        // $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'nopeserta', 'length' => 10, 'prefix' =>'INV-']);;
         
       
         // return view('konten.isi',compact('datas'));
