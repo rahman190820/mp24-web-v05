@@ -163,7 +163,7 @@
             <i class="navigation-header-icon material-icons">more_horiz</i>
         </li>
         <li class="bold">
-            <a class="waves-effect waves-cyan " href="{{ route('home') }}">
+            <a class="waves-effect waves-cyan " href="{{ route('apotik.home') }}">
                 <i class="material-icons">person_outline</i>
                 <span class="menu-title" data-i18n="User Profile">Profil Apotik</span>
             </a>

@@ -196,7 +196,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Elibyy\TCPDF\ServiceProvider::class,
+        // Elibyy\TCPDF\ServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
@@ -216,9 +216,9 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
+        // 'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        'PDF1' => Barryvdh\DomPDF\Facade\Pdf::class,
+        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
 
     ])->toArray(),
 

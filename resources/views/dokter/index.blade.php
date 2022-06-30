@@ -110,7 +110,7 @@
           </div>
          
       
-          <form id="formDiagnosa" method="post">
+          <form id="formDiagnosa" action="#" method="post">
             @csrf
             @method('POST')
             <input type="hidden" name="idx1" id="idx1" value="{{ $datas['DataUser']->id }}" >
@@ -120,7 +120,7 @@
                 <p>Keterangan Diagnosa</p>
             </div>
             <div class="col s12 m8 l9">
-              <textarea name="diagnosa" id="diagnosa" cols="30" rows="10"></textarea>
+              <textarea name="diagnosa" id="diagnosa" cols="30" rows="10" required></textarea>
 
             </div>
             </div>
@@ -158,19 +158,10 @@
                       <th>aksi</th>
                   </tr>
                   <tr>  
-                      <td><input type="text" name="addmore[0][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" /></td> 
-                      <td>
-                        <select class="select2 browser-default" name="" id="">
-                          <option value="square">Square</option>
-                          <option value="rectangle">Rectangle</option>
-                          <option value="rombo">Rombo</option>
-                          <option value="romboid">Romboid</option>
-                          <option value="trapeze">Trapeze</option>
-                          <option value="traible">Triangle</option>
-                          <option value="polygon">Polygon</option>
-                        </select>
-                      </td> 
-                      <td><input type="text" name="addmore[0][jumlah]" placeholder="Jumlah" class="form-control" /></td>  
+                      <input type="hidden" name="addmore[0][id_resep]" value="{{ $datas['kdResep'] }}" class="form-control" />
+                      <td><input type="text" name="addmore[0][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off"/></td> 
+                     
+                      <td><input type="text" name="addmore[0][jumlah]" placeholder="Jumlah" class="form-control" autocomplete="off" /></td>  
                       <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Baris</button></td>  
                   </tr>  
               </table> 
@@ -229,7 +220,7 @@
 
           $('.modal').modal({
             dismissible: false,
-            opacity: .12,
+            opacity: .20,
             endingTop: '15%',
           });
 
@@ -249,37 +240,43 @@
           $('#updt').click(function (e) {
             e.preventDefault();
             var idx = $('#idx').val();
-           
-            alert($('#formDiagnosa').serialize());
-            $.ajax({
-              // url:'update_diagnosa/',
-              url:"{{ route('dokter.diagnosa')}}",
-              type:'POST',
-              dataType:'json',
-              data:$('#formDiagnosa').serialize(),
-              success: function (params) {
-                alert(JSON.stringify(params));
+            var klh = $('#keluhan').val();
+            if (klh == null) {
+              alert('isi');
+            } else{
+              alert($('#formDiagnosa').serialize());
+              $.ajax({
+                // url:'update_diagnosa/',
+                url:"{{ route('dokter.diagnosa')}}",
+                type:'POST',
+                dataType:'json',
+                data:$('#formDiagnosa').serialize(),
+                success: function (params) {
+                  alert(JSON.stringify(params));
 
-                Swal.fire({
-                          icon: 'danger',
-                          title: 'error',
-                          text: '<pre>'+JSON.stringify(params).statusText+'</pre>',
-                          showConfirmButton: false,
-                          timer: 1500
-                        })
-              },
-              error: function (params) {
-                // alert(params);
-                // alert(JSON.stringify(params));
-                
-                Swal.fire({
-                          icon: 'danger',
-                          title: 'error',
-                          text: JSON.stringify(params),
-                          
-                        })
-              },
-            });
+                  Swal.fire({
+                            icon: 'danger',
+                            title: 'error',
+                            text: '<pre>'+JSON.stringify(params).statusText+'</pre>',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                },
+                error: function (params) {
+                  // alert(params);
+                  // alert(JSON.stringify(params));
+                  
+                  Swal.fire({
+                            icon: 'danger',
+                            title: 'error',
+                            text: JSON.stringify(params),
+                            
+                          })
+                },
+              });
+            }
+
+
           });
 
 
@@ -294,8 +291,9 @@
       
            ++i;
       
-           $("#dynamicTable").append('<tr><td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" /></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="jumlah" class="form-control" /></td>'+
-            '<td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" /></td>'+
+           $("#dynamicTable").append('<tr>'+
+            ' <input type="hidden" name="addmore['+i+'][id_resep]" value="{{ $datas['kdResep'] }}" class="form-control" />'+
+            '<td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off" /></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="jumlah" class="form-control" autocomplete="off"/></td>'+
             '<td><button type="button" class="btn btn-danger remove-tr">Hapus</button></td>'+
             '</tr>');
        });

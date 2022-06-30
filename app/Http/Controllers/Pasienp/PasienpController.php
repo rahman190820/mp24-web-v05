@@ -10,6 +10,9 @@ use App\Models\keluhanPasien;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
+use App\Http\Requests\ImageUploadRequest;
+
+
 use Carbon\Carbon;
 
 
@@ -242,6 +245,11 @@ class PasienpController extends Controller
 
         return redirect('keluhan');
         
+    }
+
+    public function uploadResep(ImageUploadRequest $request)
+    {
+        # code...
     }
 
 

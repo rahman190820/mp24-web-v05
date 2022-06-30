@@ -185,7 +185,14 @@ Route::middleware(['auth', 'user-access:dokter'])->group(function () {
 
 Route::middleware(['auth', 'user-access:apotik'])->group(function () {
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    
+  
+
     Route::get('/apotik/home', [HomeController::class, 'apotikHome'])->name('apotik.home');
+    
+    Route::get('apotik/getobt',[ApotikController::class,'getObt'])->name('apotik.home.obt');
+    
     Route::get('apt/rsp', [ApotikController::class,'resRsp'])->name('resRsp');
     Route::get('apt/krm', [ApotikController::class,'krm'])->name('krm');
     Route::get('apt/lap', [ApotikController::class,'lap'])->name('lap');

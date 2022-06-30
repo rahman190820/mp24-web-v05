@@ -55,12 +55,11 @@
                     <div class="row">
                         <div class="col s12">
                             <small>Daftar Resep Pasien</small>
-                            <a class="btn waves-effect waves-light cyan modal-trigger" href="#m_diagnosa">Tambah</a>
                             <table  class="display data-table">
                               <thead>
                                   <th>ID</th>
-                                  <th>pasien</th>
-                                  <th>keluhan</th>
+                                  <th>no peserta</th>
+                                  <th>nama peserta</th>
                                   <th>detail</th>
                               </thead>
                           </table>
@@ -85,23 +84,14 @@
   <div class="modal-content">
       <h4>Detail Resep</h4>
       <hr>
-      <form action="{{ route('diagnosa.store') }}" method="post">
-          @csrf
-          <div class="input-field">
-          <label for="txt_nama">nama</label>
-          <input class="validate" type="text" name="txt_nama" id="txt_nama">
-          </div>
-          <input id="phone-code" type="text" class="">
-          <label for="phone-code">Phone Code</label>
-          <div class="row section">
-          <div class="col s12 m4 l3">
-              <p>Default version</p>
-          </div>
-          <div class="col s12 m8 l9">
-              <input type="file" id="input-file-now" class="dropify" data-default-file="" />
-          </div>
-          </div>
-      </form>
+      <table  class="display data-table-obt">
+        <thead>
+            <th>ID</th>
+            <th>nama obat</th>
+            <th>jumlah</th>
+            <th>detail</th>
+        </thead>
+    </table>
   </div>
   <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Setuju</a>
@@ -133,8 +123,8 @@
         ajax: "{{ route('apotik.home') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'pasien_id', name: 'pasien'},
-            {data: 'keluhan', name: 'keluhan'},
+            {data: 'nopeserta', name: 'no peserta'},
+            {data: 'nama', name: 'nama peserta'},
             {data: 'aksi', name: 'detail', orderable: false, searchable: false},
           ]
       });
@@ -145,6 +135,36 @@
             endingTop: '15%',
           });
 
+          $('body').on('click', '.tampil', function () {
+            var id_keluhan = $(this).data('id');
+           
+            $.ajax({
+              url:'getobt/',
+              type:'get',
+              dataType:'json',
+              success: function (params) {
+                alert(JSON.stringify(params));
+                alert('sukses');
+                var table = $('.data-table-obt').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('apotik.home.obt') }}",
+                    columns: [
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                        {data: 'nama_obat', name: 'nama obat'},
+                        {data: 'jumlah', name: 'jumlah'},
+                        {data: 'aksi', name: 'detail', orderable: false, searchable: false},
+                      ]
+                  });
+
+              },
+              error: function (params) {
+                alert(JSON.stringify(params));
+              }
+            });
+            
+            
+          });
 
       });
     

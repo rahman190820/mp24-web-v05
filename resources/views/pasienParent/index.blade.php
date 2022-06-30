@@ -90,7 +90,7 @@
   <div class="modal-content">
       <h4>Formulir Keluhan</h4>
       <hr>
-      <form id="keluhanForm" action="#" method="post">
+      <form id="keluhanForm" action="#" method="post" enctype="multipart/form-data">
           @csrf
           <div class="input-field">
             <select name="dokter_id" id="dokter_id">

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\CobaInput;
 use Illuminate\Http\Request;
 
-use Elibyy\TCPDF\Facades\TCPDF;
+// use Elibyy\TCPDF\Facades\TCPDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
+use App\Models\User;
+// use PDF;
+// use Barryvdh\DomPDF\Facade as PDF;
 use Barryvdh\DomPDF\Facade\Pdf;
+
 
 use App\Models\Fasten;
 
@@ -101,38 +104,38 @@ class CobaInputController extends Controller
 
     public function cetak_pdf()
     {
-        $pdf = new TCPDF;
-        $pdf::SetTitle('Hello World');
-        $pdf::AddPage();
-        $pdf::Write(0, 'Hello World');
-        $pdf::Output('hello_world.pdf');
+        // $pdf = new TCPDF;
+        // $pdf::SetTitle('Hello World');
+        // $pdf::AddPage();
+        // $pdf::Write(0, 'Hello World');
+        // $pdf::Output('hello_world.pdf');
     }
 
     public function render_pdf()
     {
-        $filename = 'hello_world.pdf';
+        // $filename = 'hello_world.pdf';
 
-    	$data = [
-    		'judul' => 'Hello world!',
-            // 'qrcode' => QrCode::size(300)->generate('A basic example of QR code!'),
-            'qrcode'=> QrCode::format('svg')->size(200)->errorCorrection('H')->generate('string'),
-    	];
+    	// $data = [
+    	// 	'judul' => 'Hello world!',
+        //     // 'qrcode' => QrCode::size(300)->generate('A basic example of QR code!'),
+        //     'qrcode'=> QrCode::format('svg')->size(200)->errorCorrection('H')->generate('string'),
+    	// ];
 
-        // $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('string'));
+        // // $qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate('string'));
 
 
-    	// $view = \View::make('coba.cetak_pdf', $data);
-        // $html = $view->render();
+    	// // $view = \View::make('coba.cetak_pdf', $data);
+        // // $html = $view->render();
 
-    	$pdf = new TCPDF;
+    	// $pdf = new TCPDF;
         
-        $pdf::SetTitle('Hello World');
-        $pdf::AddPage();
-        // $pdf::writeHTML($html, true, false, true, false, '');
+        // $pdf::SetTitle('Hello World');
+        // $pdf::AddPage();
+        // // $pdf::writeHTML($html, true, false, true, false, '');
 
-        $pdf::Output(public_path($filename), 'F');
+        // $pdf::Output(public_path($filename), 'F');
 
-        return response()->download(public_path($filename));
+        // return response()->download(public_path($filename));
     }
 
     public function simpleQr()
@@ -165,12 +168,16 @@ class CobaInputController extends Controller
 
     public function pdf_dom()
     {
-        $pdf = new Pdf;
-        // $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->stream();
-    //     $pdf = PDF::loadView('pdf.invoice', $data);
-    // return $pdf->download('invoice.pdf');
+        $users = User::get();
+  
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y'),
+            'users' => $users
+        ]; 
+
+        $pdf = Pdf::loadView('myPDF', $data);
+    return $pdf->stream();
     }
 
     public function kueri()

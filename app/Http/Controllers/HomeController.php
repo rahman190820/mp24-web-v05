@@ -117,7 +117,7 @@ class HomeController extends Controller
         }
 
         $datas['DataUser'] = User::find(auth()->user()->id);
-        // $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'nopeserta', 'length' => 10, 'prefix' =>'INV-']);;
+        $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'resep_id', 'length' => 8, 'prefix' =>'RSP-']);;
         
       
         // return view('konten.isi',compact('datas'));
@@ -130,18 +130,22 @@ class HomeController extends Controller
         $datas['notifications'] = auth()->user()->unreadNotifications;
       
         if ($request->ajax()) {
-            # code...
-            $data = keluhanPasien::latest()->get();
+            // $data = keluhanPasien::latest()->get();
+            $data = DB::table('keluhan_pasiens')
+            ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
+            ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')->get();
+            //   ->select('users.nama',' keluhan_pasiens.dokter_id',' fastens.fastenmedis')->get();
+            // ->where('keluhan_pasiens.dokter_id',auth()->user()->id)->get();
             return Datatables::of($data)
-            ->addIndexColumn()
-            ->addColumn('aksi', function ($baris){
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$baris->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Detail</a>';
-                return $btn;
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);    
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function ($baris){
+                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id_keluhan.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);     
         }
-
+        
         return view('apotik.index',compact('datas'));
     }
 

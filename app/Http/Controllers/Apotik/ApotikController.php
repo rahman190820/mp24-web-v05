@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Apotik;
 
 use App\Http\Controllers\Controller;
+use App\Models\dokterResep;
+use App\Models\keluhanPasien;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -133,6 +135,29 @@ class ApotikController extends Controller
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
         return view('apotik.lap',compact('datas'));
+    }
+
+
+    public function getObt(Request $request)
+    {
+        # code...
+
+        if ($request->ajax()) {
+            # code...
+            $data = dokterResep::get();
+            // $data = dokterResep::where('id_keluhan',$request->id)->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('aksi', function ($baris){
+                    $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id.'"  data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
+                    return $btn;
+                })
+                ->rawColumns(['aksi'])
+                ->make(true);                   
+        }
+
+        return response()->json(['success', ]);
+
     }
 
 

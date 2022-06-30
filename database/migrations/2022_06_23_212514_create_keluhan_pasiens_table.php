@@ -19,7 +19,7 @@ return new class extends Migration
             $table->biginteger('pasien_id')->unsigned()->nullable();
             $table->text('keluhan')->nullable();
             $table->text('diagnosa')->nullable();
-            // $table->string('resep_id',7)->nullable()->index();
+            $table->string('resep_id',8)->nullable()->index();
             $table->timestamp('tanggal_dibuat');
             $table->datetime('tgl_keluhan_respon_dokter')->nullable();
             $table->datetime('tgl_keluhan_respon_apotik')->nullable();
