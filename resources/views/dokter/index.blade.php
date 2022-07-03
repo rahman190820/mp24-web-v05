@@ -167,13 +167,13 @@
               </table> 
           
               <button type="submit" class="btn btn-success">Save</button>
-          </form>
+            </form>
 
 
 
   </div>
   <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Setuju</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green ">Tutup layar</a>
   </div>
   </div>
 @push('panggil_js')
@@ -285,7 +285,7 @@
   </script>
 
   <script type="text/javascript" >
-    var i = 0;
+      var i = 0;
        
        $("#add").click(function(){
       

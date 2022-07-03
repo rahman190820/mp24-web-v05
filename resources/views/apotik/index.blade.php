@@ -84,17 +84,48 @@
   <div class="modal-content">
       <h4>Detail Resep</h4>
       <hr>
-      <table  class="display data-table-obt">
-        <thead>
-            <th>ID</th>
-            <th>nama obat</th>
-            <th>jumlah</th>
-            <th>detail</th>
-        </thead>
-    </table>
+      <h6>Resep</h6>
+      <form action="{{ route('addmorePost') }}" method="POST">
+        @csrf
+   
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+   
+        @if (Session::has('success'))
+            <div class="alert alert-success text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <p>{{ Session::get('success') }}</p>
+            </div>
+        @endif
+   
+        <table class="table table-bordered" id="dynamicTable">  
+            <tr>
+                <th>Nama Obat</th>
+                <th>Jumlah</th>
+                <th>aksi</th>
+            </tr>
+            <tr>  
+                <input type="hidden" name="addmore[0][id_resep]"  class="form-control" />
+                <td><input type="text" name="addmore[0][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off"/></td> 
+               
+                <td><input type="text" name="addmore[0][jumlah]" placeholder="Jumlah" class="form-control" autocomplete="off" /></td>  
+                <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Baris</button></td>  
+            </tr>  
+        </table> 
+    
+        <button type="submit" class="btn btn-success">Save</button>
+      </form>
+
   </div>
   <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Setuju</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Tutup Layar</a>
   </div>
   </div>
 @push('panggil_js')
@@ -111,7 +142,7 @@
 <script>
   $(document).ready(function(){
 
-    $.ajaxSetup({
+      $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
@@ -129,44 +160,62 @@
           ]
       });
 
-          $('.modal').modal({
-            dismissible: false,
-            opacity: .12,
-            endingTop: '15%',
-          });
-
-          $('body').on('click', '.tampil', function () {
-            var id_keluhan = $(this).data('id');
-           
-            $.ajax({
-              url:'getobt/',
-              type:'get',
-              dataType:'json',
-              success: function (params) {
-                alert(JSON.stringify(params));
-                alert('sukses');
-                var table = $('.data-table-obt').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: "{{ route('apotik.home.obt') }}",
-                    columns: [
-                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                        {data: 'nama_obat', name: 'nama obat'},
-                        {data: 'jumlah', name: 'jumlah'},
-                        {data: 'aksi', name: 'detail', orderable: false, searchable: false},
-                      ]
-                  });
-
-              },
-              error: function (params) {
-                alert(JSON.stringify(params));
-              }
-            });
-            
-            
-          });
-
+      $('.modal').modal({
+        dismissible: false,
+        opacity: .12,
+        endingTop: '15%',
       });
+
+      $('body').on('click', '.tampil', function () {
+        var id_keluhan = $(this).data('id');
+        
+        $.ajax({
+          url:'getobt/',
+          type:'get',
+          dataType:'json',
+          success: function (params) {
+            // alert(JSON.stringify(params));
+            // alert('sukses');
+            var table = $('.data-table-obt').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('apotik.home.obt') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'nama_obat', name: 'nama obat'},
+                    {data: 'jumlah', name: 'jumlah'},
+                    {data: 'aksi', name: 'detail', orderable: false, searchable: false},
+                  ]
+              });
+
+          },
+          error: function (params) {
+            // alert(JSON.stringify(params));
+          }
+        });
+        
+        
+      });
+
+      var i = 0;
+       
+       $("#add").click(function(){
+      
+           ++i;
+      
+           $("#dynamicTable").append('<tr>'+
+            ' <input type="text" name="addmore['+i+'][id_resep]"  class="form-control" />'+
+            '<td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off" /></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="jumlah" class="form-control" autocomplete="off"/></td>'+
+            '<td><button type="button" class="btn btn-danger remove-tr">Hapus</button></td>'+
+            '</tr>');
+       });
+      
+       $(document).on('click', '.remove-tr', function(){  
+            $(this).parents('tr').remove();
+       });  
+
+
+  });
     
   </script>
     

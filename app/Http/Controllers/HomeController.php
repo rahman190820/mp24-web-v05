@@ -123,7 +123,6 @@ class HomeController extends Controller
         $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'foto_resep', 'length' => 8, 'prefix' =>'RSP-']);;
         
       
-        // return view('konten.isi',compact('datas'));
         return view('dokter.index',compact('datas'));
     }
 
@@ -187,7 +186,7 @@ class HomeController extends Controller
     {
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
-    //   return 'tes';
+        //   return 'tes';
         return view('validator.index',compact('datas'));
         // return view('konten.isi',compact('datas'));
     }
@@ -251,7 +250,7 @@ class HomeController extends Controller
         // DB::statement('drop table users');
 
 
-$invoice = 'test';
+        $invoice = 'test';
 
             // dd($datas);
         // return response()->json($datas);
