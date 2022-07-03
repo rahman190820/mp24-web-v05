@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 use App\Http\Requests\ImageUploadRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 
 use Carbon\Carbon;
 
@@ -220,11 +223,11 @@ class PasienpController extends Controller
 
     public function visual(request $request)
     {
-        // $datas['DataUser'] = User::find(Auth::id());
-        // $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        // $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['DataUser'] = User::find(Auth::id());
+        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
+        $datas['notifications'] = auth()->user()->unreadNotifications;
 
-        return view('pasienParent.visual');
+        return view('pasienParent.visual',compact('datas'));
     }
 
     public function buat_keluhan(Request $request)
@@ -247,10 +250,61 @@ class PasienpController extends Controller
         
     }
 
-    public function uploadResep(ImageUploadRequest $request)
+    public function uploadResep(Request $request)
     {
         # code...
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+      
+        $imageName = time().'.'.$request->image->extension();  
+       
+        $request->image->move(public_path('images'), $imageName);
+    
+        /* 
+            Write Code Here for
+            Store $imageName name in DATABASE from HERE 
+        */
+        keluhanPasien::where('pasien_id',auth()->user()->id)
+                        ->update([
+                            'foto_resep'=> $imageName
+                        ]);
+      
+        return back()
+            ->with('success','You have successfully upload image.')
+            ->with('image',$imageName);
     }
 
+    public function simpleQr()
+    {
+    //    return QrCode::size(200)->generate('A basic example of QR code!');
+        $data = "https://www.instagram.com/pln_id/?hl=id";
+       $image = QrCode::format('svg')
+                        ->size(200)->errorCorrection('H')
+                    ->generate($data);
+                    $output_file = 'images/qr-code/img-' . time() . '.svg';
+Storage::disk('local')->put($output_file, $image);//storage/app/public/img/qr-code/img-1557309130.svg 
+        return $image;            
+    } 
+
+    public function peta()
+    {
+        return Fasten::get();
+    }
+
+    public function lapPasien()
+    {
+        $users = User::get();
+  
+        $data = [
+            'title' => 'Laporan Pasien',
+            'date' => date('m/d/Y'),
+            'users' => $users
+        ]; 
+
+        $pdf = Pdf::loadView('myPDF', $data);
+    return $pdf->stream();
+        // return response()->json($id);
+    }
 
 }

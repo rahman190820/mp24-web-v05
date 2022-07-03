@@ -19,10 +19,12 @@ return new class extends Migration
             $table->biginteger('pasien_id')->unsigned()->nullable();
             $table->text('keluhan')->nullable();
             $table->text('diagnosa')->nullable();
-            $table->string('resep_id',8)->nullable()->index();
+            $table->string('foto_resep',200)->nullable()->index();
             $table->timestamp('tanggal_dibuat');
-            $table->datetime('tgl_keluhan_respon_dokter')->nullable();
-            $table->datetime('tgl_keluhan_respon_apotik')->nullable();
+            $table->datetime('tgl_keluhan_req_dokter')->nullable();
+            $table->datetime('tgl_keluhan_res_dokter')->nullable();
+            $table->datetime('tgl_keluhan_req_apotik')->nullable();
+            $table->datetime('tgl_keluhan_res_apotik')->nullable();
             $table->integer('status')->unsigned()->default(0);
             $table->timestamps();
         });

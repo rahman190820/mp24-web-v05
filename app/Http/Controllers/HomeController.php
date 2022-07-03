@@ -59,8 +59,11 @@ class HomeController extends Controller
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
                         $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Detail</a>';
+                        $btn  = $btn. '<a href="'.route('lap.pasien').'" target="_blank" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm ">Laporan</a>';
+
                         return $btn;
                     })
+                  
                     ->rawColumns(['aksi'])
                     ->make(true);
         }
@@ -117,7 +120,7 @@ class HomeController extends Controller
         }
 
         $datas['DataUser'] = User::find(auth()->user()->id);
-        $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'resep_id', 'length' => 8, 'prefix' =>'RSP-']);;
+        $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'foto_resep', 'length' => 8, 'prefix' =>'RSP-']);;
         
       
         // return view('konten.isi',compact('datas'));

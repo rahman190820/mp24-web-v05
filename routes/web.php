@@ -53,6 +53,8 @@ use App\Http\Controllers\keluhanPasienController;
 
 // Route::get('register/dokter',[registerDokter::class, 'index'])->name('register.dokter');
 
+Route::get('invoice/dokter',[DokterController::class,'cetakInvoice']);
+
 Route::get('bacaIP',[BacaAlatController::class,'index']);
 Route::get('kode',[BacaAlatController::class,'kode']);
 
@@ -151,7 +153,23 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::post('keluhan/pasien',[keluhanPasienController::class,'store'])->name('formulir_data');
     Route::put('/update-profil/{id}', [PersonController::class,'update'])->name('person.update');
 
+    //map
+    Route::get('leaflect',[PasienpController::class,'peta']);
+
+    //upload resep
+    Route::post('image-upload', [PasienpController::class,'uploadResep'])->name('gambar.store');
+
+    //laporan_pdf
+    Route::get('laporan/pasien',[PasienpController::class,'lapPasien'])->name('lap.pasien');
+
+    //qr
+    Route::get('keluhan/qrcode',[PasienpController::class,'simpleQr'])->name('keluhan.qrcode');
+
+
+
 });
+
+
 
 Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
     Route::get('/pasienC/home', [HomeController::class, 'pasienChildHome'])->name('pasienC.home');

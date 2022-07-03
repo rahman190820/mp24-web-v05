@@ -65,7 +65,7 @@ class PasienKeDokter extends Notification
     public function toArray($notifiable)
     {
         return [
-            'user_id' => $this->orderPasienkeDokter['order_id'],
+            'user_id' => $this->orderPasienkeDokter['user_id'],
             'user_name' => $this->orderPasienkeDokter['name'],
             'user_email' => $this->orderPasienkeDokter['email'],
         ];

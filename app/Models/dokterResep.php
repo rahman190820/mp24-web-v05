@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class dokterResep extends Model
 {
     use HasFactory;
-    protected $fillable = ['nama_obat','jumlah','harga'];
+    protected $fillable = ['nama_obat','jumlah'];
 }

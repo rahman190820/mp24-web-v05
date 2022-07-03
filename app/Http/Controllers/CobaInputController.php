@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 // use Elibyy\TCPDF\Facades\TCPDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+
 use App\Models\User;
 // use PDF;
 // use Barryvdh\DomPDF\Facade as PDF;
@@ -14,7 +16,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 
 use App\Models\Fasten;
-
+use Illuminate\Support\Facades\Storage;
 
 class CobaInputController extends Controller
 {
@@ -140,7 +142,14 @@ class CobaInputController extends Controller
 
     public function simpleQr()
     {
-       return QrCode::size(300)->generate('A basic example of QR code!');
+    //    return QrCode::size(200)->generate('A basic example of QR code!');
+        $data = "https://www.instagram.com/pln_id/?hl=id";
+       $image = QrCode::format('svg')
+                        ->size(200)->errorCorrection('H')
+                    ->generate($data);
+                    $output_file = 'images/qr-code/img-' . time() . '.svg';
+Storage::disk('local')->put($output_file, $image);//storage/app/public/img/qr-code/img-1557309130.svg 
+        return $image;            
     } 
 
     public function ttd()
@@ -171,7 +180,7 @@ class CobaInputController extends Controller
         $users = User::get();
   
         $data = [
-            'title' => 'Welcome to ItSolutionStuff.com',
+            'title' => 'Laporan Pasien',
             'date' => date('m/d/Y'),
             'users' => $users
         ]; 

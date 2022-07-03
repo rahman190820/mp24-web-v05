@@ -292,7 +292,7 @@
            ++i;
       
            $("#dynamicTable").append('<tr>'+
-            ' <input type="hidden" name="addmore['+i+'][id_resep]" value="{{ $datas['kdResep'] }}" class="form-control" />'+
+            ' <input type="text" name="addmore['+i+'][id_resep]" value="{{ $datas['kdResep'] }}" class="form-control" />'+
             '<td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off" /></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="jumlah" class="form-control" autocomplete="off"/></td>'+
             '<td><button type="button" class="btn btn-danger remove-tr">Hapus</button></td>'+
             '</tr>');
