@@ -58,7 +58,7 @@ class HomeController extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
-                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Detail</a>';
+                        $btn = '<a href="#m_storeresep" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="btn waves-effect waves-light cyan modal-trigger tampil">upload resep</a>&nbsp';
                         $btn  = $btn. '<a href="'.route('lap.pasien').'" target="_blank" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm ">Laporan</a>';
 
                         return $btn;
@@ -112,7 +112,7 @@ class HomeController extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
-                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id_keluhan.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
+                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id_keluhan.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-original-title="Edit" class="btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
                         return $btn;
                     })
                     ->rawColumns(['aksi'])

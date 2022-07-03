@@ -6,6 +6,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/data-tables/css/select.dataTables.min.css') }}">
 <!-- END: VENDOR datatables-->
+  <!-- BEGIN: VENDOR CSS-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/vendors.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/flag-icon/css/flag-icon.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/dropify/css/dropify.min.css') }}">
+  <!-- END: VENDOR CSS-->
  <!-- BEGIN: Page Level CSS-->
  <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/pages/data-tables.css') }}">
  <!-- END: Page Level CSS-->
@@ -70,24 +75,7 @@
         </div>
 
 
-        <div class="row">
-          <div class="col s6">
-            <div class="card">
-              <div class="card-content">
-                <h4 class="card-title">Peta</h4>
-                <div id="map" style="width: auto; height: 200px;"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col s6">
-            <div class="card">
-              <div class="card-content">
-                <h4 class="card-title">Peta</h4>
-                <div id="map2" style="width: auto; height: 200px;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
           <div class="col s12">
               <div class="card">
@@ -125,7 +113,29 @@
  <div id="m_diagnosa" class="modal">
   <div class="modal-content">
       <h4>Formulir Keluhan</h4>
+
       <hr>
+      <div class="row">
+        <div class="col s6">
+          <div class="card">
+            <div class="card-content">
+              <h4 class="card-title">Lokasi Saya</h4>
+              <div id="map" style="width: auto; height: 200px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col s6">
+          <div class="card">
+            <div class="card-content">
+              <h4 class="card-title">Gambar Visual</h4>
+              <div class="center">
+                <a href="{{ route('visual') }}" target="_blank" class="btn btn-success">tampil gambar visual</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
       <form id="keluhanForm" action="#" method="post" >
           @csrf
           <div class="input-field">
@@ -152,7 +162,7 @@
 
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green">apply</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green">tutup layar</a>
   </div>
 </div>
 
@@ -183,17 +193,18 @@
       <hr>
       <form action="{{ route('gambar.store') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <label class="form-label" for="inputImage">Image:</label>
+        <label class="form-label" for="input-file-now">Image:</label>
         <input 
             type="file" 
             name="image" 
-            id="inputImage"
-            class="form-control @error('image') is-invalid @enderror">
+            id="input-file-now" 
+            class="form-control dropify @error('image') is-invalid @enderror">
 
         @error('image')
             <span class="text-danger">{{ $message }}</span>
         @enderror
-        <input type="submit" value="apply">
+      
+        <input class="btn btn-primary btn-sm" type="submit" value="apply">
       </form>
     
   </div>
@@ -208,6 +219,9 @@
   <script src="{{ asset('app-assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('app-assets/vendors/data-tables/js/dataTables.select.min.js') }}"></script>
   <!-- END PAGE VENDOR JS-->
+   <!-- BEGIN PAGE VENDOR JS-->
+   <script src="{{ asset('app-assets/vendors/dropify/js/dropify.min.js') }}"></script>
+   <!-- END PAGE VENDOR JS-->
   <!-- BEGIN PAGE LEVEL JS-->
   <script src="{{ asset('app-assets/js/scripts/data-tables.js') }}"></script>
   <!-- END PAGE LEVEL JS-->
@@ -220,6 +234,7 @@
 <script>
 
   $(document).ready(function(){
+    $('.dropify').dropify();// upload animation
     $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
