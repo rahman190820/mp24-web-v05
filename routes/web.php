@@ -53,7 +53,7 @@ use App\Http\Controllers\keluhanPasienController;
 
 // Route::get('register/dokter',[registerDokter::class, 'index'])->name('register.dokter');
 
-Route::get('invoice/dokter',[DokterController::class,'cetakInvoice']);
+Route::get('invoice/dokter',[DokterController::class,'cetakInvoice'])->name('billing');
 
 Route::get('bacaIP',[BacaAlatController::class,'index']);
 Route::get('kode',[BacaAlatController::class,'kode']);
@@ -123,50 +123,32 @@ Auth::routes();
 
   
 Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
-
     Route::get('home', function () {
         Auth::logout();
         return view('auth.login');
     });
-    
-
-    Route::get('/pasienP/home',     [HomeController::class, 'pasienParentHome'])->name('pasienP.home');
-    Route::get('/pasienP/home/user',     [HomeController::class, 'pasienParentHomeUser'])->name('pasienP.home.user');
-
-    Route::get('/turunan/tambah',     [PasienpController::class,'tambahParent'])->name('turunan.tambah');
-    Route::get('/turunan/daftar',     [PasienpController::class,'dataParent'])->name('turunan.daftar');
-    
-    Route::get('/profil',[PersonController::class,'index'])->name('profile_user');
-
-
-    Route::get('/pasien/keluhan',  [PasienpController::class,'tambahKeluhan'])->name('pasien.keluhan');
-    Route::get('/riwayat/manfaat',  [PasienpController::class,'tambahKeluhan'])->name('riwayat.manfaat');
-    Route::get('/riwayat/diagnosa', [PasienpController::class,'tambahDiagnosa'])->name('riwayat.diagnosa');//lihat diagnosa
-    Route::get('/riwayat/apotik',   [PasienpController::class,'tambahApotik'])->name('riwayat.apotik');//lihat resep
-    Route::get('/riwayat/tagihan',  [PasienpController::class,'tambahTagihan'])->name('riwayat.tagihan');//pilih pengirman dan terima obat
-
+    Route::get('/pasienP/home',[HomeController::class, 'pasienParentHome'])->name('pasienP.home');
+    Route::get('/pasienP/home/user',[HomeController::class, 'pasienParentHomeUser'])->name('pasienP.home.user');
+    Route::get('/turunan/tambah',[PasienpController::class,'tambahParent'])->name('turunan.tambah');
+    Route::get('/turunan/daftar',[PasienpController::class,'dataParent'])->name('turunan.daftar');
+    Route::get('/profil', [PersonController::class,'index'])->name('profile_user');
+    Route::get('/pasien/keluhan',[PasienpController::class,'tambahKeluhan'])->name('pasien.keluhan');
+    Route::get('/riwayat/manfaat',[PasienpController::class,'tambahKeluhan'])->name('riwayat.manfaat');
+    Route::get('/riwayat/diagnosa',[PasienpController::class,'tambahDiagnosa'])->name('riwayat.diagnosa');//lihat diagnosa
+    Route::get('/riwayat/apotik',[PasienpController::class,'tambahApotik'])->name('riwayat.apotik');//lihat resep
+    Route::get('/riwayat/tagihan',[PasienpController::class,'tambahTagihan'])->name('riwayat.tagihan');//pilih pengirman dan terima obat
     Route::post('pasienp',[PasienpController::class],'store')->name('pasienp.store');
-    // Route::resource('pasienp',PasienpController::class);
-    Route::resource('diagnosa',diagnosaDokterController::class);
-
-    // Route::resource('keluhan',keluhanPasienController::class);
-    Route::post('keluhan/pasien',[keluhanPasienController::class,'store'])->name('formulir_data');
+    // Route::resource('diagnosa',diagnosaDokterController::class);
+    Route::post('keluhan/pasien', [keluhanPasienController::class,'store'])->name('formulir_data');
     Route::put('/update-profil/{id}', [PersonController::class,'update'])->name('person.update');
-
     //map
     Route::get('leaflect',[PasienpController::class,'peta']);
-
     //upload resep
-    Route::post('image-upload', [PasienpController::class,'uploadResep'])->name('gambar.store');
-
+    Route::post('image-upload',   [PasienpController::class,'uploadResep'])->name('gambar.store');
     //laporan_pdf
-    Route::get('laporan/pasien',[PasienpController::class,'lapPasien'])->name('lap.pasien');
-
+    Route::get('laporan/pasien',  [PasienpController::class,'lapPasien'])->name('lap.pasien');
     //qr
-    Route::get('keluhan/qrcode',[PasienpController::class,'simpleQr'])->name('keluhan.qrcode');
-
-
-
+    Route::get('keluhan/qrcode',  [PasienpController::class,'simpleQr'])->name('keluhan.qrcode');
 });
 
 
@@ -248,7 +230,7 @@ Route::middleware(['auth', 'user-access:validator'])->group(function () {
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::resource('admins', AdminsController::class,[
-        'only' => ['index', 'create', 'store']
+ 'only' => ['index', 'create', 'store']
     ]);
     Route::get('/HalamanAdmin',[AdminsController::class,'adminPage'])->name('validator_admin');
     Route::resource('manajemens', ManejemenController::class);

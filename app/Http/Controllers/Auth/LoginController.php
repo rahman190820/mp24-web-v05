@@ -53,6 +53,7 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
      
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'], )))
         {
@@ -101,6 +102,12 @@ class LoginController extends Controller
                     return redirect()->route('klinik.home');
                 }
             }
+        }else if(auth('fastens')->attempt(array('email' => $input['email'], 'password' => $input['password'] ))){
+            // $selamat = "ucapan";
+            // dd($selamat);
+            dd(auth('fastens')->user());
+            // auth('fastens')->logout();
+            //         return redirect()->route('login')->with('error_log','Akun Anda sudah Terdaftar sebagai dokter ✅, tinggal verifikas');
         }else{
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');

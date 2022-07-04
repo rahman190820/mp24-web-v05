@@ -47,19 +47,14 @@ class HomeController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('keluhan_pasiens')
-                    // ->select('users.nama',' keluhan_pasiens.dokter_id',' fastens.fastenmedis')
                     ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
                     ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')->get();
-                    // ->where('keluhan_pasiens.pasien_id',auth()->user()->id)->get();
-            // $data = DB::table('keluhan_pasiens')
-            //             ->select('')
-            //             ->get();
-            // $data = keluhanPasien::where('pasien_id', auth()->user()->id)->latest()->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
                         $btn = '<a href="#m_storeresep" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="btn waves-effect waves-light cyan modal-trigger tampil">upload resep</a>&nbsp';
-                        $btn  = $btn. '<a href="'.route('lap.pasien').'" target="_blank" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm ">Laporan</a>';
+                        $btn  = $btn. '<a href="'.route('lap.pasien').'" target="_blank" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm ">Laporan</a>&nbsp';
+                        $btn  = $btn. '<a href="'.route('billing').'" target="_blank" data-toggle="tooltip"  data-id="'.$baris->id_keluhan.'" data-original-title="Edit" class="edit btn btn-primary btn-sm ">Billing</a>';
 
                         return $btn;
                     })
@@ -103,12 +98,9 @@ class HomeController extends Controller
         $datas['notifications'] = auth()->user()->unreadNotifications;
 
         if ($request->ajax()) {
-            // $data = keluhanPasien::latest()->get();
             $data = DB::table('keluhan_pasiens')
             ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
             ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')->get();
-            //   ->select('users.nama',' keluhan_pasiens.dokter_id',' fastens.fastenmedis')->get();
-            // ->where('keluhan_pasiens.dokter_id',auth()->user()->id)->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
@@ -136,8 +128,6 @@ class HomeController extends Controller
             $data = DB::table('keluhan_pasiens')
             ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
             ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')->get();
-            //   ->select('users.nama',' keluhan_pasiens.dokter_id',' fastens.fastenmedis')->get();
-            // ->where('keluhan_pasiens.dokter_id',auth()->user()->id)->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
@@ -195,6 +185,14 @@ class HomeController extends Controller
     {
         $datas['notif_count'] = count(auth()->user()->unreadNotifications);
         $datas['notifications'] = auth()->user()->unreadNotifications;
+
+        $datas['hitung_user_pasien'] = count(User::where('type',0 )->orwhere('type',3)->get());
+        $datas['hitung_user_admin'] = count(User::where('type',0 )->orwhere('type',3)->get());
+        $datas['hitung_user_amistrator'] = count(User::where('type',0 )->orwhere('type',3)->get());
+        $datas['hitung_user_fasten'] = count(User::where('type',0 )->orwhere('type',3)->get());
+        $datas['hitung_user_apotik'] = count(User::where('type',0 )->orwhere('type',3)->get());
+
+        // dd($datas);
       
         return view('administrator.index',compact('datas'));
     }

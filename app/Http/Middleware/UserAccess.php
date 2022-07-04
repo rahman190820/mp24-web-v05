@@ -40,6 +40,8 @@ class UserAccess
         // return response()->json(['err : ']);
         // return redirect()->route('login')
         // ->with('error','System log Refresh, Silahkan Login Sekali lagi.');
+        // Auth::logout();  
+        // return view('auth.login');
          return response()->view('errors.check-permission'); 
     }
 }

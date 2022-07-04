@@ -81,7 +81,7 @@
               <div class="card">
                   <div class="card-content">
                       <h4 class="card-title">
-                          Keluhan
+                          Permintaan keluhan - request 
                       </h4>
                       <table  class="display data-table">
                           <thead>

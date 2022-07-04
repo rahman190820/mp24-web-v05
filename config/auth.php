@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'fastens' => [
+            'driver' => 'session',
+            'provider' => 'fastens',
+        ],
     ],
 
     /*
@@ -65,10 +69,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'fastens' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\fasten::class,
+        ],
     ],
 
     /*
@@ -89,6 +93,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'fastens' => [
+            'provider' => 'fastens',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

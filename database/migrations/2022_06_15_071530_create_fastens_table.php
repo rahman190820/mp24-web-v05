@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('alamat')->nullable();
             $table->bigInteger('kontak')->length(15)->unsigned()->nullable();
             $table->enum('status', [0, 1])->default(1);	
+            $table->integer('parent')->length(2)->unsigned()->nullable();
             $table->integer('child')->length(1)->unsigned()->nullable();
             $table->biginteger('tipe')->length(1)->unsigned()->nullable();
             $table->char('wilayah')->nullable();
@@ -26,8 +27,19 @@ return new class extends Migration
             $table->string('koordinat_lat')->nullable();
             // $table->bigInteger('Mobile')->length(15)->unsigned()->nullable(); // tidak bisa baca +62 
             $table->string('Mobile')->length(15)->nullable(); // tidak bisa baca +62 
-            $table->char('Email')->length(60)->nullable();
-            $table->string('Image')->nullable();
+
+            $table->char('email')->length(60)->nullable();
+            $table->enum('stts_approval', ['Y', 'T'])->lenght(1)->default('T');
+            $table->date('date_approval')->nullable();
+            $table->string('stts_approval_user_by')->length(40)->default('System')->nullable();
+            $table->enum('stts_approval_user', ['Y', 'T'])->default('T');
+            $table->date('date_approval_user')->nullable();
+            $table->enum('stts', ['Y', 'T'])->default('Y');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->tinyInteger('type')->default(0);
+            $table->string('foto')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

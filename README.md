@@ -365,4 +365,23 @@ dbmp24-# where kp.dokter_id=4;
 ```
 
 
-1. dokter -> pasien terima resep ->  pasien pilih aptotik terdekat dan upload resep -> apotik terima resep  -> pilih ambil atau kirim
+1. dokter -> pasien terima resep ->  pasien pilih aptotik terdekat dan upload resep -> apotik terima resep 
+
+
+ -> pilih ambil atau kirim
+
+
+
+ ```txt
+select fastenmedis,parent,child,tipe from fastens;
+
+---menampilkan parent saja-----
+select fastenmedis,parent,child,tipe 
+from public.fastens
+where parent=0 and tipe=5;
+
+---menampilkan child saja-----
+select fastenmedis,parent,child,tipe 
+from public.fastens
+where child=0;
+ ```
