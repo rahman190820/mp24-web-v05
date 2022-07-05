@@ -27,7 +27,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->middleware('auth_fasten');
     }
 
     /**
@@ -94,8 +95,8 @@ class HomeController extends Controller
     public function dokterHome(Request $request)
     {
         // return view('konten.isi');
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
 
         if ($request->ajax()) {
             $data = DB::table('keluhan_pasiens')
@@ -111,7 +112,7 @@ class HomeController extends Controller
                     ->make(true);     
         }
 
-        $datas['DataUser'] = User::find(auth()->user()->id);
+        $datas['DataUser'] = User::find(auth('fastens')->user()->id);
         $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'foto_resep', 'length' => 8, 'prefix' =>'RSP-']);;
         
       
@@ -120,8 +121,8 @@ class HomeController extends Controller
 
     public function apotikHome(Request $request)
     {
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
       
         if ($request->ajax()) {
             // $data = keluhanPasien::latest()->get();
@@ -143,16 +144,16 @@ class HomeController extends Controller
 
     public function labHome()
     {
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
       
         return view('konten.isi',compact('datas'));
     }
 
     public function adminHome()
     {
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
         return view('konten.isi',compact('datas'));
     }
 
@@ -174,8 +175,10 @@ class HomeController extends Controller
 
     public function validatorHome()
     {
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        // $users = auth('fastens')->user();
+        // dd($users);
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
         //   return 'tes';
         return view('validator.index',compact('datas'));
         // return view('konten.isi',compact('datas'));
@@ -183,8 +186,8 @@ class HomeController extends Controller
 
     public function administratorHome()
     {
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
 
         $datas['hitung_user_pasien'] = count(User::where('type',0 )->orwhere('type',3)->get());
         $datas['hitung_user_admin'] = count(User::where('type',0 )->orwhere('type',3)->get());

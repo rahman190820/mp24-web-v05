@@ -121,7 +121,8 @@ class ValidatorController extends Controller
     public function validatorPage(Request $request )
     {
         // LogDB::record(Auth::user(), 'Akses Halaman Pengguna Baru', 'oleh rule validator'); //logs system
-        $ids = Auth::id();
+        // $ids = Auth::id();
+        $ids = auth('fastens')->user()->id;
         $user = User::findOrFail($ids);
 
         $orderPasienkeDokter = [
@@ -165,8 +166,8 @@ class ValidatorController extends Controller
         }
         // echo json_encode($request->ajax());
         // dd($datas);
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
       
         // echo json_encode($datas);
 return view('validator.pengguna', compact('datas'));

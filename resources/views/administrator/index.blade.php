@@ -8,7 +8,7 @@
     <div class="cards-extended">
         <div class="card">
             <div class="card-content">
-              <h4 class="card-title">Selamat Datang {{ auth()->user()->nama }}</h4>
+              <h4 class="card-title">Selamat Datang {{ auth('fastens')->user()->fastenmedis }}</h4>
               <p>
                 Innformasi
                 {{-- <a href="css-color.html" target="_blank"> css-color.html</a>. --}}

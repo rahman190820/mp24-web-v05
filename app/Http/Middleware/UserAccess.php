@@ -20,9 +20,31 @@ class UserAccess
     public function handle(Request $request, Closure $next, $userType)
     {
         // return $next($request);
-        if(auth()->user()->type == $userType ){
+
+    //    dd(auth()->check());
+       
+       if (auth()->check()==true) {
+         if(auth()->user()->type == $userType ){
+          return $next($request);
+          }
+        // dd(auth()->user());
+       } else {
+        // dd(auth('fastens')->user());
+        if(auth('fastens')->user()->type == $userType ){
             return $next($request);
-        }
+            }
+        # code...
+       }
+       
+
+        // if(auth()->user()->type == $userType ){
+        //     return $next($request);
+        // } else if (auth('fastens')->user()->type == $userType ){
+        //     return $next($request);
+        // } 
+        
+        
+      
 
 
         // if(auth()->check() && auth()->user()->type == $userType && auth()->user()->stts_approval_user == 'Y' ){
@@ -42,6 +64,6 @@ class UserAccess
         // ->with('error','System log Refresh, Silahkan Login Sekali lagi.');
         // Auth::logout();  
         // return view('auth.login');
-         return response()->view('errors.check-permission'); 
+        //  return response()->view('errors.check-permission'); 
     }
 }

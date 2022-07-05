@@ -54,7 +54,13 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END: Header-->
     @include('v_part/a_header')
     <!-- BEGIN: SideNav-->
+    
+    @if (Illuminate\Support\Facades\Auth::check())
     @include('v_part/sidenav')
+    @else
+    @include('v_part/sidenav_fasten')
+    @endif
+
     <!-- END: SideNav-->
 
     <!-- BEGIN: Page Main-->

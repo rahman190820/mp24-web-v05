@@ -59,23 +59,9 @@ class LoginController extends Controller
         {
             if (auth()->user()->stts_approval_user == 'T') {
                 Auth::logout();
-                return redirect()->route('login')->with('error_log','Akun Anda sudah Terdaftar ✅, tinggal verifikasi');;
+                return redirect()->route('login')->with('error_log','Akun Anda sudah Terdaftar ✅, tinggal verifikasi');
             } else {
-                if (auth()->user()->type == 'dokter') {
-
-                    return redirect()->route('dokter.home');
-    
-                }else if (auth()->user()->type == 'apotik') {
-    
-                    return redirect()->route('apotik.home');
-
-
-                    
-                }else if (auth()->user()->type == 'lab'){
-                    
-                    return redirect()->route('lab.home');
-    
-                }else if (auth()->user()->type == 'pasienParent'){
+                 if (auth()->user()->type == 'pasienParent'){
                     
                     if (auth()->user()->stts_approval == 'Y') {
                         return redirect()->route('pasienP.home');
@@ -88,26 +74,33 @@ class LoginController extends Controller
                     
                     return redirect()->route('pasienC.home');
     
-                }else if (auth()->user()->type == 'support'){
-                    return redirect()->route('support.home');
-                }else if (auth()->user()->type == 'manejemen'){
-                    return redirect()->route('manej.home');
-                }else if (auth()->user()->type == 'validator'){
-                    return redirect()->route('validator.home');
-                }else if( auth()->user()->type == 'admin' ){
-                    return redirect()->route('admin.home');
-                }else if( auth()->user()->type == 'administrator' ){
-                    return redirect()->route('administrator.home');
-                }else if( auth()->user()->type == 'klinik' ){
-                    return redirect()->route('klinik.home');
                 }
             }
         }else if(auth('fastens')->attempt(array('email' => $input['email'], 'password' => $input['password'] ))){
             // $selamat = "ucapan";
             // dd($selamat);
-            dd(auth('fastens')->user());
+            // dd(auth('fastens')->user()->type);
             // auth('fastens')->logout();
             //         return redirect()->route('login')->with('error_log','Akun Anda sudah Terdaftar sebagai dokter ✅, tinggal verifikas');
+            if (auth('fastens')->user()->type == 'dokter') {
+                return redirect()->route('dokter.home');
+            }else if (auth('fastens')->user()->type == 'apotik') {
+                return redirect()->route('apotik.home');
+            }else if (auth('fastens')->user()->type == 'lab'){
+                return redirect()->route('lab.home');
+            }else if (auth('fastens')->user()->type == 'support'){
+                return redirect()->route('support.home');
+            }else if (auth('fastens')->user()->type == 'manejemen'){
+                return redirect()->route('manej.home');
+            }else if (auth('fastens')->user()->type == 'validator'){
+                return redirect()->route('validator.home');
+            }else if( auth('fastens')->user()->type == 'admin' ){
+                return redirect()->route('admin.home');
+            }else if( auth('fastens')->user()->type == 'administrator' ){
+                return redirect()->route('administrator.home');
+            }else if( auth('fastens')->user()->type == 'klinik' ){
+                return redirect()->route('klinik.home');
+            }
         }else{
             return redirect()->route('login')
                 ->with('error','Email-Address And Password Are Wrong.');

@@ -25,7 +25,7 @@
                         </div>
                         <div class="carousel-item slide-1">
                             <img src="../../../app-assets/images/gallery/intro-slide-1.png" alt="" class="responsive-img animated fadeInUp slide-1-img">
-                            <h5 class="intro-step-title mt-7 center animated fadeInUp">Selamat,  {{ Auth::user()->name }} </h5>
+                            <h5 class="intro-step-title mt-7 center animated fadeInUp">Selamat,   </h5>
                             <p class="intro-step-text mt-5 animated fadeInUp">Selamat datang di layanan portal web Medika Persada 24 (MP24) .</p>
                         </div>
                         <div class="carousel-item slide-2">

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fasten;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,75 +16,62 @@ class FastenSeeder extends Seeder
     public function run()
     {
         //
-        $pengguna = [
+        $penggunas = [
             [
-                'nama'=>'Pasien',
-                'email'=>'pasien@mp24.com',
-                'type'=>0,
-                'password'=> bcrypt('123456'),
-             ],
-            [
-               'nama'=>'Dokter',
-               'email'=>'dokter@mp24.com',
-               'type'=>1,
-               'password'=> bcrypt('123456'),
-            ],
-            [
-               'nama'=>'Apotik',
+               'fastenmedis'=>'Apotik',
                'email'=>'apotik@mp24.com',
                'type'=> 2,
                'password'=> bcrypt('123456'),
             ],
             [
-                'nama'=>'Turunan Pasien',
-                'email'=>'pasienturunan@mp24.com',
-                'type'=>3,
-                'password'=> bcrypt('123456'),
-             ],
-            [
-               'nama'=>'Laboratorium',
+               'fastenmedis'=>'Laboratorium',
                'email'=>'lab@mp24.com',
                'type'=>4,
                'password'=> bcrypt('123456'),
             ],
             [
-                'nama'=>'Validator',
+                'fastenmedis'=>'Validator',
                 'email'=>'validator@mp24.com',
                 'stts_approval_user'=>'Y',
                 'type'=>5,
                 'password'=> bcrypt('123456'),
              ],
              [
-                'nama'=>'Manejemen',
+                'fastenmedis'=>'Manejemen',
                 'email'=>'manejemen@mp24.com',
                 'type'=>6,
                 'password'=> bcrypt('123456'),
              ],
              [
-                'nama'=>'Support',
+                'fastenmedis'=>'Support',
                 'email'=>'support@mp24.com',
                 'type'=>7,
                 'password'=> bcrypt('123456'),
              ],
              [
-                'nama'=>'Admin',
+                'fastenmedis'=>'Admin',
                 'email'=>'admin@mp24.com',
                 'stts_approval_user'=>'Y',
                 'type'=>8,
                 'password'=> bcrypt('123456'),
              ],
              [
-               'nama'=>'Administrator',
+               'fastenmedis'=>'Administrator',
                'email'=>'administrator@mp24.com',
                'stts_approval_user'=>'Y',
                'type'=>9,
                'password'=> bcrypt('123456'),
             ],[
-               'nama'=>'klinik',
+               'fastenmedis'=>'klinik',
                'email'=>'klinik@mp24.com',
                'type'=>10,
                'password'=> bcrypt('123456'),
             ],
         ];
+
+        foreach ($penggunas as $key => $pengguna) {
+         Fasten::create($pengguna);
+     }
+
     }
 }

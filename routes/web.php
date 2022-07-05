@@ -121,10 +121,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-  
+// pasienParent
 Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('home', function () {
-        Auth::logout();
+            Auth::logout();
         return view('auth.login');
     });
     Route::get('/pasienP/home',[HomeController::class, 'pasienParentHome'])->name('pasienP.home');
@@ -165,11 +165,11 @@ Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'user-access:klinik'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:klinik'])->group(function () {
     Route::get('/klinik/home', [HomeController::class, 'klinikHome'])->name('klinik.home');
 });
 
-Route::middleware(['auth', 'user-access:dokter'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:dokter'])->group(function () {
     // Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
     Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
     Route::get('/daftar', [DokterController::class,'daftarPas'])->name('dokter.daftar.pasien');
@@ -183,7 +183,7 @@ Route::middleware(['auth', 'user-access:dokter'])->group(function () {
     Route::post('/dokter/home',[DokterController::class,'addMorePost'])->name('addmorePost');
 });
 
-Route::middleware(['auth', 'user-access:apotik'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:apotik'])->group(function () {
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     
@@ -199,21 +199,21 @@ Route::middleware(['auth', 'user-access:apotik'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'user-access:lab'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:lab'])->group(function () {
     Route::get('/lab/home', [HomeController::class, 'labHome'])->name('lab.home');
     Route::get('daftar_lab', [LabController::class,'daftar_lab'])->name('daflab');
 });
 
-Route::middleware(['auth', 'user-access:support'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:support'])->group(function () {
     Route::get('/support/home', [HomeController::class, 'supportHome'])->name('support.home');
     Route::get('getList', [SupportController::class,'getList'])->name('getList');
 });
 
-Route::middleware(['auth', 'user-access:manejemen'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:manejemen'])->group(function () {
     Route::get('/manej/home', [HomeController::class, 'manejHome'])->name('manej.home');
 });
 
-Route::middleware(['auth', 'user-access:validator'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:validator'])->group(function () {
     // Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');
     Route::get('/validator/home', [HomeController::class, 'validatorHome'])->name('validator.home');
     Route::get('/validator/penguna_baru', [ValidatorController::class, 'validatorPage'])->name('validator.validatorPage');
@@ -227,7 +227,7 @@ Route::middleware(['auth', 'user-access:validator'])->group(function () {
 
 
 
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:admin'])->group(function () {
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::resource('admins', AdminsController::class,[
  'only' => ['index', 'create', 'store']
@@ -239,7 +239,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
 
 
-Route::middleware(['auth', 'user-access:administrator'])->group(function () {
+Route::middleware(['auth_fasten', 'user-access:administrator'])->group(function () {
     Route::get('/administrator/home', [HomeController::class, 'administratorHome'])->name('administrator.home');
     Route::get('/HalamanAdministrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
 
