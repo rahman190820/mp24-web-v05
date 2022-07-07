@@ -42,7 +42,7 @@ class keluhanPasienController extends Controller
             'dokter_id'=> $request->dokter_id,
             'keluhan'=> $request->keluhan,
             'tanggal_dibuat'=> Carbon::now(),
-
+            'tgl_keluhan_req_dokter' => Carbon::now(),
         ]);
         // echo json_encode($request->all);
 

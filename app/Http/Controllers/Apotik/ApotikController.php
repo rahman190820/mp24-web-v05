@@ -141,23 +141,36 @@ class ApotikController extends Controller
     public function getObt(Request $request)
     {
         # code...
+        $data = keluhanPasien::where('id_keluhan',$request->id);
+        // if ($request->ajax()) {
+        //     # code...
+        //     $data = dokterResep::get();
+        //     // $data = dokterResep::where('id_keluhan',$request->id)->get();
+        //     return Datatables::of($data)
+        //         ->addIndexColumn()
+        //         ->addColumn('aksi', function ($baris){
+        //             $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id.'"  data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
+        //             return $btn;
+        //         })
+        //         ->rawColumns(['aksi'])
+        //         ->make(true);                   
+        // }
 
-        if ($request->ajax()) {
-            # code...
-            $data = dokterResep::get();
-            // $data = dokterResep::where('id_keluhan',$request->id)->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('aksi', function ($baris){
-                    $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id.'"  data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
-                    return $btn;
-                })
-                ->rawColumns(['aksi'])
-                ->make(true);                   
+        return response()->json($data);
+
+    }
+
+
+    public function tambahObat(Request $request)
+    {
+
+        keluhanPasien::where('id_keluhan',$request->idx)->update([
+            'tgl_keluhan_res_apotik'=>Carbon::now(),
+        ]);
+        foreach ($request->addmore as $key => $value) {
+            dokterResep::create($value);
         }
-
-        return response()->json(['success', ]);
-
+        return back()->with('success', 'Record Created Successfully.');
     }
 
 

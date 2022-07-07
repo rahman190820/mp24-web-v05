@@ -38,7 +38,7 @@
           <div class="card">
               <div class="card-content">
                   <p class="caption mb-0">
-                      selamat datang {{ auth()->user()->name }}
+                      selamat datang {{ auth('fastens')->user()->fastenmedis }}
                   </p>
               </div>
           </div>
@@ -83,9 +83,10 @@
  <div id="m_diagnosa" class="modal">
   <div class="modal-content">
       <h4>Detail Resep</h4>
+      <img id="my_image" src="" alt="">
       <hr>
       <h6>Resep</h6>
-      <form action="{{ route('addmorePost') }}" method="POST">
+      <form action="{{ route('apotikobat') }}" method="POST">
         @csrf
    
         @if ($errors->any())
@@ -104,18 +105,20 @@
                 <p>{{ Session::get('success') }}</p>
             </div>
         @endif
-   
+        {{-- <input type="text" id="idx" name="idx"> --}}
         <table class="table table-bordered" id="dynamicTable">  
             <tr>
                 <th>Nama Obat</th>
                 <th>Jumlah</th>
+                <th>Harga</th>
                 <th>aksi</th>
             </tr>
             <tr>  
-                <input type="hidden" name="addmore[0][id_resep]"  class="form-control" />
+                <input type="hidden" id="idx" name="addmore[0][id_resep]"  class="form-control" />
                 <td><input type="text" name="addmore[0][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off"/></td> 
                
                 <td><input type="text" name="addmore[0][jumlah]" placeholder="Jumlah" class="form-control" autocomplete="off" /></td>  
+                <td><input type="text" name="addmore[0][harga]" placeholder="Harga" class="form-control" autocomplete="off" /></td>  
                 <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Baris</button></td>  
             </tr>  
         </table> 
@@ -168,31 +171,26 @@
 
       $('body').on('click', '.tampil', function () {
         var id_keluhan = $(this).data('id');
-        
-        $.ajax({
-          url:'getobt/',
-          type:'get',
-          dataType:'json',
-          success: function (params) {
-            // alert(JSON.stringify(params));
-            // alert('sukses');
-            var table = $('.data-table-obt').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('apotik.home.obt') }}",
-                columns: [
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'nama_obat', name: 'nama obat'},
-                    {data: 'jumlah', name: 'jumlah'},
-                    {data: 'aksi', name: 'detail', orderable: false, searchable: false},
-                  ]
-              });
+       
+        var gmb = $(this).data('gambar');
+        alert(id_keluhan);
 
-          },
-          error: function (params) {
-            // alert(JSON.stringify(params));
-          }
-        });
+        $('#my_image').attr("src","{{ asset('images') }}"+"/"+gmb);
+        $('#idx').val(id_keluhan);
+        // $.ajax({
+        //   url:'getobt/',
+        //   type:'post',
+        //   dataType:'json',
+        //   success: function (params) {
+        //     alert(JSON.stringify(params));
+        //     // alert('sukses');
+            
+
+        //   },
+        //   error: function (params) {
+        //     // alert(JSON.stringify(params));
+        //   }
+        // });
         
         
       });
@@ -200,12 +198,15 @@
       var i = 0;
        
        $("#add").click(function(){
-      
+        var ids = $('#idx').val();
+
            ++i;
       
            $("#dynamicTable").append('<tr>'+
-            ' <input type="text" name="addmore['+i+'][id_resep]"  class="form-control" />'+
-            '<td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off" /></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="jumlah" class="form-control" autocomplete="off"/></td>'+
+            ' <td><input type="hidden" value="'+ids+'" name="addmore['+i+'][id_resep]"  class="form-control" /></td>'+
+            '<td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off" /></td>'+
+            '<td><input type="number" name="addmore['+i+'][jumlah]" placeholder="jumlah" class="form-control" autocomplete="off"/></td>'+
+            '<td><input type="number" name="addmore['+i+'][harga]" placeholder="Harga" class="form-control" autocomplete="off"/></td>'+
             '<td><button type="button" class="btn btn-danger remove-tr">Hapus</button></td>'+
             '</tr>');
        });
@@ -218,6 +219,7 @@
   });
     
   </script>
+
     
 @endpush
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Fasten;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -106,8 +107,8 @@ class AdministratorController extends Controller
 
     public function administratorPage(Request $request)
     {
-        $ids = Auth::id();
-        $user = User::findOrFail($ids);
+        $ids = auth('fastens')->user()->id;
+        $user = Fasten::findOrFail($ids); // join
         if ($request->ajax()) {
 
             $data = User::latest()->get();
@@ -129,8 +130,8 @@ class AdministratorController extends Controller
         $user_id = User::select('nama')->first();
         // return response()->json($user_id);
 
-        $datas['notif_count'] = count(auth()->user()->unreadNotifications);
-        $datas['notifications'] = auth()->user()->unreadNotifications;
+        $datas['notif_count'] = count(auth('fastens')->user()->unreadNotifications);
+        $datas['notifications'] = auth('fastens')->user()->unreadNotifications;
 
         return view('administrator.validator', compact('datas'));
 
@@ -141,6 +142,7 @@ class AdministratorController extends Controller
         $date = Carbon::now();
 
         $user = User::find($request->user_id);
+        $user->stts_approval_user_by = auth('fastens')->user()->fastenmedis;
         $user->stts_approval_user = $request->status;
         $user->date_approval_user = $date;
         $user->save();

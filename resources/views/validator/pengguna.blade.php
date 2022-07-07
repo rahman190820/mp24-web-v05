@@ -77,7 +77,7 @@
       
   </div>
   <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Setuju</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">tutup</a>
   </div>
 </div>
 

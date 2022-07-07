@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Validator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Fasten;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -123,10 +124,10 @@ class ValidatorController extends Controller
         // LogDB::record(Auth::user(), 'Akses Halaman Pengguna Baru', 'oleh rule validator'); //logs system
         // $ids = Auth::id();
         $ids = auth('fastens')->user()->id;
-        $user = User::findOrFail($ids);
+        $user = Fasten::findOrFail($ids);
 
         $orderPasienkeDokter = [
-            'name' => $user->nama,
+            'name' => $user->fastenmedis,
             'body' => 'You received an order.',
             'thanks' => 'Thank you',
             'orderText' => 'Check out the order',
@@ -198,7 +199,7 @@ return view('validator.pengguna', compact('datas'));
         $date = Carbon::now();
 
         $user = User::find($request->user_id);
-        $user->stts_approval_user_by = auth()->user()->nama;
+        $user->stts_approval_user_by = auth('fastens')->user()->fastenmedis;
         $user->stts_approval_user = $request->status;
         $user->date_approval_user = $date;
         $user->save();
@@ -211,7 +212,7 @@ return view('validator.pengguna', compact('datas'));
         $date = Carbon::now();
 
         $user = User::find($request->user_id);
-        $user->stts_approval_user_by = auth()->user()->nama;
+        $user->stts_approval_user_by = auth('fastens')->user()->fastenmedis;
         $user->stts_approval = $request->status;
         $user->date_approval = $date;
         $user->save();

@@ -151,8 +151,6 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('keluhan/qrcode',  [PasienpController::class,'simpleQr'])->name('keluhan.qrcode');
 });
 
-
-
 Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
     Route::get('/pasienC/home', [HomeController::class, 'pasienChildHome'])->name('pasienC.home');
     Route::get('/turunan/manfaat', [PasiencController::class,'pasChildManfaat'])->name('turunan.riwayat.manfaat');
@@ -164,13 +162,11 @@ Route::middleware(['auth', 'user-access:pasienChild'])->group(function () {
 
 });
 
-
 Route::middleware(['auth_fasten', 'user-access:klinik'])->group(function () {
     Route::get('/klinik/home', [HomeController::class, 'klinikHome'])->name('klinik.home');
 });
 
 Route::middleware(['auth_fasten', 'user-access:dokter'])->group(function () {
-    // Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
     Route::get('/dokter/home', [HomeController::class, 'dokterHome'])->name('dokter.home');
     Route::get('/daftar', [DokterController::class,'daftarPas'])->name('dokter.daftar.pasien');
 
@@ -185,19 +181,17 @@ Route::middleware(['auth_fasten', 'user-access:dokter'])->group(function () {
 
 Route::middleware(['auth_fasten', 'user-access:apotik'])->group(function () {
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    
-  
-
     Route::get('/apotik/home', [HomeController::class, 'apotikHome'])->name('apotik.home');
     
     Route::get('apotik/getobt',[ApotikController::class,'getObt'])->name('apotik.home.obt');
+
+    Route::post('/apotik/home',[ApotikController::class,'tambahObat'])->name('apotikobat');
+    
     
     Route::get('apt/rsp', [ApotikController::class,'resRsp'])->name('resRsp');
     Route::get('apt/krm', [ApotikController::class,'krm'])->name('krm');
     Route::get('apt/lap', [ApotikController::class,'lap'])->name('lap');
 });
-
 
 Route::middleware(['auth_fasten', 'user-access:lab'])->group(function () {
     Route::get('/lab/home', [HomeController::class, 'labHome'])->name('lab.home');
@@ -244,6 +238,5 @@ Route::middleware(['auth_fasten', 'user-access:administrator'])->group(function 
     Route::get('/HalamanAdministrator',[AdministratorController::class,'administratorPage'])->name('validator_administrator');
 
 });
-
 
 

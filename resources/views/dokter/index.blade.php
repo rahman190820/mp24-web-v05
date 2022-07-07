@@ -42,7 +42,7 @@
           <div class="card">
               <div class="card-content">
                   <p class="caption mb-0">
-                      selamat datang {{ auth()->user()->nama }}
+                    selamat datang {{ auth('fastens')->user()->fastenmedis }} 
                   </p>
               </div>
           </div>
@@ -129,46 +129,7 @@
               <input id="updt" class="btn waves-effect waves-green" type="submit" value="Update Diagnosa">
             </form>
 
-            <hr>
-            <h4>Resep</h4>
-            <form action="{{ route('addmorePost') }}" method="POST">
-              @csrf
-         
-              @if ($errors->any())
-                  <div class="alert alert-danger">
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
-                  </div>
-              @endif
-         
-              @if (Session::has('success'))
-                  <div class="alert alert-success text-center">
-                      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                      <p>{{ Session::get('success') }}</p>
-                  </div>
-              @endif
-         
-              <table class="table table-bordered" id="dynamicTable">  
-                  <tr>
-                      <th>Nama Obat</th>
-                      <th>Jumlah</th>
-                      <th>aksi</th>
-                  </tr>
-                  <tr>  
-                      <input type="hidden" name="addmore[0][id_resep]" value="{{ $datas['kdResep'] }}" class="form-control" />
-                      <td><input type="text" name="addmore[0][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off"/></td> 
-                     
-                      <td><input type="text" name="addmore[0][jumlah]" placeholder="Jumlah" class="form-control" autocomplete="off" /></td>  
-                      <td><button type="button" name="add" id="add" class="btn btn-success">Tambah Baris</button></td>  
-                  </tr>  
-              </table> 
           
-              <button type="submit" class="btn btn-success">Save</button>
-            </form>
-
 
 
   </div>
@@ -255,8 +216,8 @@
                   alert(JSON.stringify(params));
 
                   Swal.fire({
-                            icon: 'danger',
-                            title: 'error',
+                            icon: 'success',
+                            title: 'berhasil',
                             text: '<pre>'+JSON.stringify(params).statusText+'</pre>',
                             showConfirmButton: false,
                             timer: 1500
@@ -282,25 +243,6 @@
 
       });
     
-  </script>
-
-  <script type="text/javascript" >
-      var i = 0;
-       
-       $("#add").click(function(){
-      
-           ++i;
-      
-           $("#dynamicTable").append('<tr>'+
-            ' <input type="text" name="addmore['+i+'][id_resep]" value="{{ $datas['kdResep'] }}" class="form-control" />'+
-            '<td><input type="text" name="addmore['+i+'][nama_obat]" placeholder="Masukan Nama Obat" class="form-control" autocomplete="off" /></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="jumlah" class="form-control" autocomplete="off"/></td>'+
-            '<td><button type="button" class="btn btn-danger remove-tr">Hapus</button></td>'+
-            '</tr>');
-       });
-      
-       $(document).on('click', '.remove-tr', function(){  
-            $(this).parents('tr').remove();
-       });  
   </script>
     
 @endpush

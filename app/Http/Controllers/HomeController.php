@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        $this->middleware('auth_fasten');
+        // $this->middleware('auth_fasten');
     }
 
     /**
@@ -112,7 +112,7 @@ class HomeController extends Controller
                     ->make(true);     
         }
 
-        $datas['DataUser'] = User::find(auth('fastens')->user()->id);
+        $datas['DataUser'] = Fasten::find(auth('fastens')->user()->id);
         $datas['kdResep'] = IdGenerator::generate(['table' => 'keluhan_pasiens', 'field' => 'foto_resep', 'length' => 8, 'prefix' =>'RSP-']);;
         
       
@@ -132,7 +132,7 @@ class HomeController extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('aksi', function ($baris){
-                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id_keluhan.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
+                        $btn = '<a href="#m_diagnosa"  data-toggle="tooltip" data-id="'.$baris->id_keluhan.'" data-nopeserta="'.$baris->nopeserta.'"  data-nama="'.$baris->nama.'" data-keluhan="'.$baris->keluhan.'" data-gambar="'.$baris->foto_resep.'" data-original-title="Edit" class=" btn waves-effect waves-light cyan modal-trigger tampil">Detail</a>';
                         return $btn;
                     })
                     ->rawColumns(['aksi'])

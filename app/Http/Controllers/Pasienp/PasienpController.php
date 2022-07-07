@@ -267,7 +267,8 @@ class PasienpController extends Controller
         */
         keluhanPasien::where('pasien_id',auth()->user()->id)
                         ->update([
-                            'foto_resep'=> $imageName
+                            'foto_resep'=> $imageName,
+                            'tgl_keluhan_req_apotik'=> date('Y-m-d H:i:s'),
                         ]);
       
         return back()
