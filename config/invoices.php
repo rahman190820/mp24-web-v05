@@ -40,7 +40,7 @@ return [
         /*
          * Example: 19.00
          */
-        'decimals' => 3,
+        'decimals' => 0,
         /*
          * Example: 1.99
          */

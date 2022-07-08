@@ -333,6 +333,19 @@ $(function(){
     $('body').on('click', '.lap', function () {
         var ids = $(this).data('id');
         alert(ids);
+        $.ajax({
+            data: ids,
+            url: "{{ route('lap.pasien') }}",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+              // alert('bershasil');
+               
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
         // $.get("{{ route('lap.pasien') }}" +'/' + ids , function (data) {
         //     alert($data));
         // })

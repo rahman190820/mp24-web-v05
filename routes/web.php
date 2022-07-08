@@ -53,7 +53,6 @@ use App\Http\Controllers\keluhanPasienController;
 
 // Route::get('register/dokter',[registerDokter::class, 'index'])->name('register.dokter');
 
-Route::get('invoice/dokter',[DokterController::class,'cetakInvoice'])->name('billing');
 
 Route::get('bacaIP',[BacaAlatController::class,'index']);
 Route::get('kode',[BacaAlatController::class,'kode']);
@@ -129,8 +128,7 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     });
     Route::get('/pasienP/home',[HomeController::class, 'pasienParentHome'])->name('pasienP.home');
     Route::get('/pasienP/home/user',[HomeController::class, 'pasienParentHomeUser'])->name('pasienP.home.user');
-    Route::get('/turunan/tambah',[PasienpController::class,'tambahParent'])->name('turunan.tambah');
-    Route::get('/turunan/daftar',[PasienpController::class,'dataParent'])->name('turunan.daftar');
+   
     Route::get('/profil', [PersonController::class,'index'])->name('profile_user');
     //riwayat
     Route::get('/pasien/keluhan',[PasienpController::class,'tambahKeluhan'])->name('pasien.keluhan');
@@ -138,7 +136,10 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('/riwayat/diagnosa',[PasienpController::class,'tambahDiagnosa'])->name('riwayat.diagnosa');//lihat diagnosa
     Route::get('/riwayat/apotik',[PasienpController::class,'tambahApotik'])->name('riwayat.apotik');//lihat resep
     Route::get('/riwayat/tagihan',[PasienpController::class,'tambahTagihan'])->name('riwayat.tagihan');//pilih pengirman dan terima obat
-   
+    //turunan
+    Route::get('/turunan/tambah',[PasienpController::class,'tambahParent'])->name('turunan.tambah');
+    Route::get('/turunan/daftar',[PasienpController::class,'dataParent'])->name('turunan.daftar');
+    
     Route::post('pasienp',[PasienpController::class],'store')->name('pasienp.store');
     // Route::resource('diagnosa',diagnosaDokterController::class);
     Route::post('keluhan/pasien', [keluhanPasienController::class,'store'])->name('formulir_data');
@@ -149,6 +150,9 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::post('image-upload',   [PasienpController::class,'uploadResep'])->name('gambar.store');
     //laporan_pdf
     Route::get('laporan/pasien',  [PasienpController::class,'lapPasien'])->name('lap.pasien');
+    //billing
+    Route::get('invoice/dokter',[PasienpController::class,'billObat'])->name('billing');
+    // Route::get('invoice/dokter',[DokterController::class,'cetakInvoice'])->name('billing');
     //qr
     Route::get('keluhan/qrcode',  [PasienpController::class,'simpleQr'])->name('keluhan.qrcode');
 });

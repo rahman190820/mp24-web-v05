@@ -11,13 +11,21 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 use App\Http\Requests\ImageUploadRequest;
+use App\Models\dokterResep;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
+
+//invoice
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 
 class PasienpController extends Controller
@@ -293,19 +301,90 @@ Storage::disk('local')->put($output_file, $image);//storage/app/public/img/qr-co
         return Fasten::get();
     }
 
-    public function lapPasien()
+    public function lapPasien(Request $request)
     {
-        $users = User::get();
-  
+        // $users = User::get();
+        $users = DB::table('keluhan_pasiens')
+        ->join('users','keluhan_pasiens.pasien_id',  '=','users.id')
+        // ->join('dokter_reseps','keluhan_pasiens.id_keluhan',  '=','dokter_reseps.id_resep')
+        ->join('fastens','fastens.id','=','keluhan_pasiens.dokter_id')->get();
+        
         $data = [
             'title' => 'Laporan Pasien',
             'date' => date('m/d/Y'),
             'users' => $users
         ]; 
-
+// dd($users);
         $pdf = Pdf::loadView('myPDF', $data);
     return $pdf->stream();
         // return response()->json($id);
+    }
+
+    public function billObat(Request $request)
+    {
+        # code...
+        $client = new Party([
+            'name'          => 'Roosevelt Lloyd',
+            'phone'         => '(520) 318-9486',
+            'custom_fields' => [
+                'note'        => 'IDDQD',
+                'business id' => '365#GG',
+            ],
+        ]);
+
+        $p = User::where('id',12)->first();
+        $customer = new Party([
+            'name'          => $p->nama,
+            'address'       => $p->alamat,
+            // 'code'          => '#22663214',
+            'custom_fields' => [
+                'order number' => '> 654321 <',
+            ],
+        ]);
+
+        $data_r = dokterResep::where('id_resep',3)->get();
+        $items = array();
+        foreach($data_r as $item){
+            $items[] = (new InvoiceItem())->title($item->nama_obat)->pricePerUnit($item->harga)->quantity($item->jumlah);
+        }
+        $items[] = (new InvoiceItem())->title('Ongkos kirim obat')->description('Your product or service description')->pricePerUnit(7500);
+
+        $notes = [
+            'terima kasih',
+            'selamat',
+            'Lekas Sembuh',
+        ];
+        $notes = implode("<br>", $notes);
+
+        $invoice = Invoice::make('receipt')
+            ->series('BIG')
+            // ability to include translated invoice status
+            // in case it was paid
+            ->status(__('invoices::invoice.paid'))
+            ->sequence(667)
+            ->serialNumberFormat('{SEQUENCE}/{SERIES}')
+            ->seller($client)
+            ->buyer($customer)
+            ->date(now()->subWeeks(3))
+            ->dateFormat('m/d/Y')
+            ->payUntilDays(14)
+            ->currencySymbol('Rp. ')
+            ->currencyCode('rupiah')
+            ->currencyFormat('{SYMBOL}{VALUE}')
+            ->currencyThousandsSeparator('.')
+            ->currencyDecimalPoint(',')
+            ->filename($client->name . ' ' . $customer->name)
+            ->addItems($items)
+            ->notes($notes)
+            ->logo(public_path('vendor/invoices/sample-logo.png'))
+            // You can additionally save generated invoice to configured disk
+            ->save('public');
+
+        // $link = $invoice->url();
+        // Then send email to party with link
+
+        // And return invoice itself to browser or have a different view
+        return $invoice->stream();
     }
 
 }

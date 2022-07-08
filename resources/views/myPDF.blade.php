@@ -8,7 +8,18 @@
     <h1>{{ $title }}</h1>
     <p>{{ $date }}</p>
     <p>ini contoh laporannya </p>
-  
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Data</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    @foreach ($users as $item)
     <table class="table table-bordered">
       <tr>
         <td>
@@ -21,21 +32,23 @@
       </tr>
       <tr>
         <td>
+         
+         
             <ul>
-                <li>Nama Pasien</li>
-                <li>NIK</li>
-                <li>No. peserta</li>
-                <li>keluhan</li>
-                <li>Tanggal</li>
+                <li>Nama Pasien : {{ $item->nama }} </li>
+                <li>NIK / Nokartu : {{ $item->nokartu }}</li>
+                <li>No. peserta {{ $item->nopeserta}}</li>
+                <li>keluhan :  {{ $item->keluhan}}</li>
+                <li>Tanggal: {{ $item->tanggal_dibuat  }} </li>
             </ul>
         </td>
         <td>
             <ul>
-                <li>Nama dokter</li>
-                <li>Terima Keluhan</li>
-                <li>tanggal Keluhan</li>
-                <li>tanggal Diagnosa</li>
-                <li>Diagnosa</li>
+                <li>Nama dokter : {{ $item->fastenmedis }}</li>
+                <li>Terima Keluhan : {{ $item->tgl_keluhan_req_dokter }} </li>
+                <li>tanggal Keluhan : {{ $item->tgl_keluhan_res_dokter }}</li>
+                <li>tanggal Diagnosa: </li>
+                <li>Diagnosa : {{ $item->diagnosa }} </li>
                 <li>Rp. Dokter</li>
                 <li> keterangan </li>
                 <li>lama proses</li>
@@ -57,17 +70,17 @@
       <tr>
         <td>
             <ul>
-                <li>Tgl Resep Dokter</li>
-                <li>Tgl Upload resep</li>
+                <li>Tgl Resep Dokter: {{ $item->tgl_keluhan_res_dokter }} </li>
+                <li>Tgl Upload resep : {{ $item->tgl_keluhan_req_apotik }}</li>
                 <li>lama proses</li>
             </ul>
         </td>
         <td>
             <ul>
-                <li>Tgl resep pasien</li>
+                <li>Tgl resep pasien : {{ $item->tgl_keluhan_res_apotik }} </li>
                 <li>Tgl Kirim Obat</li>
                 <li>Rp. Obat</li>
-                <li>Pengiriman</li>
+                <li>Pengiriman </li>
                 <li>lama proses</li>
             </ul>
         </td>
@@ -77,6 +90,6 @@
         <td></td>
       </tr>
     </table>
-  
+    @endforeach
 </body>
 </html>
