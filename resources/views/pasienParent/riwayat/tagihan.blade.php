@@ -33,7 +33,7 @@
 <div class="modal-content">
     <h4>Detail</h4>
     <hr>
-    <form action="{{ route('diagnosa.store') }}" method="post">
+    <form action="#" method="post">
         @csrf
         <div class="input-field">
         <label for="txt_nama">nama</label>

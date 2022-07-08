@@ -132,11 +132,13 @@ Route::middleware(['auth', 'user-access:pasienParent'])->group(function () {
     Route::get('/turunan/tambah',[PasienpController::class,'tambahParent'])->name('turunan.tambah');
     Route::get('/turunan/daftar',[PasienpController::class,'dataParent'])->name('turunan.daftar');
     Route::get('/profil', [PersonController::class,'index'])->name('profile_user');
+    //riwayat
     Route::get('/pasien/keluhan',[PasienpController::class,'tambahKeluhan'])->name('pasien.keluhan');
     Route::get('/riwayat/manfaat',[PasienpController::class,'tambahKeluhan'])->name('riwayat.manfaat');
     Route::get('/riwayat/diagnosa',[PasienpController::class,'tambahDiagnosa'])->name('riwayat.diagnosa');//lihat diagnosa
     Route::get('/riwayat/apotik',[PasienpController::class,'tambahApotik'])->name('riwayat.apotik');//lihat resep
     Route::get('/riwayat/tagihan',[PasienpController::class,'tambahTagihan'])->name('riwayat.tagihan');//pilih pengirman dan terima obat
+   
     Route::post('pasienp',[PasienpController::class],'store')->name('pasienp.store');
     // Route::resource('diagnosa',diagnosaDokterController::class);
     Route::post('keluhan/pasien', [keluhanPasienController::class,'store'])->name('formulir_data');
