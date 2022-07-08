@@ -10,6 +10,11 @@ class keluhanPasien extends Model
     use HasFactory;
     protected $primaryKey = 'id_keluhan';
     protected $fillable =[
-        'pasien_id','dokter_id','keluhan','tanggal_dibuat','status'
+        'pasien_id',
+        'dokter_id',
+        'keluhan',
+        'diagnosa',
+        'tanggal_dibuat',
+        'status'
     ];
 }

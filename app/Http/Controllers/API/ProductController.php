@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Product;
+use App\Models\keluhanPasien;
 use App\Http\Resources\ProductResource;
    
 class ProductController extends BaseController
@@ -16,7 +17,7 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $products = Product::all();
+        $products = keluhanPasien::all();
     
         return $this->sendResponse(ProductResource::collection($products), 'Products retrieved successfully.');
     }
