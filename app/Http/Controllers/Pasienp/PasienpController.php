@@ -342,7 +342,7 @@ Storage::disk('local')->put($output_file, $image);//storage/app/public/img/qr-co
             ],
         ]);
 
-        $data_r = dokterResep::where('id_resep',3)->get();
+        $data_r = dokterResep::where('id_resep',4)->get();
         $items = array();
         foreach($data_r as $item){
             $items[] = (new InvoiceItem())->title($item->nama_obat)->pricePerUnit($item->harga)->quantity($item->jumlah);

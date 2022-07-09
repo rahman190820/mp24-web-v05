@@ -385,3 +385,68 @@ select fastenmedis,parent,child,tipe
 from public.fastens
 where child=0;
  ```
+
+```php
+
+namaModel::where('namaField',namaVariable)->get();
+namaModel::where('namaField',namaVariable)->first();
+
+namaModel::where('namaField',namaVariable)->join('namaTabel','nama','=','')->get();
+// or
+use Illuminate\Support\Facades\DB;
+$datas0 = DB::table('users')->get();
+$datas1 = DB::table('users')->where('namafeld', namavariable)->first();
+$datas2 = DB::table('users')->select('nama', 'email as user_email')->get();
+$datas3 = DB::table('users')->join('namaTabel','nama','=','')->get();
+
+
+// jika get()
+// maka cara load data
+foreach($datas0 as $item){
+  $item->id;
+  $item->nama;
+}
+
+// jika first()
+// maka cara load data
+$datas1->id;
+$datas1->nama;
+
+$h0 = DB::table('users')->count();
+$h0 = DB::table('users')->min('harga');
+$h0 = DB::table('users')->max('harga');
+$h0 = DB::table('users')->avg('harga');
+$h0 = DB::table('users')->sum('harga');
+
+//union
+//whereJsonContains
+//whereJsonLength
+// whereDate('created_at','2022-01-21')
+// whereMonth('created_at','5')
+// whereDay('created_at','31')
+// whereYear('created_at','31')
+// whereTime('created_at','=','11:20:30')
+
+
+// controller
+1. middleware
+1. resources
+1. resources partial
+1. apiResources
+1. resources naming route parameter (alias route web)
+
+/*
+documentation 
+- the basic (route aggrement controller to view blade , session, validation, error handling)
+- digging deeper (helper laravel [ artisan console, broadcasting, chace ,dll ])
+- database (controller call model)
+- security (auth and register)
+- eloquent (relation table)
+- security (auth and register)
+- testing ( php unit via terminal)
+- api documentation ( desc class on laravel )
+*/
+
+
+
+```
