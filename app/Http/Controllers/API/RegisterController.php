@@ -25,13 +25,13 @@ class RegisterController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError('MP24 - Validasi register Gagal.', $validator->errors());       
         }
    
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+        $success['token'] =  $user->createToken('Mp24')->accessToken;
         $success['nama'] =  $user->nama;
    
         return $this->sendResponse($success, 'User register successfully.');
@@ -47,7 +47,7 @@ class RegisterController extends BaseController
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
             // $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
-            $success['token'] =  $request->user()->createToken('MyApp')->plainTextToken; 
+            $success['token'] =  $request->user()->createToken('Mp24')->accessToken; 
             $success['nama'] =  $user->nama;
    
             return $this->sendResponse($success, 'User login successfully.');

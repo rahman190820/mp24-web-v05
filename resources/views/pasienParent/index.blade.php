@@ -234,8 +234,8 @@
 <script>
 
   $(document).ready(function(){
-    $('.dropify').dropify();// upload animation
-    $.ajaxSetup({
+      $('.dropify').dropify();// upload animation
+      $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
@@ -244,49 +244,48 @@
 
       var map = L.map('map').setView([-7.250445, 112.768845], 15);
  
- var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-     maxZoom: 19,
-     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
- }).addTo(map);
+      var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
 
-//  var marker = L.marker([-7.250445, 112.768845]).addTo(map)
-//      .bindPopup('<b>{{ auth()->user()->nama }}</b><br />I am a popup.').openPopup();
+      //  var marker = L.marker([-7.250445, 112.768845]).addTo(map)
+      //      .bindPopup('<b>{{ auth()->user()->nama }}</b><br />I am a popup.').openPopup();
 
- var circle = L.circle([-7.250445, 112.768845], {
-     color: 'red',
-     fillColor: '#f03',
-     fillOpacity: 0.5,
-     radius: 500
- }).addTo(map).bindPopup('I am a circle.');
+      var circle = L.circle([-7.250445, 112.768845], {
+          color: 'red',
+          fillColor: '#f03',
+          fillOpacity: 0.5,
+          radius: 500
+      }).addTo(map).bindPopup('I am a circle.');
 
- function onMapClick(e) {
-popup
-  .setLatLng(e.latlng)
-  .setContent('You clicked the map at ' + e.latlng.toString())
-  .openOn(map);
-}
+      function onMapClick(e) {
+        popup
+          .setLatLng(e.latlng)
+          .setContent('You clicked the map at ' + e.latlng.toString())
+          .openOn(map);
+      }
 
-map.on('click', onMapClick);
-$(function(){
-    $.ajax({
-        url: "/leaflect",
+      map.on('click', onMapClick);
+      
+      $(function(){
+          $.ajax({
+              url: "/leaflect",
+              type: 'GET',
+              success: function(data) {
+                // alert(JSON.stringify(data));
+                  $.each(data, function( key, value ) {
 
-        type: 'GET',
+                      L.marker([value.koordinat_long, value.koordinat_lat]).addTo(map)
+                          .bindPopup(''+value.fastenmedis+'<br> '+value.alamat+'.')
+                          .openPopup();
+                  })
+              },
+              error: function(data) {
 
-        success: function(data) {
-          // alert(JSON.stringify(data));
-            $.each(data, function( key, value ) {
-
-                L.marker([value.koordinat_long, value.koordinat_lat]).addTo(map)
-                    .bindPopup(''+value.fastenmedis+'<br> '+value.alamat+'.')
-                    .openPopup();
-            })
-        },
-        error: function(data) {
-
-        }
-    });
-})
+              }
+          });
+      })
     
     // alert("selamat");
 

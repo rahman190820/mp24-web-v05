@@ -39,8 +39,11 @@ return new class extends Migration
             $table->string('password');
             $table->tinyInteger('type')->default(0);
             $table->string('foto')->nullable();
+            $table->tinyInteger('is_admn')->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('tipe')->references('id')->on('katdoks')->onDelete('cascade');
+            
         });
     }
 

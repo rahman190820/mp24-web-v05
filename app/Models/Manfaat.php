@@ -14,7 +14,6 @@ class Manfaat extends Model
 
     public function klslyns()
     {
-        # code...
         return $this->belongsToMany(Klslyn::class,'klslyn_manfaats');
     }
 

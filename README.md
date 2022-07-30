@@ -448,5 +448,334 @@ documentation
 */
 
 
+/*
+pasien piliha manffat,
+*/
+ /*
+            status = 
+            0(defautl), 
+            1(pasien keluhan),
+            2(pilih dokter langgan(*.0) atau (*.1)non-langgan)
+            3.0 (diterima doktr),
+            3.1 (pasien upload kwitansi dokter dan ressep)
+            4.0 (ditangani dokter),
+            5.0 (resepdkter dtrm pasien),
+            6.0 (pasien pilih apotik -> upload resp),
+            7.0 (resrp diterima apotik),
+            8.0 (resrp dtgni apotik), 7 ke 8 untuk estimasi penanganan
+            9.0 (apttk kirim stts siap diambil),
+            10.0(psin pilih diambil atau dikirim),
+            
+            */
+
+
+```
+
+```sql
+dbmp24=# select * from manfaats;
+ id | nama_manfaat | kode_manfaat |     created_at      |     updated_at
+----+--------------+--------------+---------------------+---------------------
+  1 | Kacamata     | KCM          | 2022-07-11 09:43:56 | 2022-07-11 09:43:56
+  2 | Rawat Inap   | RWI          | 2022-07-11 09:43:57 | 2022-07-11 09:43:57
+  3 | Paket Khusus | MCU          | 2022-07-11 09:43:57 | 2022-07-11 09:43:57
+  4 | Rawat Gigi   | RWG          | 2022-07-11 09:43:57 | 2022-07-11 09:43:57
+  5 | Rawat Jalan  | RWJ          | 2022-07-11 09:43:57 | 2022-07-11 09:43:57
+(5 rows)
+
+dbmp24=# select * from klslyns;
+ id | kelas |     created_at      |     updated_at
+----+-------+---------------------+---------------------
+  1 | KLS1  | 2022-07-11 09:48:48 | 2022-07-11 09:48:48
+  2 | KLS2  | 2022-07-11 09:48:49 | 2022-07-11 09:48:49
+  3 | KLS3  | 2022-07-11 09:48:49 | 2022-07-11 09:48:49
+  4 | VIP1  | 2022-07-11 09:48:49 | 2022-07-11 09:48:49
+  5 | VIP2  | 2022-07-11 09:48:49 | 2022-07-11 09:48:49
+  6 | VIP3  | 2022-07-11 09:48:49 | 2022-07-11 09:48:49
+  7 | PREM  | 2022-07-11 09:48:49 | 2022-07-11 09:48:49
+(7 rows)
+
+dbmp24=# select * from klslyn_manfaats;
+ id | klslyn_id | manfaat_id | created_at | updated_at
+----+-----------+------------+------------+------------
+(0 rows)
+
+dbmp24=# select * from katdoks;
+ id |                   nama_katdok                    |     created_at      |     updated_at
+----+--------------------------------------------------+---------------------+---------------------
+  1 | Dokter Umum                                      | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  2 | Dokter Gigi                                      | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  3 | Dokter Spesialis Paru                            | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  4 | Dokter Spesialis Anak                            | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  5 | Dokter Spesialis Bedah                           | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  6 | Dokter Spesialis Penyakit Dalam                  | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  7 | Dokter Patologo Klinik                           | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  8 | Dokter Spesilais Syaraf                          | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+  9 | Dokter Spesialis Mata                            | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+ 10 | Dokter Spesialis Anastesi dan Perawatan Intensif | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+ 11 | Dokter Spesialis Penyakit Kulit dan Kelamin      | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+ 12 | Dokter Spesialis THT-KL                          | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+ 13 | Dokter Spesialis Kebidanan dan Kandungan         | 2022-07-04 22:19:43 | 2022-07-04 22:19:43
+(13 rows)
+
+dbmp24=# select * from obats;
+ id |             nama_obat             |     created_at      |     updated_at
+----+-----------------------------------+---------------------+---------------------
+  1 | Abbotic granule 30ml              | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  2 | Abbotic Granule 60 - ml           | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  3 | Abbotic tab 500                   | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  4 | Abilify Oral 10mg                 | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  5 | Abilify Oral 5mg                  | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  6 | Acarbose Tab 50 mg (G)            | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  7 | Acetensa 50 mg Tab                | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  8 | Acetylcysteine 200 mg (G)         | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+  9 | Acetylsalicylic Acid (G)          | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 10 | Actos 15 mg Tab                   | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 11 | Actos 30 mg Tab                   | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 12 | Actrapid « HM Penfill             | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 13 | Acyclovir 200 (G)                 | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 14 | Acyclovir 400 (G)                 | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 15 | Acyclovir Cream (G)               | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 16 | Adalat Oros 30 mg Tab             | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 17 | Adona (AC-17) tab                 | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 18 | Adona Forte tab                   | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 19 | Aerius tab 5 mg                   | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 20 | Akilen 200                        | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 21 | Albendazole 400 mg (G)            | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 22 | Alegysal eye drop                 | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 23 | Alerfed Syr 60 mL                 | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 24 | Alerfed tab                       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 25 | Alergine 10                       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 26 | Alganax 0,25                      | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 27 | Alganax 0,5                       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 28 | Alganax 1                         | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 29 | Allopurinol 100 (G)               | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 30 | Allopurinol 300 (G)               | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 31 | Alloris syr                       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 32 | Alloris tab                       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 33 | Alluric 100mg                     | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 34 | Alluric 300mg                     | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 35 | Alprazolam 0.5mg (G)              | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 36 | Alprazolam 1mg (G)                | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 37 | Alxil 500                         | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 38 | alxil syrup 125mg/5 ml            | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 39 | alxil syrup 250mg/5 ml            | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 40 | Amaglu 2                          | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 41 | Amaglu 3                          | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 42 | Ambiopi 500                       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 43 | Ambroxol Syr (G)                  | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 44 | Ambroxol Syr 15mg/5 ml (G)        | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 45 | Ambroxol Syr 15mg/5 ml (G)        | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 46 | Ambroxol Syr 30mg/5 ml (G)        | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 47 | Ambroxol Syr 30mg/5 ml (G)        | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 48 | Ambroxol tab 30mg (G)             | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 49 | Ambroxol tab 30mg (G)             | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 50 | Amiclav 500                       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 51 | Aminophilin 200 mg tab (G)        | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 52 | Amiodarone (G)                    | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 53 | Amitriptyline 25Mg (G)            | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 54 | Amlocor 5                         | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 55 | Amlodipin + Telmisartan (G)       | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 56 | Amlodipin + Valsartan (G)         | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 57 | Amlodipin 10 (G)                  | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 58 | Amlodipin 5 (G)                   | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 59 | Amobiotic drops 100mg/ml          | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 60 | Amoxan 250                        | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 61 | Amoxan DS 125 mg                  | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 62 | Amoxan forte DS 250 mg            | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 63 | Amoxicillin + Clavulanic Acid (G) | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 64 | Amoxicillin 100/ml Drops (G)      | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 65 | Amoxicillin 500 (G)               | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 66 | Amoxicillin DS 125mg/5ml (G)      | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 67 | Amoxicillin syr 250mg/5ml (G)     | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 68 | Amoxsan Drop                      | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 69 | Amoxycillin 250 (G)               | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+ 70 | Ampicillin 125 mg/5 mL DS (G)     | 2022-06-25 19:13:59 | 2022-06-25 19:13:59
+(70 rows)
+
+```
+
+
+```sql
+
+dbmp24=# select fastens.id, fastens.fastenmedis, katdoks.nama_katdok from fastens join katdoks on katdoks.id=fastens.tipe;
+
+ id  |               fastenmedis                |      nama_katdok
+-----+------------------------------------------+------------------------
+ 161 | MP 24 BWG 1                              | Dokter Spesialis Bedah
+ 162 | MP 24 BWG 2 KLINIK BRAWIJAYA             | Dokter Spesialis Bedah
+ 163 | MP 24 JBR 1                              | Dokter Spesialis Bedah
+ 164 | MP 24 JBR 2 KLINIK  AL FURQON            | Dokter Spesialis Bedah
+ 165 | MP 24 JBR 3 KLINIK CAMAR MANDIRI         | Dokter Spesialis Bedah
+ 123 | MP 24 UID JTM 1                          | Dokter Spesialis Bedah
+ 124 | dr EKO / dr DEWANTO                      | Dokter Gigi
+ 125 | Dr dr. T.P HUTAPEA Sp P.DTCE.MARS        | Dokter Gigi
+ 126 | dr DIAH FITRIARTANTRI TUNJUNGSARI        | Dokter Gigi
+ 127 | dr ALIF RODHIANA                         | Dokter Gigi
+ 128 | dr HERNI KRESNOADI                       | Dokter Gigi
+ 129 | dr NI NYOMAN WIDIAWATI                   | Dokter Gigi
+ 130 | dr SIGIT JUNI WARDOYO                    | Dokter Gigi
+ 131 | dr JUDYA SUKMANA SUKAMTO M Kes           | Dokter Gigi
+ 132 | dr NI NYOMAN KARMAWATI                   | Dokter Gigi
+ 133 | dr BERLIAN ANIEK HERLINA                 | Dokter Gigi
+ 134 | Drg LESTARI                              | Dokter Spesialis Anak
+ 135 | MP 24  SBU 1                             | Dokter Spesialis Bedah
+ 136 | MP 24  SDA 1 KLINIK CITRA HUSADA         | Dokter Spesialis Bedah
+ 137 | dr YUDHI                                 | Dokter Gigi
+ 138 | MP 24  SBY 1 KLINIK BRI MEDIKA           | Dokter Spesialis Bedah
+ 139 | dr Dewanto                               | Dokter Gigi
+ 140 | MP 24 SBY 2 KLINIK FKTP                  | Dokter Spesialis Bedah
+ 141 | MP 24 SBY 3 KLINIK GRACIA                | Dokter Spesialis Bedah
+ 142 | MP 24 SBY 3 KLINIK PRANA                 | Dokter Spesialis Bedah
+ 143 | MP 24  SBY 1 KLINIK TIRTA                | Dokter Spesialis Bedah
+ 144 | dr EKO                                   | Dokter Gigi
+ 145 | MP 24 BGR 1                              | Dokter Spesialis Bedah
+ 146 | dr Pramono                               | Dokter Gigi
+ 147 | MP 24 BGR 2 KLINIK DR ERY                | Dokter Spesialis Bedah
+ 148 | dr ERY                                   | Dokter Gigi
+ 149 | dr MEI RIA RAHAYU                        | Dokter Gigi
+ 150 | RS SITI AISYAH                           | Dokter Umum
+ 151 | dr Pramono                               | Dokter Gigi
+ 152 | MP 24 PSR 1                              | Dokter Spesialis Bedah
+ 153 | MP 24 PSR 2 KLINIK AL AZIZ               | Dokter Spesialis Bedah
+ 154 | dr ENDANG ASTOETI                        | Dokter Gigi
+ 155 | dr HJ DWINARTI ARTAWARDANI               | Dokter Gigi
+ 156 | dr WIWIK WINARNINGSIH ADNAN MARS         | Dokter Gigi
+ 157 | dr DIMAS YUDHISTIRA ASTURA               | Dokter Gigi
+ 158 | dr ADI WIDIANTO                          | Dokter Gigi
+ 159 | MP 24 STB 1                              | Dokter Spesialis Bedah
+ 160 | MP 24 STB 2 KLINIK AS SYIFA              | Dokter Spesialis Bedah
+ 166 | Dr Eko                                   | Dokter Gigi
+ 167 | MP 24 MLG 1 PELKES KPRI PELITA SEJAHTERA | Dokter Spesialis Bedah
+ 168 | MP 24 MLG 2 KLINIK  ELLISA               | Dokter Spesialis Bedah
+ 169 | dr RANDY SUKMANA                         | Dokter Gigi
+ 170 | dr CORNELI DWI PRAMISA                   | Dokter Gigi
+ 171 | dr FRILLYA WASKITA WAHYUNINGROEM         | Dokter Gigi
+ 172 | dr DIAN DAHLIA DHAMAYANTI                | Dokter Gigi
+ 173 | MP 24 KDR 1                              | Dokter Spesialis Bedah
+ 174 | MP 24 KDR 2 KLINIK  MEDIKA KELUARGA      | Dokter Spesialis Bedah
+ 175 | MP 24 MDN 1                              | Dokter Spesialis Bedah
+ 176 | MP 24 MDN 2 PELKES KPRI SEJAHTERA        | Dokter Spesialis Bedah
+ 177 | MP 24 MDN 2                              | Dokter Spesialis Bedah
+ 178 | RSIA  ALF SUBTIN                         | Dokter Umum
+ 179 | AJENG                                    | Dokter Gigi
+ 180 | RS MATA AYU SIWI                         | Dokter Spesialis Mata
+ 181 | ANGGI                                    | Dokter Gigi
+ 182 | MP 24 MJK 1                              | Dokter Spesialis Bedah
+ 183 | MP 24 MJK 2 KLINIK CIKKO PRIMA HUSADA    | Dokter Spesialis Bedah
+(61 rows)
+
+dbmp24=# select wilayah from fastens group by wilayah order by wilayah;
+ wilayah                                    
+-----------------------------------------------------------------------------------------------------------
+ Banyuwangi                                                                                                                                                             
+ Bojonegoro                                                                                                                                                             
+ Jember                                                                                                                                                                 
+ Kediri                                                                                                                                                                 
+ Madiun                                                                                                                                                                 
+ Malang                                                                                                                                                                 
+ Pasuruan                                                                                                                                                               
+ Situbondo                                                                                                                                                              
+ Surabaya                                                                                                                                                               
+
+(10 rows)
+
+dbmp24=# select wilayah, count(wilayah) as total from fastens group by wilayah order by wilayah;
+
+dbmp24=# select  katdoks.nama_katdok ,count(fastens.tipe)as total  from fastens join katdoks on katdoks.id=fastens.tipe group by katdoks.nama_katdok;
+      nama_katdok       | total
+------------------------+-------
+ Dokter Gigi            |    29
+ Dokter Spesialis Bedah |    28
+ Dokter Spesialis Anak  |     1
+ Dokter Spesialis Mata  |     1
+ Dokter Umum            |     2
+(5 rows)
+
+
+dbmp24=# select fastens.wilayah,count(fastens.tipe) as "Dokter_Spesialis_Bedah" from fastens join katdoks on katdoks.id=fastens.tipe where tipe IN (select tipe from fastens where tipe=5 ) group by fastens.wilayah;
+wilayah       | Dokter_Spesialis_Bedah
+-------------------------------------------------------------------------------------------------------------------------------------+------------------------
+ Jember                                                                                                                                                                                                                                                          |                      3
+ Madiun                                                                                                                                                                                                                                                          |                      3
+ Malang                                                                                                                                                                                                                                                          |                      2
+ Bojonegoro                                                                                                                                                                                                                                                      |                      2
+ Situbondo                                                                                                                                                                                                                                                       |                      2
+ Kediri                                                                                                                                                                                                                                                          |                      2
+ Pasuruan                                                                                                                                                                                                                                                        |                      2
+                                                                                                                                                                                                                                                                 |                      2
+ Surabaya                                                                                                                                                                                                                                                        |                      8
+ Banyuwangi                                                                                                                                                                                                                                                      |                      2
+(10 rows)
+
+
+```
+
+
+```sql
+dbmp24=# explain analyze [QUERY];
+
+```
+
+```sql
+-- case pivot
+-- kendala id katdok mulai null atau 1
+select
+ wilayah as w,
+ count(case when tipe = 2 then k.id end) as "Dokter Umum",
+count(case when tipe = 3 then k.id end) as "Dokter Gigi",
+count(case when tipe = 4 then k.id end) as "Dokter Spesialis Paru",
+count(case when tipe = 5 then k.id end) as "Dokter Spesialis Anak",
+count(case when tipe = 6 then k.id end) as "Dokter Spesialis Bedah",
+count(case when tipe = 7 then k.id end) as "Dokter Spesialis Penyakit Dalam",
+count(case when tipe = 8 then k.id end) as "Dokter Patologo Klinik",
+count(case when tipe = 9 then k.id end) as "Dokter Spesilais Syaraf",
+count(case when tipe = 10 then k.id end) as "Dokter Spesialis Mata"
+ from fastens as f 
+ join katdoks as k on k.id = f.tipe
+ group by w
+;
+
+
+-- case recursive
+-- asli = kendala id
+with recursive pc as (
+  select id, fastenmedis, child from fastens where id = 1
+  union all
+  select p.id, p.fastenmedis, p.child from fastens as p
+  inner join pc c on c.id = p.child 
+)select * from pc
+
+-- selesai 
+-- select * from fastens
+-- UPDATE katdoks SET id = '1' WHERE id = 123;
+with recursive pc as (
+  select id, fastenmedis, parent,child from fastens where parent = 1
+
+  union all
+  select p.id, p.fastenmedis, p.parent,p.child from fastens as p
+  inner join pc c on c.id = p.child 
+)select * from pc
+
+-- case tapil lat lng
+-- select * from fastens
+-- UPDATE katdoks SET id = '1' WHERE id = 123;
+with recursive pc as (
+  select id, fastenmedis, parent,child , replace(koordinat_lat,',','') as lat, replace(koordinat_long,',','') as lng from fastens where parent = 1
+
+  union all
+  select p.id, p.fastenmedis, p.parent,p.child, replace(p.koordinat_lat,',','') as lat,replace(p.koordinat_long,',','') as lng from fastens as p
+  inner join pc c on c.id = p.child 
+)select * from pc
+
+-- batasi string lat long
+-- select * from fastens
+-- UPDATE katdoks SET id = '1' WHERE id = 123;
+with recursive pc as (
+  select id, fastenmedis, parent,child , substring(replace(koordinat_lat,',',''),0,10) as lat, substring(replace(koordinat_long,',',''),0,10) as lng from fastens where parent = 1
+
+  union all
+  select p.id, p.fastenmedis, p.parent,p.child, substring(replace(p.koordinat_lat,',',''),0,10) as lat,substring(replace(p.koordinat_long,',',''),0,10) as lng from fastens as p
+  inner join pc c on c.id = p.child 
+)select * from pc
 
 ```

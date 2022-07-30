@@ -262,6 +262,27 @@ class HomeController extends Controller
         // return 'baca';
     }
 
-    
+    public function tentangkami()
+    {
+        # code...
+        return "tentang kami";
+    }
+
+    public function fasilitasMedis()
+    {
+        # code...
+        return "fasilitas medis";
+    }
+
+    public function beritaMedis()
+    {
+        # code...
+        return "berita medis";
+    }
+
+    public function kontakKami()
+    {
+        return "kontak kami";
+    }
 
 }

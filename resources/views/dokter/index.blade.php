@@ -96,38 +96,53 @@
   <div class="modal-content">
       <h4>Formulir Diagnosa</h4>
       <hr>
-     
-          <div class="input-field">
-            <input class="validate" type="text" name="nopeserta" id="nopeserta">
-          </div>
-
-          <div class="input-field">
-            <input class="validate" type="text" name="nama" id="nama">
-          </div>
-
-          <div class="input-field">
-            <input class="validate" type="text" name="keluhan" id="keluhan">
-          </div>
-         
-      
-          <form id="formDiagnosa" action="#" method="post">
-            @csrf
-            @method('POST')
-            <input type="hidden" name="idx1" id="idx1" value="{{ $datas['DataUser']->id }}" >
-            <input type="hidden" name="idx" id="idx" >
+      <div class="row section">
+        <div class="col s12 m4 l3">
+            <p>Nomer Peserta</p>
+        </div>
+        <div class="col s12 m8 l9">
+          <input class="validate" type="text" name="nopeserta" id="nopeserta" readonly>
+        </div>
+      </div>
+      <div class="row section">
+        <div class="col s12 m4 l3">
+            <p>Nama Peserta</p>
+        </div>
+        <div class="col s12 m8 l9">
+          <input class="validate" type="text" name="nama" id="nama" readonly>
+        </div>
+      </div>
+      <div class="row section">
+        <div class="col s12 m4 l3">
+            <p>Keluhan</p>
+        </div>
+        <div class="col s12 m8 l9">
+          <input class="validate" type="text" name="keluhan" id="keluhan" readonly>
+        </div>
+      </div>
+      <form id="formDiagnosa" action="#" method="post">
+          @csrf
+          @method('POST')
+          <input type="hidden" name="idx1" id="idx1" value="{{ $datas['DataUser']->id }}" >
+          <input type="hidden" name="idx" id="idx" >
           <div class="row section">
             <div class="col s12 m4 l3">
                 <p>Keterangan Diagnosa</p>
             </div>
             <div class="col s12 m8 l9">
-              <textarea name="diagnosa" id="diagnosa" cols="30" rows="10" required></textarea>
-
+              <textarea class="validate" name="diagnosa" id="diagnosa" cols="30" rows="10" required></textarea>
             </div>
+          </div>
+          <div class="row section">
+            <div class="col s12 m4 l3">
+                <p>Biaya</p>
             </div>
-
-        
-              <input id="updt" class="btn waves-effect waves-green" type="submit" value="Update Diagnosa">
-            </form>
+            <div class="col s12 m8 l9">
+              <input class="validate" type="number" name="hrgdiagnosa" id="hrgdiagnosa">
+            </div>
+          </div>
+          <input id="updt" class="btn waves-effect waves-light green darken-1 text-light" type="submit" value="Update Diagnosa">
+        </form>
 
           
 

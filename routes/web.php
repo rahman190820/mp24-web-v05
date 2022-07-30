@@ -115,8 +115,19 @@ Route::get('pas', [PasienController::class,'index']);
 Route::get('/admin', [AdminController::class,'index'])->name('admin');
 
 Route::get('/', function () {
-    return view('auth.login');
+    // return view('auth.login');
+    return view('layouts/hlmdpn');
+
 });
+
+Route::get('/tentang-kami', [HomeController::class,'tentangkami'])->name('tentang');
+
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
+
+
 
 Auth::routes();
 
@@ -245,4 +256,9 @@ Route::middleware(['auth_fasten', 'user-access:administrator'])->group(function 
 
 });
 
+
+Route::get('/beranda', function ()
+{
+    # code...
+});
 
